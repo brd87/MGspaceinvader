@@ -70,7 +70,7 @@ namespace SpaceInvaderPlusPlus
             GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
-            world.Draw();
+            world.Draw(); 
 
             // END
             base.Draw(gameTime);
