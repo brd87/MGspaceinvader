@@ -240,13 +240,17 @@ namespace SpaceInvaderPlusPlus
                     if (!_weapon.Projetiles[i].CollisionMark)
                         Holder.SCORE_AMMOWASTE += _weapon.AmmoScoreCost;
                     _weapon.Projetiles.RemoveAt(i);
+                    i--;
                 }
             }
             //_enemyWall
             for (int i = 0; i < _enemyWall.Count; i++)
             {
                 if (_enemyWall[i].Position.Y > _despawnHeight || _enemyWall[i].Health <= 0)
+                {
                     _enemyWall.RemoveAt(i);
+                    i--;
+                }
             }
             if (gameTime.TotalGameTime - _lastTimeWall >= TimeSpan.FromSeconds(_cooldawnWall))
             {
@@ -257,7 +261,10 @@ namespace SpaceInvaderPlusPlus
             for (int i = 0; i < _enemyRusher.Count; i++)
             {
                 if (_enemyRusher[i].Position.Y > _despawnHeight || _enemyRusher[i].Health <= 0)
+                {
                     _enemyRusher.RemoveAt(i);
+                    i--;
+                }
             }
             if (gameTime.TotalGameTime - _lastTimeRusher >= TimeSpan.FromSeconds(_cooldawnRusher))
             {
@@ -268,7 +275,10 @@ namespace SpaceInvaderPlusPlus
             for (int i = 0; i < _enemySpewer.Count; i++)
             {
                 if (_enemySpewer[i].Position.Y > _despawnHeight || _enemySpewer[i].Health <= 0)
+                {
                     _enemySpewer.RemoveAt(i);
+                    i--;
+                }
             }
             if (gameTime.TotalGameTime - _lastTimeSpewer >= TimeSpan.FromSeconds(_cooldawnSpewer))
             {
@@ -279,7 +289,10 @@ namespace SpaceInvaderPlusPlus
             for (int i = 0; i < _pickups.Count; i++)
             {
                 if (_pickups[i].Position.Y > _despawnHeight || _pickups[i].CollisionMark)
+                {
                     _pickups.RemoveAt(i);
+                    i--;
+                }
             }
             if (gameTime.TotalGameTime - _lastTimePickup >= TimeSpan.FromSeconds(_cooldawnPickup))
             {
@@ -294,7 +307,10 @@ namespace SpaceInvaderPlusPlus
             for (int i = 0; i < _enviroments.Count; i++)
             {
                 if (_enviroments[i].Position.Y > _despawnHeight || (_enviroments[i].CollisionMark && _enviroments[i].Despawn))
+                {
                     _enviroments.RemoveAt(i);
+                    i--;
+                }
             }
             if (gameTime.TotalGameTime - _lastTimeEnviroment >= TimeSpan.FromSeconds(_cooldawnEnviroment))
             {

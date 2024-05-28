@@ -25,12 +25,14 @@ namespace SpaceInvaderPlusPlus
         public float SelfDeathScoreCost { get; set; }
         public float SelfDamageScoreCost { get; set; }
         public float PlayerDamageScoreCost { get; set; }
+        public bool UltRecived { get; set; }
 
         protected Enemy(Vector2 position, float angle, string spriteName, int entityLayer) : base(position, angle, spriteName, entityLayer)
         {
             this.Velocity = new Vector2(0.0f, 0.0f);
             DamgeStageCheck = false;
             Projetiles = new List<Entity>();
+            UltRecived = false;
         }
 
         public void Update(Player player, Weapon weapon, GameTime gameTime = null)

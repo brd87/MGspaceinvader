@@ -19,6 +19,7 @@ namespace SpaceInvaderPlusPlus.Players
         public float Drag { get; set; }
 
         public bool AskToFire { get; set; }
+        public bool UltAbility { get; set; }
 
         public Vector2 Velocity;
 
@@ -46,10 +47,11 @@ namespace SpaceInvaderPlusPlus.Players
                 SideAcceleration *= 1.5f;
                 BackAcceleration *= 1.2f;
                 Stabilisers *= 1.5f;
+                UltAbility = true;
             }
             else if (Holder.SETTINGS.LastDifficulty == 1)
             {
-                //defoult movement
+                UltAbility = true;
             }
             else if (Holder.SETTINGS.LastDifficulty == 2)
             {
@@ -59,6 +61,7 @@ namespace SpaceInvaderPlusPlus.Players
                 SideAcceleration *= 0.75f;
                 BackAcceleration *= 0.75f;
                 Stabilisers *= 0.5f;
+                UltAbility = false;
             }
             else
             {
@@ -68,8 +71,8 @@ namespace SpaceInvaderPlusPlus.Players
                 SideAcceleration *= 0.5f;
                 BackAcceleration *= 0.6f;
                 Stabilisers *= 0.3f;
+                UltAbility = false;
             }
-
         }
 
         public void Update()

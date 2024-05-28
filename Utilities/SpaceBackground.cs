@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 
 namespace SpaceInvaderPlusPlus.Utilities
@@ -50,6 +51,7 @@ namespace SpaceInvaderPlusPlus.Utilities
                     WhiteStars.RemoveAt(i);
                     WhiteStars.Add(new Entity(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(-10, 0)), 0.0f, "white_star", 1,
                         Holder.randomFloat(Holder.SCALE * 0.5f, Holder.SCALE * 1.5f)));
+                    i--;
                 }
             }
             for (int i = 0; i < RedStars.Count; i++)
@@ -60,6 +62,7 @@ namespace SpaceInvaderPlusPlus.Utilities
                     RedStars.RemoveAt(i);
                     RedStars.Add(new Entity(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(-10, 0)), 0.0f, "red_star", 1,
                         Holder.randomFloat(Holder.SCALE * 0.5f, Holder.SCALE * 1.5f)));
+                    i--;
                 }
             }
             for (int i = 0; i < YellowStars.Count; i++)
@@ -70,6 +73,7 @@ namespace SpaceInvaderPlusPlus.Utilities
                     YellowStars.RemoveAt(i);
                     YellowStars.Add(new Entity(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(-10, 0)), 0.0f, "yellow_star", 1,
                         Holder.randomFloat(Holder.SCALE * 0.5f, Holder.SCALE * 1.5f)));
+                    i--;
                 }
             }
             for (int i = 0; i < BlueStars.Count; i++)
@@ -80,6 +84,7 @@ namespace SpaceInvaderPlusPlus.Utilities
                     BlueStars.RemoveAt(i);
                     BlueStars.Add(new Entity(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(-10, 0)), 0.0f, "blue_star", 1,
                         Holder.randomFloat(Holder.SCALE * 0.5f, Holder.SCALE * 1.5f)));
+                    i--;
                 }
             }
 
@@ -89,7 +94,10 @@ namespace SpaceInvaderPlusPlus.Utilities
             {
                 TheEyes[i].Position.Y += StarSpeed;
                 if (TheEyes[i].Position.Y > Holder.HEIGHT + 100)
+                {
                     TheEyes.RemoveAt(i);
+                    i--;
+                }
             }
             while (TheEyes.Count < (int)Holder.SCORE_TRAVEL / 500)
                 TheEyes.Add(new Entity(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(-10, Holder.HEIGHT)), Holder.randomFloat(-0.2f, 0.2f), "theeye", 1,
