@@ -138,6 +138,8 @@ namespace SpaceInvaderPlusPlus.Enemies
                     player.PlayerDamage(this.Damage);
                     Holder.SCORE_DMGPLAYER += this.PlayerDamageScoreCost;
                     this.Projetiles.RemoveAt(i);
+                    i--;
+                    player.CollisionMark = true;
                 }
                 else if (this.Projetiles[i].Position.Y > Holder.HEIGHT + 100)
                     this.Projetiles.RemoveAt(i);

@@ -92,6 +92,7 @@ namespace SpaceInvaderPlusPlus.Enemies
 
             player.PlayerDamage(this.Damage);
             Holder.SCORE_DMGPLAYER += this.PlayerDamageScoreCost;
+            player.CollisionMark = true;
         }
     }
 }

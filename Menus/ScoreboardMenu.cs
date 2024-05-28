@@ -88,7 +88,8 @@ namespace SpaceInvaderPlusPlus.Menus
             if (Holder.TOP_PLAYERS.Players.Count == PlayerRecordColors.Count)
                 for (int i = 0; i < Holder.TOP_PLAYERS.Players.Count; i++)
                 {
-                    Holder.SPRITE_BATCH.DrawString(PlayerRecordFont, $"{i + 1}. {Holder.TOP_PLAYERS.Players[i].PlayerName}", new Vector2(Holder.WIDTH / 2 - LeftOffset, Begin + i * TopOffset), PlayerRecordColors[i]);
+                    Holder.SPRITE_BATCH.DrawString(PlayerRecordFont, $"{i + 1}.", new Vector2(Holder.WIDTH / 2 - LeftOffset, Begin + i * TopOffset), PlayerRecordColors[i]);
+                    Holder.SPRITE_BATCH.DrawString(PlayerRecordFont, Holder.TOP_PLAYERS.Players[i].PlayerName, new Vector2(Holder.WIDTH / 2 - LeftOffset + 50, Begin + i * TopOffset), PlayerRecordColors[i]);
                     Holder.SPRITE_BATCH.DrawString(PlayerRecordFont, Holder.TOP_PLAYERS.Players[i].Score.ToString(), new Vector2(Holder.WIDTH / 2 + RightOffset, Begin + i * TopOffset), PlayerRecordColors[i]);
                 }
         }

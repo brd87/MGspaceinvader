@@ -77,7 +77,11 @@ namespace SpaceInvaderPlusPlus.Players
 
         public void Update()
         {
-            AskToFire = false;
+            if(CollisionMark)
+                CollisionMark = false;
+            if(AskToFire)
+                AskToFire = false;
+
             if (Holder.KSTATE.IsKeyDown(Keys.Space))
             {
                 AskToFire = true;

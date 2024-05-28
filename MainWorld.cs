@@ -23,6 +23,7 @@ namespace SpaceInvaderPlusPlus
         private List<Enemy> _enemySpewer;
         private List<Pickup> _pickups;
         private List<Environmental> _enviroments;
+        private Entity _damageScr;
         private SpriteFont _hudFont;
         private SpriteFont _hudFontAux;
         private TimeSpan _lastTimeWall { get; set; }
@@ -73,6 +74,8 @@ namespace SpaceInvaderPlusPlus
                 _weapon = new TheGun(new Vector2(Holder.WIDTH / 2, Holder.HEIGHT / 4 * 3));
             //_weapon = new TheDrill(new Vector2(Holder.WIDTH / 2, Holder.HEIGHT / 4 * 3));
             //_weapon = new TheGauss(new Vector2(Holder.WIDTH / 2, Holder.HEIGHT / 4 * 3));
+
+            _damageScr = new Entity(new Vector2(Holder.WIDTH / 2, Holder.HEIGHT / 2), 0.0f, "dmgeye", 1);
 
             _enemyWall.Clear();
             _enemyRusher.Clear();
@@ -200,12 +203,19 @@ namespace SpaceInvaderPlusPlus
             foreach (Pickup pickup in _pickups)
                 pickup.DrawEntity();
 
+            if(_player.CollisionMark)
+                _damageScr.DrawEntity();
+
             DrawHUD(_player, _weapon);
             //Holder.spriteBatch.DrawString(Holder.font, $"SCORE: {Holder.score}\nHEALTH: {_player.Health}\nSHIELDS: {_player.Shields}\nAMMO {_weapon.Ammunition}", new Vector2(20, 20), Color.White);
         }
 
         private void HandleUpdates(GameTime gameTime)
         {
+            _player.Update();
+            _weapon.Update(_player.AskToFire, _player.Position, gameTime);
+            _weapon.ProjectileUpdate();
+
             foreach (Enemy enemy in _enemyWall)
                 enemy.Update(_player, _weapon);
             foreach (Enemy enemy in _enemyRusher)
@@ -220,11 +230,6 @@ namespace SpaceInvaderPlusPlus
 
             foreach (Environmental env in _enviroments)
                 env.Update(_player, _weapon.Projetiles);
-
-
-            _player.Update();
-            _weapon.Update(_player.AskToFire, _player.Position, gameTime);
-            _weapon.ProjectileUpdate();
         }
 
         private void HandleSpawnDespawn(GameTime gameTime)

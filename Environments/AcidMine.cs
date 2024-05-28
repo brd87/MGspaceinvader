@@ -17,6 +17,7 @@ namespace SpaceInvaderPlusPlus.Environments
             player.PlayerDamage(this.Damage);
             this.CollisionMark = true;
             Holder.SCORE_DMGPLAYER += this.PlayerDamageScoreCost;
+            player.CollisionMark = true;
         }
 
         public override void HandleCollisionProjectile(Entity projetile)
