@@ -1,13 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceInvaderPlusPlus.Weapons
 {
-    public class TheGun : SpaceInvaderPlusPlus.Weapon
+    public class TheGun : Weapon
     {
         public TheGun(Vector2 position, float angle = 0.0f, string spriteName = "thegun", int entityLayer = 1) : base(position, angle, spriteName, entityLayer)
         {
@@ -18,7 +13,7 @@ namespace SpaceInvaderPlusPlus.Weapons
             this.ProjectileSpriteName = "thegun_bullet";
             this.FireEffect = new Entity(this.Position, 0.0f, "thegun_fire", 1);
             this.Penetration = false;
-            this.AmmoScoreCost = 1;
+            this.AmmoScoreCost = 5;
         }
 
         public override void ProjectileUpdate()
@@ -26,15 +21,10 @@ namespace SpaceInvaderPlusPlus.Weapons
             if (this.Projetiles == null)
                 return;
 
-            foreach(Entity entity in this.Projetiles)
+            foreach (Entity entity in this.Projetiles)
             {
                 entity.Position.Y -= 30.0f;
             }
-        }
-
-        public override void ProjectileHitCheck()
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -1,10 +1,7 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using SpaceInvaderPlusPlus.Players;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace SpaceInvaderPlusPlus
 {
@@ -13,16 +10,17 @@ namespace SpaceInvaderPlusPlus
         public int Health { get; set; }
         public int MaxHealth { get; set; }
         public int Damage { get; set; }
+        public int SelfCollisionDamage { get; set; }
+        public int PlayerCollisionDamage { get; set; }
         public float FrontAcceleration { get; set; }
         public float SideAcceleration { get; set; }
         public float BackAcceleration { get; set; }
         public Vector2 Velocity;
-        public String DamgeStageSpriteName {  get; set; }
+        public String DamgeStageSpriteName { get; set; }
+        public String DamgeStageAnimatedPartSpriteName { get; set; }
         public bool DamgeStageCheck { get; set; }
         public List<Entity> Projetiles { get; set; }
-        public string ProjectileSpriteName { get; set; }
-        public Entity FireEffect { get; set; }
-        public Entity AnimatedPart {  get; set; }
+        public Entity AnimatedPart { get; set; }
 
         public float SelfDeathScoreCost { get; set; }
         public float SelfDamageScoreCost { get; set; }
@@ -35,37 +33,35 @@ namespace SpaceInvaderPlusPlus
             Projetiles = new List<Entity>();
         }
 
-        public void Update(Vector2 position, Entity player, List<Entity> weaponProjectiles, int weaponDamage, GameTime gameTime = null)
+        public void Update(Player player, Weapon weapon, GameTime gameTime = null)
         {
-            if(this.CollisionMark)
+            if (this.CollisionMark)
                 this.CollisionMark = false;
-            foreach(Entity projectile in Projetiles)
-                if(projectile.CollisionMark)
-                    projectile.CollisionMark = false;
 
-            //CollisionCheck(player, weaponProjectiles, weaponDamage);
-            Move(position);
-            Attack(player);
-            CollisionCheck(player, weaponProjectiles, weaponDamage);
-            if (Health <= 0) Holder.score += SelfDeathScoreCost;
+            Move(player.Position);
+            CollisionCheck(player, weapon);
+            Attack(player, gameTime);
+            if (Health <= 0) Holder.SCORE_DMG += SelfDeathScoreCost;
         }
 
-        public void CollisionCheck(Entity entity, List<Entity> weaponProjectiles, int weaponDamage)
+        public void CollisionCheck(Player player, Weapon weapon)
         {
-            Rectangle body = new Rectangle((int)this.Position.X, (int)this.Position.Y, this.EntityTexture.Width, this.EntityTexture.Height);
-            if (body.Intersects(new Rectangle((int)entity.Position.X, (int)entity.Position.Y, entity.EntityTexture.Width, entity.EntityTexture.Height)))
+            //Rectangle body = new Rectangle((int)this.Position.X, (int)this.Position.Y, this.EntityTexture.Width, this.EntityTexture.Height);
+            if (Vector2.Distance(this.Position, player.Position) < this.EntityTexture.Height / 2 + player.EntityTexture.Height / 2)
             {
-                Health -= 5;
                 this.CollisionMark = true;
-                Holder.score =- PlayerDamageScoreCost;
+                Health -= SelfCollisionDamage;
             }
-            foreach (Entity projectile in weaponProjectiles)
+            foreach (Entity projectile in weapon.Projetiles)
             {
-                if(body.Intersects(new Rectangle((int)projectile.Position.X, (int)projectile.Position.Y, projectile.EntityTexture.Width, projectile.EntityTexture.Height)))
+                if (Vector2.Distance(this.Position, projectile.Position) < this.EntityTexture.Height / 3 * 2 + projectile.EntityTexture.Width / 2)
                 {
-                    Health -= weaponDamage;
-                    projectile.CollisionMark = true;
-                    Holder.score += SelfDamageScoreCost;
+                    if (!projectile.CollisionMark || weapon.Penetration)
+                    {
+                        Health -= weapon.Damage;
+                        projectile.CollisionMark = true;
+                        Holder.SCORE_DMG += SelfDamageScoreCost;
+                    }
                 }
             }
 
@@ -74,17 +70,26 @@ namespace SpaceInvaderPlusPlus
                 if (!DamgeStageCheck)
                 {
                     this.UpdateSprite(DamgeStageSpriteName);
+                    this.AnimatedPart.UpdateSprite(DamgeStageAnimatedPartSpriteName);
                     DamgeStageCheck = true;
                 }
             }
         }
 
-        public abstract void Move(Vector2 position);
+        public abstract void Move(Vector2 playerPosition);
 
-        public abstract void Attack(Entity player);
-        
+        public abstract void Attack(Player player, GameTime gameTime = null);
+
         public void DrawAll()
         {
+            if (this.Projetiles != null)
+            {
+                foreach (var entity in Projetiles)
+                {
+                    entity.DrawEntity();
+                }
+            }
+
             AnimatedPart.DrawEntity();
             this.DrawEntity();
         }

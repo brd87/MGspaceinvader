@@ -1,17 +1,17 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using SpaceInvaderPlusPlus.Enemies;
-using SpaceInvaderPlusPlus.Weapons;
+using SpaceInvaderPlusPlus.Utilities;
 using System;
-using System.Collections.Generic;
 
 namespace SpaceInvaderPlusPlus
 {
     public class SpaceInvaderHandler : Game
     {
         private GraphicsDeviceManager _graphics;
+        private SpaceBackground spaceBackground;
         private MainWorld world;
+        private MainMenu menu;
 
         public SpaceInvaderHandler()
         {
@@ -23,45 +23,48 @@ namespace SpaceInvaderPlusPlus
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-            Holder.random = new Random();
-            Holder.width = 1000;
-            Holder.height = 900;
-            Holder.scale = 1.0f;
+            Holder.RANDOM = new Random();
+            Holder.WIDTH = 1000;
+            Holder.HEIGHT = 900;
+            Holder.SCALE = 1.0f;
+            Holder.STARTNEW = false;
+            Holder.MENUMODE = 0;
+            Holder.RUNWORLD = false;
+            Holder.CONTENT = this.Content;
+            Holder.SPRITE_BATCH = new SpriteBatch(GraphicsDevice);
+
+            spaceBackground = new SpaceBackground();
             world = new MainWorld();
+            menu = new MainMenu(Window);
+
 
             _graphics.IsFullScreen = false;
-            _graphics.PreferredBackBufferWidth = Holder.width;
-            _graphics.PreferredBackBufferHeight = Holder.height;
+            _graphics.PreferredBackBufferWidth = Holder.WIDTH;
+            _graphics.PreferredBackBufferHeight = Holder.HEIGHT;
             _graphics.ApplyChanges();
 
-            // END
             base.Initialize();
         }
 
-        protected override void LoadContent()
-        {
-            // TODO: use this.Content to load your game content here
-            Holder.content = this.Content;
-            Holder.spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            world.LoadContent(1);
-
-            // END
-        }
+        protected override void LoadContent() { }
 
         protected override void Update(GameTime gameTime)
         {
+            Holder.KSTATE = Keyboard.GetState();
+            Holder.MSTATE = Mouse.GetState();
+
+            if (Holder.MENUMODE == 3) Exit();
+
+            spaceBackground.Update();
+            if (Holder.STARTNEW) world.RanNew();
 
 
-            Holder.kState = Keyboard.GetState();
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            if (!Holder.RUNWORLD) menu.Update(gameTime);
+            else world.Update(gameTime);
 
-            // TODO: Add your update logic here
-            world.Update(gameTime);
+            Holder.KSTATE_PREV = Holder.KSTATE;
+            Holder.MSTATE_PREV = Holder.MSTATE;
 
-            // END
             base.Update(gameTime);
         }
 
@@ -69,10 +72,17 @@ namespace SpaceInvaderPlusPlus
         {
             GraphicsDevice.Clear(Color.Black);
 
-            // TODO: Add your drawing code here
-            world.Draw(); 
+            Holder.SPRITE_BATCH.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
 
-            // END
+            spaceBackground.DrawAll();
+
+            if (!Holder.RUNWORLD)
+                menu.Draw();
+            else
+                world.Draw();
+
+            Holder.SPRITE_BATCH.End();
+
             base.Draw(gameTime);
         }
     }

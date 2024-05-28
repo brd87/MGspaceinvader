@@ -1,11 +1,6 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace SpaceInvaderPlusPlus
 {
@@ -20,7 +15,7 @@ namespace SpaceInvaderPlusPlus
         public List<Entity> Projetiles { get; set; }
         public Entity FireEffect { get; set; }
         public string ProjectileSpriteName { get; set; }
-        public bool Penetration {  get; set; }
+        public bool Penetration { get; set; }
         public float AmmoScoreCost { get; set; }
 
         protected Weapon(Microsoft.Xna.Framework.Vector2 position, float angle, string spriteName, int entityLayer) : base(position, angle, spriteName, entityLayer)
@@ -33,17 +28,16 @@ namespace SpaceInvaderPlusPlus
 
         public void Update(bool AskToFire, Microsoft.Xna.Framework.Vector2 shipPosition, GameTime gameTime)
         {
-            
+
             if (AskToFire && (gameTime.TotalGameTime - LastTime >= TimeSpan.FromSeconds(Cooldawn)) && Ammunition > 0)
             {
                 Projetiles.Add(new Entity(this.Position + new Microsoft.Xna.Framework.Vector2(0, 25), 0.0f, ProjectileSpriteName, 1));
                 LastTime = gameTime.TotalGameTime;
                 Ammunition -= 1;
                 FireGranted = true;
-                Holder.score -= AmmoScoreCost;
                 FireEffect.Position = shipPosition - new Microsoft.Xna.Framework.Vector2(0, 37);
             }
-                
+
             this.Position = shipPosition;
         }
 
@@ -67,7 +61,5 @@ namespace SpaceInvaderPlusPlus
         }
 
         public abstract void ProjectileUpdate();
-
-        public abstract void ProjectileHitCheck();
     }
 }

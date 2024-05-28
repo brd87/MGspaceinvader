@@ -1,9 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SpaceInvaderPlusPlus.Players;
 
 namespace SpaceInvaderPlusPlus.Enemies
 {
@@ -11,82 +7,91 @@ namespace SpaceInvaderPlusPlus.Enemies
     {
         public TheRusher(Vector2 position, float angle = 0.0f, string spriteName = "therusher", int entityLayer = 1) : base(position, angle, spriteName, entityLayer)
         {
-            this.Health = 2;
-            this.MaxHealth = 2;
+            this.Health = 3;
+            this.MaxHealth = 3;
             this.Damage = 10;
+            this.SelfCollisionDamage = this.MaxHealth;
+            this.PlayerCollisionDamage = 0;
             this.FrontAcceleration = 0;
-            this.BackAcceleration = 0.1f;
+            this.BackAcceleration = 0.3f;
             this.SideAcceleration = 0.8f;
             this.DamgeStageSpriteName = "therusher_dmg";
-            this.ProjectileSpriteName = "therusher_bullet";
+            this.DamgeStageAnimatedPartSpriteName = "therusher_claws_dmg";
             this.AnimatedPart = new Entity(this.Position, 0.0f, "therusher_claws", 1);
             this.SelfDeathScoreCost = 100;
             this.SelfDamageScoreCost = 1;
             this.PlayerDamageScoreCost = 100;
-    }
+        }
 
-        public override void Move(Vector2 position)
+        public override void Move(Vector2 playerPosition)
         {
-            if(Velocity.Y < 20)
-                Velocity.Y += BackAcceleration;
+            //Y
+            if (this.Velocity.Y < 10)
+                this.Velocity.Y += this.BackAcceleration;
 
-            if (position.X < 0 || position.X > Holder.width)
-                Velocity.X = 0;
+            if (playerPosition.Y - this.Position.Y < 100)
+                this.Velocity.Y += this.BackAcceleration * 2;
 
-            if(this.Position.X > position.X + 20)
+            //X long
+            if (this.Position.X > playerPosition.X + 20)
             {
-                if (Velocity.X > -10)
-                    Velocity.X -= SideAcceleration;
-                if (Angle < 0.4f)
+                if (this.Velocity.X > -10)
+                    this.Velocity.X -= this.SideAcceleration;
+                if (this.Angle < 0.4f)
                 {
-                    Angle += 0.02f;
-                    AnimatedPart.Angle = 2 * Angle;
-                }
-                    
-            }
-            else if (this.Position.X < position.X - 20)
-            {
-                if (Velocity.X < 10)
-                    Velocity.X += SideAcceleration;
-                if (Angle > -0.4f)
-                {
-                    Angle -= 0.02f;
-                    AnimatedPart.Angle = 2 * Angle;
+                    this.Angle += 0.02f;
+                    this.AnimatedPart.Angle = 2 * this.Angle;
                 }
             }
-
-            if (this.Position.X > position.X && this.Position.X < position.X + 10)
+            else if (this.Position.X < playerPosition.X - 20)
             {
-                Velocity.X -= SideAcceleration*3;
-                if (Angle < 0.0f)
+                if (this.Velocity.X < 10)
+                    this.Velocity.X += this.SideAcceleration;
+                if (this.Angle > -0.4f)
                 {
-                    Angle -= 0.01f;
-                    AnimatedPart.Angle = 2 * Angle;
+                    this.Angle -= 0.02f;
+                    this.AnimatedPart.Angle = 2 * this.Angle;
                 }
-                    
-            }
-            else if (this.Position.X < position.X && this.Position.X > position.X - 10)
-            {
-                Velocity.X += SideAcceleration*3;
-                if (Angle < 0.0f)
-                {
-                    Angle += 0.01f;
-                    AnimatedPart.Angle = 2 * Angle;
-                }
-                    
             }
 
-            if (position.Y - this.Position.Y < 50)
-                Velocity.Y += BackAcceleration/2;
+            //X short
+            else if (this.Position.X > playerPosition.X && this.Position.X < playerPosition.X + 10)
+            {
+                this.Velocity.X -= SideAcceleration * 3;
+                if (this.Angle < 0.0f)
+                {
+                    this.Angle -= 0.01f;
+                    this.AnimatedPart.Angle = 2 * this.Angle;
+                }
+            }
+            else if (this.Position.X < playerPosition.X && this.Position.X > playerPosition.X - 10)
+            {
+                this.Velocity.X += this.SideAcceleration * 3;
+                if (this.Angle < 0.0f)
+                {
+                    this.Angle += 0.01f;
+                    this.AnimatedPart.Angle = 2 * this.Angle;
+                }
+            }
+
+            //COR
+            if (this.Position.X < -100)
+                this.Velocity.X += this.SideAcceleration * 2;
+            else if (this.Position.X > Holder.WIDTH + 100)
+                this.Velocity.X -= this.SideAcceleration * 2;
+
 
             this.Position += Velocity;
-            
             this.AnimatedPart.Position = this.Position;
 
         }
 
-        public override void Attack(Entity player)
+        public override void Attack(Player player, GameTime gameTime = null)
         {
+            if (!this.CollisionMark) return;
+
+            player.PlayerDamage(this.Damage);
+            Holder.SCORE_DMGPLAYER += this.PlayerDamageScoreCost;
         }
     }
 }
