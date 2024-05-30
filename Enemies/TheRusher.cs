@@ -23,7 +23,7 @@ namespace SpaceInvaderPlusPlus.Enemies
             this.PlayerDamageScoreCost = 100;
         }
 
-        public override void Move(Vector2 playerPosition)
+        protected override void Move(Vector2 playerPosition)
         {
             //Y
             if (this.Velocity.Y < 10)
@@ -86,7 +86,7 @@ namespace SpaceInvaderPlusPlus.Enemies
 
         }
 
-        public override void Attack(Player player, GameTime gameTime = null)
+        protected override void Attack(Player player, GameTime gameTime = null)
         {
             if (!this.CollisionMark) return;
 

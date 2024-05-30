@@ -10,7 +10,7 @@ namespace SpaceInvaderPlusPlus.Pickups
             this.GrabScoreCost = 500;
         }
 
-        public override void HandleCollision(Player player, Weapon weapon)
+        protected override void HandleCollision(Player player, Weapon weapon)
         {
             if (player.Health >= 100)
                 return;

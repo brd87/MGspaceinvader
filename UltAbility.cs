@@ -12,12 +12,13 @@ namespace SpaceInvaderPlusPlus
         public int Damage { get; set; }
         public float Velocity { get; set; }
         private float Acceleration { get; set; }
-        private bool Done { get; set; }
-        public UltAbility(Vector2? position = null, float angle = 0.0f, string spriteName = "ultwave", int entityLayer = 1) 
+        public bool Done { get; set; }
+        public UltAbility(Vector2? position = null, float angle = 0.0f, string spriteName = "ult_shock", int entityLayer = 1) 
             : base(position ?? new Vector2(Holder.WIDTH / 2, Holder.HEIGHT + 100), angle, spriteName, entityLayer)
         {
-            Damage = 100;
+            Damage = 15;
             Velocity = 0;
+            Acceleration = 2;
             Done = false;
         }
 
@@ -38,7 +39,7 @@ namespace SpaceInvaderPlusPlus
                 for (int j = 0; j < Enemies[i].Count; j++)
                 {
                     if(!Enemies[i][j].UltRecived)
-                        if (Enemies[i][j].Position.Y - this.Position.Y < Enemies[i][j].EntityTexture.Height / 2 + this.EntityTexture.Height / 2)
+                        if (this.Position.Y - Enemies[i][j].Position.Y < Enemies[i][j].EntityTexture.Height / 2 + this.EntityTexture.Height / 2)
                         {
                             Enemies[i][j].Health -= Damage;
                             Enemies[i][j].Velocity.Y /= -3;

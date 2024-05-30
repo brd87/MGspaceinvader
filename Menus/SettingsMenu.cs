@@ -11,24 +11,24 @@ namespace SpaceInvaderPlusPlus.Menus
 {
     internal class SettingsMenu
     {
-        public float Cooldawn { get; set; }
-        public TimeSpan LastTime { get; set; }
-        public SpriteFont OptionFont { get; set; }
-        public List<string> Options { get; set; }
-        public Vector2 TitleOffset { get; set; }
-        public Vector2 SubTitleOffset { get; set; }
+        private float Cooldawn { get; set; }
+        private TimeSpan LastTime { get; set; }
+        private SpriteFont OptionFont { get; set; }
+        private List<string> Options { get; set; }
+        private Vector2 TitleOffset { get; set; }
+        private Vector2 SubTitleOffset { get; set; }
         private int LeftOffset { get; set; }
-        public int RightOffset { get; set; }
-        public int TopOffset { get; set; }
-        public int Begin { get; set; }
-        public List<Vector2> OptionOffsets { get; set; }
-        public List<Color> OptionColors { get; set; }
-        public int CurrentSelected { get; set; }
-        public int WeaponType { get; set; }
-        public int Difficulity { get; set; }
-        public List<string> WeaponNames { get; set; }
-        public List<string> DifficulityNames { get; set; }
-        public TextInputHandler TextInput { get; set; }
+        private int RightOffset { get; set; }
+        private int TopOffset { get; set; }
+        private int Begin { get; set; }
+        private List<Vector2> OptionOffsets { get; set; }
+        private List<Color> OptionColors { get; set; }
+        private int CurrentSelected { get; set; }
+        private int WeaponType { get; set; }
+        private int Difficulity { get; set; }
+        private List<string> WeaponNames { get; set; }
+        private List<string> DifficulityNames { get; set; }
+        private TextInputHandler TextInput { get; set; }
 
         public SettingsMenu(GameWindow gameWindow)
         {

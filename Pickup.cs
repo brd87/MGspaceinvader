@@ -5,9 +5,9 @@ namespace SpaceInvaderPlusPlus
 {
     public abstract class Pickup : Entity
     {
-        public Vector2 Velocity;
-        public float Torque { get; set; }
-        public float GrabScoreCost { get; set; }
+        private Vector2 Velocity;
+        private float Torque { get; set; }
+        protected float GrabScoreCost { get; set; }
         protected Pickup(Vector2 position, float angle, string spriteName, int entityLayer) : base(position, angle, spriteName, entityLayer)
         {
             Velocity = new Vector2(Holder.randomFloat(-0.2f, 0.2f), Holder.randomFloat());
@@ -32,6 +32,6 @@ namespace SpaceInvaderPlusPlus
             }
         }
 
-        public abstract void HandleCollision(Player player, Weapon weapon);
+        protected abstract void HandleCollision(Player player, Weapon weapon);
     }
 }

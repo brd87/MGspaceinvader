@@ -8,7 +8,7 @@ namespace SpaceInvaderPlusPlus.Environments
         public TrapMed(Vector2 position, float angle = 0.0f, string spriteName = "med_env", int entityLayer = 1) : base(position, angle, spriteName, entityLayer)
         {
             this.Damage = 20;
-            this.Despawn = true;
+            this.DespawnOnHit = true;
             this.PlayerDamageScoreCost = 50;
         }
 

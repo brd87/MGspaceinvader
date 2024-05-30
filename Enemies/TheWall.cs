@@ -23,7 +23,7 @@ namespace SpaceInvaderPlusPlus.Enemies
             this.PlayerDamageScoreCost = 2;
         }
 
-        public override void Move(Vector2 playerPosition)
+        protected override void Move(Vector2 playerPosition)
         {
             //Y
             if (this.Velocity.Y < 2 && playerPosition.Y - this.Position.Y > 450)
@@ -31,7 +31,6 @@ namespace SpaceInvaderPlusPlus.Enemies
 
             else if (this.Velocity.Y > -8 && playerPosition.Y - this.Position.Y <= 400 && this.Position.Y > 100)
                 this.Velocity.Y = -this.FrontAcceleration;
-
 
             //X long
             if (this.Position.X > playerPosition.X + 20)
@@ -92,7 +91,7 @@ namespace SpaceInvaderPlusPlus.Enemies
 
         }
 
-        public override void Attack(Player player, GameTime gameTime = null)
+        protected override void Attack(Player player, GameTime gameTime = null)
         {
             Rectangle body = new Rectangle((int)this.Position.X, (int)this.Position.Y, this.EntityTexture.Width, this.EntityTexture.Height);
             if (body.Intersects(new Rectangle((int)player.Position.X, (int)player.Position.Y, player.EntityTexture.Width, player.EntityTexture.Height)))

@@ -9,22 +9,22 @@ namespace SpaceInvaderPlusPlus
     {
         public int Health { get; set; }
         public int MaxHealth { get; set; }
-        public int Damage { get; set; }
-        public int SelfCollisionDamage { get; set; }
-        public int PlayerCollisionDamage { get; set; }
-        public float FrontAcceleration { get; set; }
-        public float SideAcceleration { get; set; }
-        public float BackAcceleration { get; set; }
+        protected int Damage { get; set; }
+        protected int SelfCollisionDamage { get; set; }
+        protected int PlayerCollisionDamage { get; set; }
+        protected float FrontAcceleration { get; set; }
+        protected float SideAcceleration { get; set; }
+        protected float BackAcceleration { get; set; }
         public Vector2 Velocity;
-        public String DamgeStageSpriteName { get; set; }
-        public String DamgeStageAnimatedPartSpriteName { get; set; }
-        public bool DamgeStageCheck { get; set; }
-        public List<Entity> Projetiles { get; set; }
-        public Entity AnimatedPart { get; set; }
+        protected String DamgeStageSpriteName { get; set; }
+        protected String DamgeStageAnimatedPartSpriteName { get; set; }
+        private bool DamgeStageCheck { get; set; }
+        protected List<Entity> Projetiles { get; set; }
+        protected Entity AnimatedPart { get; set; }
 
-        public float SelfDeathScoreCost { get; set; }
-        public float SelfDamageScoreCost { get; set; }
-        public float PlayerDamageScoreCost { get; set; }
+        protected float SelfDeathScoreCost { get; set; }
+        protected float SelfDamageScoreCost { get; set; }
+        protected float PlayerDamageScoreCost { get; set; }
         public bool UltRecived { get; set; }
 
         protected Enemy(Vector2 position, float angle, string spriteName, int entityLayer) : base(position, angle, spriteName, entityLayer)
@@ -46,9 +46,8 @@ namespace SpaceInvaderPlusPlus
             if (Health <= 0) Holder.SCORE_DMG += SelfDeathScoreCost;
         }
 
-        public void CollisionCheck(Player player, Weapon weapon)
+        private void CollisionCheck(Player player, Weapon weapon)
         {
-            //Rectangle body = new Rectangle((int)this.Position.X, (int)this.Position.Y, this.EntityTexture.Width, this.EntityTexture.Height);
             if (Vector2.Distance(this.Position, player.Position) < this.EntityTexture.Height / 2 + player.EntityTexture.Height / 2)
             {
                 this.CollisionMark = true;
@@ -78,9 +77,9 @@ namespace SpaceInvaderPlusPlus
             }
         }
 
-        public abstract void Move(Vector2 playerPosition);
+        protected abstract void Move(Vector2 playerPosition);
 
-        public abstract void Attack(Player player, GameTime gameTime = null);
+        protected abstract void Attack(Player player, GameTime gameTime = null);
 
         public void DrawAll()
         {

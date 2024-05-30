@@ -23,6 +23,7 @@ namespace SpaceInvaderPlusPlus
         private List<Enemy> _enemySpewer;
         private List<Pickup> _pickups;
         private List<Environmental> _enviroments;
+        private List<UltAbility> _ultAbility;
         private Entity _damageScr;
         private SpriteFont _hudFont;
         private SpriteFont _hudFontAux;
@@ -49,6 +50,7 @@ namespace SpaceInvaderPlusPlus
             _enemySpewer = new List<Enemy>();
             _pickups = new List<Pickup>();
             _enviroments = new List<Environmental>();
+            _ultAbility = new List<UltAbility>();
         }
 
         public void RanNew()
@@ -185,7 +187,6 @@ namespace SpaceInvaderPlusPlus
 
         public void Draw()
         {
-
             foreach (Environmental env in _enviroments)
                 env.DrawEntity();
             _weapon.DrawAll();
@@ -203,11 +204,13 @@ namespace SpaceInvaderPlusPlus
             foreach (Pickup pickup in _pickups)
                 pickup.DrawEntity();
 
+            foreach (UltAbility ult in _ultAbility)
+                ult.DrawEntity();
+
             if(_player.CollisionMark)
                 _damageScr.DrawEntity();
 
             DrawHUD(_player, _weapon);
-            //Holder.spriteBatch.DrawString(Holder.font, $"SCORE: {Holder.score}\nHEALTH: {_player.Health}\nSHIELDS: {_player.Shields}\nAMMO {_weapon.Ammunition}", new Vector2(20, 20), Color.White);
         }
 
         private void HandleUpdates(GameTime gameTime)
@@ -230,6 +233,9 @@ namespace SpaceInvaderPlusPlus
 
             foreach (Environmental env in _enviroments)
                 env.Update(_player, _weapon.Projetiles);
+
+            foreach (UltAbility ult in _ultAbility)
+                ult.Update(new List<List<Enemy>> { _enemyWall, _enemyRusher, _enemySpewer });
         }
 
         private void HandleSpawnDespawn(GameTime gameTime)
@@ -248,6 +254,7 @@ namespace SpaceInvaderPlusPlus
                     i--;
                 }
             }
+
             //_enemyWall
             for (int i = 0; i < _enemyWall.Count; i++)
             {
@@ -262,6 +269,7 @@ namespace SpaceInvaderPlusPlus
                 _lastTimeWall = gameTime.TotalGameTime;
                 _enemyWall.Add(new TheWall(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(_spawnHeightMax, _spawnHeightMin))));
             }
+
             //_enemyRusher
             for (int i = 0; i < _enemyRusher.Count; i++)
             {
@@ -276,6 +284,7 @@ namespace SpaceInvaderPlusPlus
                 _lastTimeRusher = gameTime.TotalGameTime;
                 _enemyRusher.Add(new TheRusher(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(_spawnHeightMax, _spawnHeightMin))));
             }
+
             //_enemySpewer
             for (int i = 0; i < _enemySpewer.Count; i++)
             {
@@ -290,6 +299,7 @@ namespace SpaceInvaderPlusPlus
                 _lastTimeSpewer = gameTime.TotalGameTime;
                 _enemySpewer.Add(new TheSpewer(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(_spawnHeightMax, _spawnHeightMin))));
             }
+
             //_pickups
             for (int i = 0; i < _pickups.Count; i++)
             {
@@ -302,16 +312,19 @@ namespace SpaceInvaderPlusPlus
             if (gameTime.TotalGameTime - _lastTimePickup >= TimeSpan.FromSeconds(_cooldawnPickup))
             {
                 _lastTimePickup = gameTime.TotalGameTime;
-                int type = Holder.RANDOM.Next(0, 2);
+                int type = Holder.RANDOM.Next(2, 3);
                 if (type == 0)
                     _pickups.Add(new MedPack(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(_spawnHeightMax, _spawnHeightMin))));
                 if (type == 1)
                     _pickups.Add(new EnergyPack(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(_spawnHeightMax, _spawnHeightMin))));
+                if (type == 2)
+                    _pickups.Add(new UltPack(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(_spawnHeightMax, _spawnHeightMin))));
             }
+
             //_enviroments
             for (int i = 0; i < _enviroments.Count; i++)
             {
-                if (_enviroments[i].Position.Y > _despawnHeight || (_enviroments[i].CollisionMark && _enviroments[i].Despawn))
+                if (_enviroments[i].Position.Y > _despawnHeight || (_enviroments[i].CollisionMark && _enviroments[i].DespawnOnHit))
                 {
                     _enviroments.RemoveAt(i);
                     i--;
@@ -327,6 +340,21 @@ namespace SpaceInvaderPlusPlus
                     _enviroments.Add(new BigRock(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(_spawnHeightMax, _spawnHeightMin))));
                 if (type == 2)
                     _enviroments.Add(new AcidMine(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(_spawnHeightMax, _spawnHeightMin))));
+            }
+
+            //_ultAbility
+            for (int i = 0; i < _ultAbility.Count; i++)
+            {
+                if (_ultAbility[i].Position.Y > _despawnHeight || _ultAbility[i].Done)
+                {
+                    _ultAbility.RemoveAt(i);
+                    i--;
+                }
+            }
+            if (_player.UltAbility && Holder.KSTATE.IsKeyDown(Keys.LeftControl))
+            {
+                _ultAbility.Add(new UltAbility());
+                _player.UltAbility = false;
             }
         }
 

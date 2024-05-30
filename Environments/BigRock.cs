@@ -8,7 +8,7 @@ namespace SpaceInvaderPlusPlus.Environments
         public BigRock(Vector2 position, float angle = 0.0f, string spriteName = "rock_env", int entityLayer = 1) : base(position, angle, spriteName, entityLayer)
         {
             this.Damage = 10;
-            this.Despawn = false;
+            this.DespawnOnHit = false;
         }
 
         public override void HandleCollisionPlayer(Player player)

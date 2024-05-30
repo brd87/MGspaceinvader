@@ -6,9 +6,9 @@ namespace SpaceInvaderPlusPlus.Enemies
 {
     internal class TheSpewer : Enemy
     {
-        public float Cooldawn { get; set; }
-        public TimeSpan LastTime { get; set; }
-        public string ProjectileSpriteName { get; set; }
+        private float Cooldawn { get; set; }
+        private TimeSpan LastTime { get; set; }
+        private string ProjectileSpriteName { get; set; }
 
         public TheSpewer(Vector2 position, float angle = 0.0f, string spriteName = "thespewer", int entityLayer = 1) : base(position, angle, spriteName, entityLayer)
         {
@@ -32,7 +32,7 @@ namespace SpaceInvaderPlusPlus.Enemies
             ProjectileSpriteName = "thespewer_bullet";
         }
 
-        public override void Move(Vector2 playerPosition)
+        protected override void Move(Vector2 playerPosition)
         {
             //Y
             if (this.Velocity.Y < 1 && this.Position.Y < 100)
@@ -95,7 +95,7 @@ namespace SpaceInvaderPlusPlus.Enemies
             this.AnimatedPart.Position = this.Position;
         }
 
-        public override void Attack(Player player, GameTime gameTime = null)
+        protected override void Attack(Player player, GameTime gameTime = null)
         {
             if (gameTime.TotalGameTime - LastTime >= TimeSpan.FromSeconds(Cooldawn) && this.Projetiles.Count < 3 && this.Position.Y > 0)
             {
@@ -106,7 +106,7 @@ namespace SpaceInvaderPlusPlus.Enemies
             ProjectileUpdate(player);
         }
 
-        public void ProjectileUpdate(Player player)
+        private void ProjectileUpdate(Player player)
         {
             Rectangle playerBody = new Rectangle((int)player.Position.X, (int)player.Position.Y, player.EntityTexture.Width, player.EntityTexture.Height);
             for (int i = 0; i < this.Projetiles.Count; i++)

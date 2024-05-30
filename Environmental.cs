@@ -6,11 +6,11 @@ namespace SpaceInvaderPlusPlus
 {
     public abstract class Environmental : Entity
     {
-        public Vector2 Velocity;
-        public float Torque { get; set; }
-        public int Damage { get; set; }
-        public bool Despawn { get; set; }
-        public float PlayerDamageScoreCost { get; set; }
+        protected Vector2 Velocity;
+        private float Torque { get; set; }
+        protected int Damage { get; set; }
+        public bool DespawnOnHit { get; set; }
+        protected float PlayerDamageScoreCost { get; set; }
         protected Environmental(Vector2 position, float angle, string spriteName, int entityLayer) : base(position, angle, spriteName, entityLayer)
         {
             Velocity = new Vector2(Holder.randomFloat(-0.2f, 0.2f), Holder.randomFloat(0.5f));

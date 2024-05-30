@@ -41,10 +41,14 @@
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/thewall_wings_dmg.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/thewall_wings.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/thewall.png</File>
+    <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/ult_pack.png</File>
+    <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/ult_shock.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/white_star.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/yellow_star.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

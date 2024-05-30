@@ -5,18 +5,18 @@ namespace SpaceInvaderPlusPlus.Players
 {
     public class Player : Entity
     {
-        PlayerPart PlFront;
-        PlayerPart PlLeft;
-        PlayerPart PlRight;
+        private PlayerPart PlFront {  get; set; }
+        private PlayerPart PlLeft { get; set; }
+        private PlayerPart PlRight { get; set; }
 
         public int Health { get; set; }
         public int Shields { get; set; }
 
-        public float FrontAcceleration { get; set; }
-        public float SideAcceleration { get; set; }
-        public float BackAcceleration { get; set; }
-        public float Stabilisers { get; set; }
-        public float Drag { get; set; }
+        private float FrontAcceleration { get; set; }
+        private float SideAcceleration { get; set; }
+        private float BackAcceleration { get; set; }
+        private float Stabilisers { get; set; }
+        private float Drag { get; set; }
 
         public bool AskToFire { get; set; }
         public bool UltAbility { get; set; }
