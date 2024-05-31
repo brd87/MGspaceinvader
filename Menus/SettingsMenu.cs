@@ -28,7 +28,7 @@ namespace SpaceInvaderPlusPlus.Menus
         private int WeaponType { get; set; }
         private int Difficulity { get; set; }
         private float MusicVol {  get; set; }
-        private float EffectsVol { get; set; }
+        private float SaveEffectsVol { get; set; }
         private List<string> WeaponNames { get; set; }
         private List<string> DifficulityNames { get; set; }
         private TextInputHandler TextInput { get; set; }
@@ -59,7 +59,7 @@ namespace SpaceInvaderPlusPlus.Menus
             WeaponType = Holder.SETTINGS.LastWeaponType;
             Difficulity = Holder.SETTINGS.LastDifficulty;
             MusicVol = Holder.SETTINGS.LastMusicVolume;
-            EffectsVol = Holder.SETTINGS.LastEffectsVolume;
+            SaveEffectsVol = Holder.SETTINGS.LastEffectsVolume;
 
             WeaponNames = new List<string> { "A-100 \"Warpig\"", "DS-X \"Smart Diax\"", "Rg50 \"Shashlik\"" };
             DifficulityNames = new List<string> { "Stable (EASY)", "Containgus (MEDIUM)", "Colapse (HARD)", "Quasimorphosis (HARDER)" };
@@ -137,8 +137,9 @@ namespace SpaceInvaderPlusPlus.Menus
                         }
                         else if (CurrentSelected == 6)
                         {
-                            EffectsVol += 0.1f;
-                            if (EffectsVol > 1.1) EffectsVol = 0;
+                            Holder.SETTINGS.LastEffectsVolume += 0.1f;
+                            if (Holder.SETTINGS.LastEffectsVolume > 1.1) Holder.SETTINGS.LastEffectsVolume = 0;
+                            else if (Holder.SETTINGS.LastEffectsVolume > 1.0f) Holder.SETTINGS.LastEffectsVolume = 1.0f;
                         }
                     }
         }
@@ -174,7 +175,7 @@ namespace SpaceInvaderPlusPlus.Menus
                 else if (i == 6)
                 {
                     Holder.SPRITE_BATCH.DrawString(OptionFont, Options[i], new Vector2(Holder.WIDTH / 2 - LeftOffset, Begin + i * TopOffset), OptionColors[i]);
-                    Holder.SPRITE_BATCH.DrawString(OptionFont, ((int)(EffectsVol * 10)).ToString(), new Vector2(Holder.WIDTH / 2 + RightOffset, Begin + i * TopOffset), OptionColors[i]);
+                    Holder.SPRITE_BATCH.DrawString(OptionFont, ((int)(Holder.SETTINGS.LastEffectsVolume * 10)).ToString(), new Vector2(Holder.WIDTH / 2 + RightOffset, Begin + i * TopOffset), OptionColors[i]);
                 }
             }
         }
@@ -187,19 +188,19 @@ namespace SpaceInvaderPlusPlus.Menus
             WeaponType = Holder.SETTINGS.LastWeaponType;
             Difficulity = Holder.SETTINGS.LastDifficulty;
             MusicVol = Holder.SETTINGS.LastMusicVolume;
-            EffectsVol = Holder.SETTINGS.LastEffectsVolume;
+            Holder.SETTINGS.LastEffectsVolume = SaveEffectsVol;
             MediaPlayer.Volume = Holder.SETTINGS.LastMusicVolume;
         }
 
         private void SaveSettings()
         {
             Holder.MENUMODE = 0;
+            if(MusicVol > 1.0f) MusicVol = 1.0f;
 
             Holder.SETTINGS.LastSavedPilotName = Holder.PLAYERNAME;
             Holder.SETTINGS.LastWeaponType = WeaponType;
             Holder.SETTINGS.LastDifficulty = Difficulity;
             Holder.SETTINGS.LastMusicVolume = MusicVol;
-            Holder.SETTINGS.LastEffectsVolume = EffectsVol;
 
             string gameFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "SIPP");
             string settingsPath = Path.Combine(gameFolder, "settings.json");

@@ -34,6 +34,7 @@ namespace SpaceInvaderPlusPlus
         private TimeSpan _lastTimePickup { get; set; }
         private TimeSpan _lastTimeEnviroment { get; set; }
         private int _previusScale { get; set; }
+        private float _scaling {  get; set; }
         private float _cooldawnWall { get; set; }
         private float _cooldawnRusher { get; set; }
         private float _cooldawnSpewer { get; set; }
@@ -110,6 +111,7 @@ namespace SpaceInvaderPlusPlus
             {
                 Holder.SCORE_MULTIPLAYER = 0.4f;
                 Holder.SCORE_TRAVEL = 0;
+                _scaling = 0.99f;
                 _cooldawnWall = 25;
                 _cooldawnRusher = 3;
                 _cooldawnSpewer = 20;
@@ -120,16 +122,18 @@ namespace SpaceInvaderPlusPlus
             {
                 Holder.SCORE_MULTIPLAYER = 1;
                 Holder.SCORE_TRAVEL = 0;
+                _scaling = 0.98f;
                 _cooldawnWall = 25;
                 _cooldawnRusher = 2;
                 _cooldawnSpewer = 15;
-                _cooldawnEnviroment = 15;
+                _cooldawnEnviroment = 10;
                 _cooldawnPickup = 10;
             }
             else if (Holder.SETTINGS.LastDifficulty == 2)
             {
-                Holder.SCORE_MULTIPLAYER = 1.25f;
+                Holder.SCORE_MULTIPLAYER = 1.4f;
                 Holder.SCORE_TRAVEL = 1000;
+                _scaling = 0.97f;
                 _cooldawnWall = 20;
                 _cooldawnRusher = 2;
                 _cooldawnSpewer = 10;
@@ -138,12 +142,13 @@ namespace SpaceInvaderPlusPlus
             }
             else
             {
-                Holder.SCORE_MULTIPLAYER = 1.5f;
+                Holder.SCORE_MULTIPLAYER = 1.6f;
                 Holder.SCORE_TRAVEL = 2000;
+                _scaling = 0.96f;
                 _cooldawnWall = 15;
                 _cooldawnRusher = 1;
                 _cooldawnSpewer = 10;
-                _cooldawnEnviroment = 10;
+                _cooldawnEnviroment = 7;
                 _cooldawnPickup = 20;
             }
 
@@ -393,9 +398,9 @@ namespace SpaceInvaderPlusPlus
         public void DiffScaling()
         {
             _previusScale = (int)(Holder.SCORE_TRAVEL / 500);
-            _cooldawnWall *= 1 - 0.01f * _previusScale;
-            _cooldawnRusher *= 1 - 0.01f * _previusScale;
-            _cooldawnSpewer *= 1 - 0.01f * _previusScale;
+            _cooldawnWall *= _scaling; //1 - 0.01f * _previusScale;
+            _cooldawnRusher *= _scaling; //1 - 0.01f * _previusScale;
+            _cooldawnSpewer *= _scaling; //1 - 0.01f * _previusScale;
         }
 
         public void DrawHUD(Player player, Weapon weapon)

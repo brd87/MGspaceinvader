@@ -72,13 +72,23 @@ namespace SpaceInvaderPlusPlus
             if (Holder.STARTNEW)
             {
                 world.RanNew();
-                MediaPlayer.Play(bg_music_combat);
+                //MediaPlayer.Play(bg_music_combat);
             }
             Thread BgThread = new Thread(x => spaceBackground.Update());
             BgThread.Start();
 
-            if (!Holder.RUNWORLD) menu.Update(gameTime);
-            else world.Update(gameTime);
+            if (!Holder.RUNWORLD) 
+            {
+                if ("music/" + MediaPlayer.Queue.ActiveSong.Name != music_menu)
+                    MediaPlayer.Play(bg_music_menu);
+                menu.Update(gameTime);
+            }
+            else 
+            {
+                if ("music/" + MediaPlayer.Queue.ActiveSong.Name != music_combat)
+                    MediaPlayer.Play(bg_music_combat);
+                world.Update(gameTime);
+            }
 
             Holder.KSTATE_PREV = Holder.KSTATE;
             Holder.MSTATE_PREV = Holder.MSTATE;

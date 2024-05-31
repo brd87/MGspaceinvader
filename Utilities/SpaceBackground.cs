@@ -82,7 +82,6 @@ namespace SpaceInvaderPlusPlus.Utilities
                     BlueStars.RemoveAt(i);
                     BlueStars.Add(new Entity(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(-10, 0)), 0.0f, "star/star_blue", 1,
                         Holder.randomFloat(Holder.SCALE * 0.5f, Holder.SCALE * 1.5f)));
-                    //Console.WriteLine("CREATED B");
                     i--;
                 }
             }
