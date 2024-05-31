@@ -2,7 +2,7 @@
 
 namespace SpaceInvaderPlusPlus.Weapons
 {
-    public class TheGun : Weapon
+    internal class TheGun : Weapon
     {
         public TheGun(Vector2 position, float angle = 0.0f, string spriteName = "thegun", int entityLayer = 1) : base(position, angle, spriteName, entityLayer)
         {
@@ -16,7 +16,7 @@ namespace SpaceInvaderPlusPlus.Weapons
             this.AmmoScoreCost = 5;
         }
 
-        public override void ProjectileUpdate()
+        public override void ProjectileUpdate(Vector2 shipPosition)
         {
             if (this.Projetiles == null)
                 return;

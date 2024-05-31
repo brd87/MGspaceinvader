@@ -1,1 +1,5 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/blue_star.png","C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/bin/DesktopGL/Content/blue_star.xnb","TextureProcessor","Texture2DContent",4180,185,0,131377
+"C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/red_star.png","C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/bin/DesktopGL/Content/red_star.xnb","TextureProcessor","Texture2DContent",3972,185,0,0028462
+"C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/white_star.png","C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/bin/DesktopGL/Content/white_star.xnb","TextureProcessor","Texture2DContent",3319,185,0,0018832
+"C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/yellow_star.png","C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/bin/DesktopGL/Content/yellow_star.xnb","TextureProcessor","Texture2DContent",4292,185,0,0016284

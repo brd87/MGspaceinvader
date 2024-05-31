@@ -12,21 +12,14 @@ namespace SpaceInvaderPlusPlus.Pickups
 
         protected override void HandleCollision(Player player, Weapon weapon)
         {
-            if (player.Health >= 100)
-                return;
-
             if (Holder.SETTINGS.LastDifficulty == 0 || Holder.SETTINGS.LastDifficulty == 1)
             {
-                player.Health = 100;
-                return;
+                player.PlayerHeal(100);
             }
-            else if (Holder.SETTINGS.LastDifficulty == 2)
-                player.Health += 50;
             else
-                player.Health += 25;
-
-            if (player.Health > 100)
-                player.Health = 100;
+            {
+                player.PlayerHeal(50);
+            }
         }
     }
 }

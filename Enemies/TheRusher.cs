@@ -79,11 +79,6 @@ namespace SpaceInvaderPlusPlus.Enemies
                 this.Velocity.X += this.SideAcceleration * 2;
             else if (this.Position.X > Holder.WIDTH + 100)
                 this.Velocity.X -= this.SideAcceleration * 2;
-
-
-            this.Position += Velocity;
-            this.AnimatedPart.Position = this.Position;
-
         }
 
         protected override void Attack(Player player, GameTime gameTime = null)

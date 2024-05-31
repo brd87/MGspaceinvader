@@ -20,6 +20,8 @@
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/player_lwing.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/player_rwing.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/player.png</File>
+    <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/rail_bullet.png</File>
+    <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/rail_fire.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/red_star.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/rock_env.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/theeye.png</File>
@@ -31,6 +33,8 @@
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/therusher_claws.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/therusher_dmg.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/therusher.png</File>
+    <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/thesaw_bullet.png</File>
+    <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/thesaw_fire.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/thesaw.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/thespewer_bullet.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/thespewer_dmg.png</File>
@@ -47,6 +51,10 @@
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/yellow_star.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

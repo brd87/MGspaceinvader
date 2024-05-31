@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/player_lwing.png</SourceFile>
-  <SourceTime>2024-05-09T17:32:31.194133+02:00</SourceTime>
+  <SourceTime>2024-05-30T18:24:44.8152317+02:00</SourceTime>
   <DestFile>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/bin/DesktopGL/Content/player_lwing.xnb</DestFile>
-  <DestTime>2024-05-09T17:35:27.7043531+02:00</DestTime>
+  <DestTime>2024-05-30T18:25:10.864144+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2022-07-26T13:44:56+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

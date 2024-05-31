@@ -15,7 +15,6 @@ namespace SpaceInvaderPlusPlus
         protected float FrontAcceleration { get; set; }
         protected float SideAcceleration { get; set; }
         protected float BackAcceleration { get; set; }
-        public Vector2 Velocity;
         protected String DamgeStageSpriteName { get; set; }
         protected String DamgeStageAnimatedPartSpriteName { get; set; }
         private bool DamgeStageCheck { get; set; }
@@ -29,7 +28,6 @@ namespace SpaceInvaderPlusPlus
 
         protected Enemy(Vector2 position, float angle, string spriteName, int entityLayer) : base(position, angle, spriteName, entityLayer)
         {
-            this.Velocity = new Vector2(0.0f, 0.0f);
             DamgeStageCheck = false;
             Projetiles = new List<Entity>();
             UltRecived = false;
@@ -41,6 +39,8 @@ namespace SpaceInvaderPlusPlus
                 this.CollisionMark = false;
 
             Move(player.Position);
+            UpdateByVelocity();
+            this.AnimatedPart.Position = this.Position;
             CollisionCheck(player, weapon);
             Attack(player, gameTime);
             if (Health <= 0) Holder.SCORE_DMG += SelfDeathScoreCost;

@@ -56,7 +56,7 @@ namespace SpaceInvaderPlusPlus.Menus
             WeaponType = Holder.SETTINGS.LastWeaponType;
             Difficulity = Holder.SETTINGS.LastDifficulty;
 
-            WeaponNames = new List<string> { "A-100 \"Warpig\"", "KD-406 \"Drilljectile\"", "Rg50 \"Project Spearman\"" };
+            WeaponNames = new List<string> { "A-100 \"Warpig\"", "DS-X \"Smart Diax\"", "Rg50 \"Shashlik\"" };
             DifficulityNames = new List<string> { "Stable (EASY)", "Containgus (MEDIUM)", "Colapse (HARD)", "Quasimorphosis (HARDER)" };
 
             LeftOffset = 300;

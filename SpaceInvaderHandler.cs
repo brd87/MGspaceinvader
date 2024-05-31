@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SpaceInvaderPlusPlus.Utilities;
 using System;
-using System.Threading;
 
 namespace SpaceInvaderPlusPlus
 {
@@ -55,10 +54,11 @@ namespace SpaceInvaderPlusPlus
             Holder.MSTATE = Mouse.GetState();
 
             if (Holder.MENUMODE == 3) Exit();
+            if (Holder.STARTNEW) world.RanNew();
             //Thread BgThread = new Thread(x => spaceBackground.Update(Holder.SCORE_TRAVEL, Holder.STARTNEW));
             //BgThread.Start();
             spaceBackground.Update();
-            if (Holder.STARTNEW) world.RanNew();
+
 
 
             if (!Holder.RUNWORLD) menu.Update(gameTime);

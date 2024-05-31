@@ -17,8 +17,9 @@ namespace SpaceInvaderPlusPlus
         protected string ProjectileSpriteName { get; set; }
         public bool Penetration { get; set; }
         public float AmmoScoreCost { get; set; }
+        public bool Loaded { get; set; }
 
-        protected Weapon(Microsoft.Xna.Framework.Vector2 position, float angle, string spriteName, int entityLayer) : base(position, angle, spriteName, entityLayer)
+        protected Weapon(Vector2 position, float angle, string spriteName, int entityLayer) : base(position, angle, spriteName, entityLayer)
         {
 
             this.LastTime = TimeSpan.FromSeconds(0.0f);
@@ -26,16 +27,19 @@ namespace SpaceInvaderPlusPlus
             this.Projetiles = new List<Entity> { };
         }
 
-        public void Update(bool AskToFire, Microsoft.Xna.Framework.Vector2 shipPosition, GameTime gameTime)
+        public void Update(bool AskToFire, Vector2 shipPosition, GameTime gameTime)
         {
+            if (gameTime.TotalGameTime - LastTime >= TimeSpan.FromSeconds(Cooldawn))
+                Loaded = true;
 
-            if (AskToFire && (gameTime.TotalGameTime - LastTime >= TimeSpan.FromSeconds(Cooldawn)) && Ammunition > 0)
+            if (AskToFire && Loaded && Ammunition > 0)
             {
-                Projetiles.Add(new Entity(this.Position + new Microsoft.Xna.Framework.Vector2(0, 25), 0.0f, ProjectileSpriteName, 1));
+                Projetiles.Add(new Entity(this.Position + new Vector2(0, -10), 0.0f, ProjectileSpriteName, 1));
                 LastTime = gameTime.TotalGameTime;
+                Loaded = false;
                 Ammunition -= 1;
                 FireGranted = true;
-                FireEffect.Position = shipPosition - new Microsoft.Xna.Framework.Vector2(0, 37);
+                FireEffect.Position = shipPosition - new Vector2(0, 37);
             }
 
             this.Position = shipPosition;
@@ -60,6 +64,6 @@ namespace SpaceInvaderPlusPlus
             this.DrawEntity();
         }
 
-        public abstract void ProjectileUpdate();
+        public abstract void ProjectileUpdate(Vector2 shipPosition);
     }
 }

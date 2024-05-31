@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using SpaceInvaderPlusPlus.Menus;
 using SpaceInvaderPlusPlus.Utilities;
 using System;
@@ -9,10 +10,12 @@ namespace SpaceInvaderPlusPlus
 {
     public class MainMenu
     {
-        //private PauseMenu _pauseMenu; //[0] pause, quit(?), exit
-        private TitleMenu _titleMenu; //[1] play, scoreboard, settings, exit
-        private ScoreboardMenu _scoreboardMenu; //[2] rank(1-20) - pilotname - score
-        private SettingsMenu _settingsMenu; //[3] dif, weapon, pilotname + eventual sound settings
+        private TitleMenu _titleMenu { get; set; }
+        private ScoreboardMenu _scoreboardMenu { get; set; }
+        private SettingsMenu _settingsMenu { get; set; }
+        private SpriteFont _gameVersionFont { get; set; }
+        private Vector2 _gameVersionOffset { get; set; }
+        private string _gameVersion { get; set; }
         public MainMenu(GameWindow gameWindow)
         {
             Holder.TOP_PLAYERS = new TopPlayers();
@@ -39,6 +42,10 @@ namespace SpaceInvaderPlusPlus
             _titleMenu = new TitleMenu();
             _scoreboardMenu = new ScoreboardMenu();
             _settingsMenu = new SettingsMenu(gameWindow);
+
+            _gameVersion = "S.I.P.P (v0.9.3)";
+            _gameVersionFont = Holder.CONTENT.Load<SpriteFont>("font_hudaux");
+            _gameVersionOffset = _gameVersionFont.MeasureString(_gameVersion) / 2;
         }
 
         public void Update(GameTime gameTime)
@@ -61,6 +68,8 @@ namespace SpaceInvaderPlusPlus
                 _scoreboardMenu.Draw();
             else if (Holder.MENUMODE == 2)
                 _settingsMenu.Draw();
+
+            Holder.SPRITE_BATCH.DrawString(_gameVersionFont, _gameVersion, new Vector2(Holder.WIDTH / 2, 850) - _gameVersionOffset, Color.Gray);
         }
     }
 }

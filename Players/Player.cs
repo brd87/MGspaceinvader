@@ -1,11 +1,11 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
+﻿using Microsoft.Xna.Framework.Input;
+using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace SpaceInvaderPlusPlus.Players
 {
     public class Player : Entity
     {
-        private PlayerPart PlFront {  get; set; }
+        private PlayerPart PlFront { get; set; }
         private PlayerPart PlLeft { get; set; }
         private PlayerPart PlRight { get; set; }
 
@@ -21,8 +21,6 @@ namespace SpaceInvaderPlusPlus.Players
         public bool AskToFire { get; set; }
         public bool UltAbility { get; set; }
 
-        public Vector2 Velocity;
-
         public Player(Vector2 position, float angle = 0.0f, string spriteName = "player", int entityLayer = 1) :
             base(position, angle, spriteName, entityLayer)
         {
@@ -30,14 +28,12 @@ namespace SpaceInvaderPlusPlus.Players
             PlLeft = new PlayerPart(new Vector2(Holder.WIDTH / 2, Holder.HEIGHT / 4 * 3), "player_lwing");
             PlRight = new PlayerPart(new Vector2(Holder.WIDTH / 2, Holder.HEIGHT / 4 * 3), "player_rwing");
 
-            Velocity = new Vector2(0.0f, 0.0f);
-
             Health = 100;
             Shields = 100;
-            FrontAcceleration = 0.5f;
-            SideAcceleration = 0.3f;
-            BackAcceleration = 0.4f;
-            Stabilisers = 0.1f;
+            FrontAcceleration = 0.6f;
+            SideAcceleration = 0.4f;
+            BackAcceleration = 0.5f;
+            Stabilisers = 0.3f;
             Drag = 0.2f;
             if (Holder.SETTINGS.LastDifficulty == 0)
             {
@@ -77,47 +73,37 @@ namespace SpaceInvaderPlusPlus.Players
 
         public void Update()
         {
-            if(CollisionMark)
+            if (CollisionMark)
                 CollisionMark = false;
-            if(AskToFire)
+            if (AskToFire)
                 AskToFire = false;
 
             if (Holder.KSTATE.IsKeyDown(Keys.Space))
-            {
                 AskToFire = true;
-            }
 
             //Input Down
             if (Holder.KSTATE.IsKeyDown(Keys.W))
-            {
                 Velocity.Y -= FrontAcceleration;
-                Position += Velocity;
-            }
+
             if (Holder.KSTATE.IsKeyDown(Keys.S))
-            {
                 Velocity.Y += BackAcceleration;
-                Position += Velocity;
-            }
+
             if (Holder.KSTATE.IsKeyDown(Keys.A))
             {
                 Velocity.X -= SideAcceleration;
-                Position += Velocity;
                 if (Angle > -0.2f)
                     Angle -= 0.01f;
             }
             if (Holder.KSTATE.IsKeyDown(Keys.D))
             {
                 Velocity.X += SideAcceleration;
-                Position += Velocity;
                 if (Angle < 0.2f)
                     Angle += 0.01f;
             }
 
             //Input Up
             if (Holder.KSTATE.IsKeyUp(Keys.Space))
-            {
                 AskToFire = false;
-            }
 
             if (Holder.KSTATE.IsKeyUp(Keys.W) && Holder.KSTATE.IsKeyUp(Keys.S))
             {
@@ -125,7 +111,6 @@ namespace SpaceInvaderPlusPlus.Players
                     Velocity.Y += Drag;
                 if (Velocity.Y > -0.2f)
                     Velocity.Y -= Stabilisers;
-                Position += Velocity;
             }
             if (Holder.KSTATE.IsKeyUp(Keys.A) && Holder.KSTATE.IsKeyUp(Keys.D))
             {
@@ -137,8 +122,8 @@ namespace SpaceInvaderPlusPlus.Players
                     Angle -= 0.01f;
                 if (Angle < 0.0f)
                     Angle += 0.01f;
-                Position += Velocity;
             }
+            UpdateByVelocity();
 
             //COR
             if (Position.X < 0)
@@ -192,6 +177,14 @@ namespace SpaceInvaderPlusPlus.Players
             }
             Health -= damage;
             if (Health < 0) Health = 0;
+        }
+
+        public void PlayerHeal(int heal)
+        {
+            if (Health >= 100) return;
+            Health += heal;
+            if (Health > 100)
+                Health = 100;
         }
     }
 }

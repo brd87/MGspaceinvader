@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
 
 namespace SpaceInvaderPlusPlus.Utilities
@@ -29,12 +28,12 @@ namespace SpaceInvaderPlusPlus.Utilities
 
             YellowStars = new List<Entity>();
             while (YellowStars.Count < 50)
-                YellowStars.Add(new Entity(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(-10, Holder.HEIGHT)), 0.0f, "white_star", 1,
+                YellowStars.Add(new Entity(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(-10, Holder.HEIGHT)), 0.0f, "yellow_star", 1,
                     Holder.randomFloat(Holder.SCALE * 0.5f, Holder.SCALE * 1.5f)));
 
             BlueStars = new List<Entity>();
             while (BlueStars.Count < 200)
-                BlueStars.Add(new Entity(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(-10, Holder.HEIGHT)), 0.0f, "white_star", 1,
+                BlueStars.Add(new Entity(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(-10, Holder.HEIGHT)), 0.0f, "blue_star", 1,
                     Holder.randomFloat(Holder.SCALE * 0.5f, Holder.SCALE * 1.5f)));
 
             TheEyes = new List<Entity>();
@@ -88,7 +87,7 @@ namespace SpaceInvaderPlusPlus.Utilities
                 }
             }
 
-            if(Holder.STARTNEW)
+            if (Holder.STARTNEW)
                 TheEyes.Clear();
             for (int i = 0; i < TheEyes.Count; i++)
             {
@@ -118,7 +117,7 @@ namespace SpaceInvaderPlusPlus.Utilities
             foreach (var entity in BlueStars)
                 entity.DrawEntity();
 
-            foreach(var entity in TheEyes)
+            foreach (var entity in TheEyes)
                 entity.DrawEntity();
         }
     }

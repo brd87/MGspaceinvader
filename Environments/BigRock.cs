@@ -22,7 +22,7 @@ namespace SpaceInvaderPlusPlus.Environments
 
         public override void HandleCollisionProjectile(Entity projetile)
         {
-            projetile.CollisionMark = true;
+            projetile.CollisionHardMark = true;
         }
     }
 }
