@@ -7,12 +7,11 @@ namespace SpaceInvaderPlusPlus.Utilities
 {
     public class SpaceBackground
     {
-        public float StarSpeed;
-        public List<Entity> WhiteStars;
-        public List<Entity> RedStars;
-        public List<Entity> YellowStars;
-        public List<Entity> BlueStars;
-        public List<Entity> TheEyes;
+        private float StarSpeed {  get; set; }
+        private List<Entity> WhiteStars {  get; set; }
+        private List<Entity> RedStars { get; set; }
+        private List<Entity> YellowStars { get; set; }
+        private List<Entity> BlueStars { get; set; }
 
         public SpaceBackground()
         {
@@ -37,12 +36,10 @@ namespace SpaceInvaderPlusPlus.Utilities
             while (BlueStars.Count < 200)
                 BlueStars.Add(new Entity(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(-10, Holder.HEIGHT)), 0.0f, "star/star_blue", 1,
                     Holder.randomFloat(Holder.SCALE * 0.5f, Holder.SCALE * 1.5f)));
-
-            TheEyes = new List<Entity>();
         }
 
 
-        public void Update(bool startNew, float travel)
+        public void Update()
         {
             for (int i = 0; i < WhiteStars.Count; i++)
             {
@@ -89,31 +86,6 @@ namespace SpaceInvaderPlusPlus.Utilities
                     i--;
                 }
             }
-
-            if (startNew)
-                TheEyes.Clear();
-            for (int i = 0; i < TheEyes.Count; i++)
-            {
-                TheEyes[i].Position.Y += StarSpeed;
-                if (TheEyes[i].Position.Y > Holder.HEIGHT + 100)
-                {
-                    TheEyes.RemoveAt(i);
-                    i--;
-                }
-            }
-            while (TheEyes.Count < (int)travel / 500)
-            {
-                Console.WriteLine(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(-10, Holder.HEIGHT)));
-                Console.WriteLine(Holder.randomFloat(-0.2f, 0.2f));
-                Console.WriteLine("star/star_eye");
-                Console.WriteLine(1);
-                Console.WriteLine(Holder.randomFloat(Holder.SCALE * 0.5f, Holder.SCALE * 1.5f));
-//                Console.WriteLine($"Hi {Holder.CONTENT.Load<Texture2D>("star/star_eye")} Ho");
-                TheEyes.Add(new Entity(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(-10, Holder.HEIGHT)), Holder.randomFloat(-0.2f, 0.2f), "star/gaze", 1,
-                    Holder.randomFloat(Holder.SCALE * 0.5f, Holder.SCALE * 1.5f)));
-                Console.WriteLine("CREATED");
-            }
-                
         }
 
         public void DrawAll()
@@ -128,9 +100,6 @@ namespace SpaceInvaderPlusPlus.Utilities
                 entity.DrawEntity();
 
             foreach (var entity in BlueStars)
-                entity.DrawEntity();
-
-            foreach (var entity in TheEyes)
                 entity.DrawEntity();
         }
     }

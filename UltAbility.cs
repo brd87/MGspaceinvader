@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using System.Collections.Generic;
 
 namespace SpaceInvaderPlusPlus
@@ -8,12 +9,16 @@ namespace SpaceInvaderPlusPlus
         public int Damage { get; set; }
         private float Acceleration { get; set; }
         public bool Done { get; set; }
+        private SoundEffectInstance UltSoundEffectIns { get; set; }
         public UltAbility(Vector2? position = null, float angle = 0.0f, string spriteName = "other/ult_shock", int entityLayer = 1)
             : base(position ?? new Vector2(Holder.WIDTH / 2, Holder.HEIGHT + 100), angle, spriteName, entityLayer)
         {
             Damage = 15;
             Acceleration = 2;
             Done = false;
+            UltSoundEffectIns = Holder.CONTENT.Load<SoundEffect>("eff/eff_select").CreateInstance();
+            UltSoundEffectIns.Volume = Holder.SETTINGS.LastEffectsVolume;
+            UltSoundEffectIns.Play();
         }
 
 

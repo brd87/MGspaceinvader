@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using System;
 using System.Collections.Generic;
 
@@ -15,16 +16,17 @@ namespace SpaceInvaderPlusPlus
         public List<Entity> Projetiles { get; set; }
         protected Entity FireEffect { get; set; }
         protected string ProjectileSpriteName { get; set; }
+        protected SoundEffect WepSoundEffect { get; set; }
         public bool Penetration { get; set; }
         public float AmmoScoreCost { get; set; }
         public bool Loaded { get; set; }
+        
 
         protected Weapon(Vector2 position, float angle, string spriteName, int entityLayer) : base(position, angle, spriteName, entityLayer)
         {
-
-            this.LastTime = TimeSpan.FromSeconds(0.0f);
-            this.FireGranted = false;
-            this.Projetiles = new List<Entity> { };
+            LastTime = TimeSpan.FromSeconds(0.0f);
+            FireGranted = false;
+            Projetiles = new List<Entity>();
         }
 
         public void Update(bool AskToFire, Vector2 shipPosition, GameTime gameTime)
@@ -34,6 +36,10 @@ namespace SpaceInvaderPlusPlus
 
             if (AskToFire && Loaded && Ammunition > 0)
             {
+                SoundEffectInstance WepSoundEffectIns = WepSoundEffect.CreateInstance();
+                WepSoundEffectIns.Volume = Holder.SETTINGS.LastEffectsVolume;
+                WepSoundEffectIns.Play();
+
                 Projetiles.Add(new Entity(this.Position + new Vector2(0, -10), 0.0f, ProjectileSpriteName, 1));
                 LastTime = gameTime.TotalGameTime;
                 Loaded = false;

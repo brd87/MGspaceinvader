@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 
 namespace SpaceInvaderPlusPlus.Weapons
 {
@@ -12,6 +13,7 @@ namespace SpaceInvaderPlusPlus.Weapons
             this.Damage = 20;
             this.ProjectileSpriteName = "wep/wep_therail_bullet";
             this.FireEffect = new Entity(this.Position, 0.0f, "wep/wep_therail_fire", 1);
+            this.WepSoundEffect = Holder.CONTENT.Load<SoundEffect>("eff/eff_rail");
             this.Penetration = true;
             this.AmmoScoreCost = 300;
         }

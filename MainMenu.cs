@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using SpaceInvaderPlusPlus.Menus;
 using SpaceInvaderPlusPlus.Utilities;
 using System;
@@ -16,6 +18,7 @@ namespace SpaceInvaderPlusPlus
         private SpriteFont _gameVersionFont { get; set; }
         private Vector2 _gameVersionOffset { get; set; }
         private string _gameVersion { get; set; }
+        private SoundEffect _menuSoundEffectIns { get; set; }
         public MainMenu(GameWindow gameWindow)
         {
             Holder.TOP_PLAYERS = new TopPlayers();
@@ -30,7 +33,7 @@ namespace SpaceInvaderPlusPlus
                 Holder.SETTINGS = JsonSerializer.Deserialize<Settings>(File.ReadAllText(settingsPath));
             else
             {
-                Holder.SETTINGS = new Settings("John Invader", 1, 1);
+                Holder.SETTINGS = new Settings("John Invader", 1, 1, 0.5f, 0.5f);
                 string json = JsonSerializer.Serialize(Holder.SETTINGS, new JsonSerializerOptions { WriteIndented = true });
                 File.WriteAllText(settingsPath, json);
             }
@@ -38,19 +41,28 @@ namespace SpaceInvaderPlusPlus
             if (File.Exists(topPath))
                 Holder.TOP_PLAYERS = JsonSerializer.Deserialize<TopPlayers>(File.ReadAllText(topPath));
 
-            //ini all menus
             _titleMenu = new TitleMenu();
             _scoreboardMenu = new ScoreboardMenu();
             _settingsMenu = new SettingsMenu(gameWindow);
 
-            _gameVersion = "S.I.P.P (v0.9.3)";
+            _gameVersion = "S.I.P.P (v0.9.7)";
             _gameVersionFont = Holder.CONTENT.Load<SpriteFont>("font/font_hudaux");
             _gameVersionOffset = _gameVersionFont.MeasureString(_gameVersion) / 2;
+
+            _menuSoundEffectIns = Holder.CONTENT.Load<SoundEffect>("eff/eff_select");
         }
 
         public void Update(GameTime gameTime)
         {
-            //using ifs with Holder.menuMode update given menu with it's Update
+            if (Holder.KSTATE.IsKeyDown(Keys.Enter))
+                if (Holder.KSTATE != Holder.KSTATE_PREV)
+                {
+                    SoundEffectInstance select = _menuSoundEffectIns.CreateInstance();
+                    select.Volume = Holder.SETTINGS.LastEffectsVolume;
+                    select.Play();
+                }
+                    
+
             if (Holder.MENUMODE == 0)
                 _titleMenu.Update(gameTime);
             else if (Holder.MENUMODE == 1)
@@ -61,7 +73,6 @@ namespace SpaceInvaderPlusPlus
 
         public void Draw()
         {
-            //like in update but for drawing
             if (Holder.MENUMODE == 0)
                 _titleMenu.Draw();
             else if (Holder.MENUMODE == 1)

@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using SpaceInvaderPlusPlus.Utilities;
 using System;
 using System.Threading;
@@ -9,10 +11,14 @@ namespace SpaceInvaderPlusPlus
 {
     public class SpaceInvaderHandler : Game
     {
-        private GraphicsDeviceManager _graphics;
-        private SpaceBackground spaceBackground;
-        private MainWorld world;
-        private MainMenu menu;
+        private GraphicsDeviceManager _graphics { get; set; }
+        private SpaceBackground spaceBackground {  get; set; }
+        private MainWorld world {  get; set; }
+        private MainMenu menu {  get; set; }
+        private Song bg_music_menu {  get; set; }
+        private Song bg_music_combat { get; set; }
+        private string music_menu {  get; set; }
+        private string music_combat {  get; set; }
 
         public SpaceInvaderHandler()
         {
@@ -23,6 +29,11 @@ namespace SpaceInvaderPlusPlus
         }
 
         protected override void Initialize()
+        {
+            base.Initialize();
+        }
+
+        protected override void LoadContent() 
         {
             Holder.RANDOM = new Random();
             Holder.WIDTH = 1000;
@@ -38,16 +49,19 @@ namespace SpaceInvaderPlusPlus
             world = new MainWorld();
             menu = new MainMenu(Window);
 
-
             _graphics.IsFullScreen = false;
             _graphics.PreferredBackBufferWidth = Holder.WIDTH;
             _graphics.PreferredBackBufferHeight = Holder.HEIGHT;
             _graphics.ApplyChanges();
 
-            base.Initialize();
+            music_menu = "music/menu";
+            music_combat = "music/combat";
+            bg_music_menu = Holder.CONTENT.Load<Song>(music_menu);
+            bg_music_combat = Holder.CONTENT.Load<Song>(music_combat);
+            MediaPlayer.Play(bg_music_menu);
+            MediaPlayer.IsRepeating = true;
+            MediaPlayer.Volume = Holder.SETTINGS.LastMusicVolume;
         }
-
-        protected override void LoadContent() { }
 
         protected override void Update(GameTime gameTime)
         {
@@ -55,10 +69,13 @@ namespace SpaceInvaderPlusPlus
             Holder.MSTATE = Mouse.GetState();
 
             if (Holder.MENUMODE == 3) Exit();
-            if (Holder.STARTNEW) world.RanNew();
-            Thread BgThread = new Thread(x => spaceBackground.Update(Holder.STARTNEW, Holder.SCORE_TRAVEL));
+            if (Holder.STARTNEW)
+            {
+                world.RanNew();
+                MediaPlayer.Play(bg_music_combat);
+            }
+            Thread BgThread = new Thread(x => spaceBackground.Update());
             BgThread.Start();
-            //spaceBackground.Update(Holder.STARTNEW, Holder.SCORE_TRAVEL);
 
             if (!Holder.RUNWORLD) menu.Update(gameTime);
             else world.Update(gameTime);
@@ -66,7 +83,7 @@ namespace SpaceInvaderPlusPlus
             Holder.KSTATE_PREV = Holder.KSTATE;
             Holder.MSTATE_PREV = Holder.MSTATE;
             BgThread.Join();
-            //Console.WriteLine($"DUPA");
+
             base.Update(gameTime);
         }
 

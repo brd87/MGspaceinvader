@@ -4,6 +4,11 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
+    <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/eff/eff_death.wav</File>
+    <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/eff/eff_gun.wav</File>
+    <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/eff/eff_rail.wav</File>
+    <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/eff/eff_saw.wav</File>
+    <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/eff/eff_select.wav</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/ene/ene_therusher_claws_dmg.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/ene/ene_therusher_claws.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/ene/ene_therusher_dmg.png</File>
@@ -26,6 +31,8 @@
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/font/font_records.spritefont</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/font/font_subtitle.spritefont</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/font/font_title.spritefont</File>
+    <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/music/combat.mp3</File>
+    <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/music/menu.mp3</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/other/dmgeye.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/other/gz.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/other/ult_shock.png</File>
@@ -52,6 +59,13 @@
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/wep/wep_thesaw.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

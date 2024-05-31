@@ -13,6 +13,36 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin eff/eff_death.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:eff/eff_death.wav
+
+#begin eff/eff_gun.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:eff/eff_gun.wav
+
+#begin eff/eff_rail.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:eff/eff_rail.wav
+
+#begin eff/eff_saw.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:eff/eff_saw.wav
+
+#begin eff/eff_select.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:eff/eff_select.wav
+
 #begin ene/ene_therusher_claws_dmg.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -246,6 +276,18 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:font/font_title.spritefont
+
+#begin music/combat.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/combat.mp3
+
+#begin music/menu.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:music/menu.mp3
 
 #begin other/dmgeye.png
 /importer:TextureImporter

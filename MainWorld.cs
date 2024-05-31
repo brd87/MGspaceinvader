@@ -9,6 +9,7 @@ using SpaceInvaderPlusPlus.Utilities;
 using SpaceInvaderPlusPlus.Weapons;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text.Json;
 
@@ -43,6 +44,8 @@ namespace SpaceInvaderPlusPlus
         private int _otherSawnHeightMax { get; set; }
         private int _otherSpawnHeightMin { get; set; }
         private int _despawnHeight { get; set; }
+        private List<Entity> _progressEnt {  get; set; }
+        private float _progEntSpeed { get; set; }
 
 
         public MainWorld()
@@ -53,6 +56,8 @@ namespace SpaceInvaderPlusPlus
             _pickups = new List<Pickup>();
             _enviroments = new List<Environmental>();
             _ultAbility = new List<UltAbility>();
+            _progressEnt = new List<Entity>();
+            _progEntSpeed = 0.25f;
         }
 
         public void RanNew()
@@ -72,6 +77,8 @@ namespace SpaceInvaderPlusPlus
             _otherSawnHeightMax = -200;
             _otherSpawnHeightMin = -100;
             _despawnHeight = Holder.HEIGHT + 100;
+
+            _progressEnt.Clear();
 
             _player = new Player(new Vector2(Holder.WIDTH / 2, Holder.HEIGHT / 4 * 3));
             if (Holder.SETTINGS.LastWeaponType == 0)
@@ -195,6 +202,9 @@ namespace SpaceInvaderPlusPlus
 
         public void Draw()
         {
+            foreach (var entity in _progressEnt)
+                entity.DrawEntity();
+
             foreach (Environmental env in _enviroments)
                 env.DrawEntity();
             _weapon.DrawAll();
@@ -248,6 +258,20 @@ namespace SpaceInvaderPlusPlus
 
         private void HandleSpawnDespawn(GameTime gameTime)
         {
+            //_progressEnt
+            for (int i = 0; i < _progressEnt.Count; i++)
+            {
+                _progressEnt[i].Position.Y += _progEntSpeed;
+                if (_progressEnt[i].Position.Y > Holder.HEIGHT + 100)
+                {
+                    _progressEnt.RemoveAt(i);
+                    i--;
+                }
+            }
+            while (_progressEnt.Count < (int)Holder.SCORE_TRAVEL / 500)
+                _progressEnt.Add(new Entity(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(-10, Holder.HEIGHT)), Holder.randomFloat(-0.2f, 0.2f), "star/gaze", 1,
+                    Holder.randomFloat(Holder.SCALE * 0.5f, Holder.SCALE * 1.5f)));
+
             //_player
             if (_player.Health <= 0)
                 HandleDeath();

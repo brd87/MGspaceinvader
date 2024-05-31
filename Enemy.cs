@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using SpaceInvaderPlusPlus.Players;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace SpaceInvaderPlusPlus
         private bool DamgeStageCheck { get; set; }
         protected List<Entity> Projetiles { get; set; }
         protected Entity AnimatedPart { get; set; }
-
+        private SoundEffectInstance DeathSoundEffectIns { get; set; }
         protected float SelfDeathScoreCost { get; set; }
         protected float SelfDamageScoreCost { get; set; }
         protected float PlayerDamageScoreCost { get; set; }
@@ -31,6 +32,8 @@ namespace SpaceInvaderPlusPlus
             DamgeStageCheck = false;
             Projetiles = new List<Entity>();
             UltRecived = false;
+            DeathSoundEffectIns = Holder.CONTENT.Load<SoundEffect>("eff/eff_death").CreateInstance();
+            DeathSoundEffectIns.Volume = Holder.SETTINGS.LastEffectsVolume;
         }
 
         public void Update(Player player, Weapon weapon, GameTime gameTime = null)
@@ -55,7 +58,7 @@ namespace SpaceInvaderPlusPlus
             }
             foreach (Entity projectile in weapon.Projetiles)
             {
-                if (Vector2.Distance(this.Position, projectile.Position) < this.EntityTexture.Height / 3 * 2 + projectile.EntityTexture.Width / 2)
+                if (Vector2.Distance(this.Position, projectile.Position) < this.EntityTexture.Height / 3 * 2 + projectile.EntityTexture.Height / 3)
                 {
                     if (!projectile.CollisionMark || weapon.Penetration)
                     {
@@ -74,6 +77,9 @@ namespace SpaceInvaderPlusPlus
                     this.AnimatedPart.UpdateSprite(DamgeStageAnimatedPartSpriteName);
                     DamgeStageCheck = true;
                 }
+
+                if(Health <= 0)
+                    DeathSoundEffectIns.Play();
             }
         }
 
