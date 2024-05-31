@@ -10,7 +10,7 @@ namespace SpaceInvaderPlusPlus.Enemies
         private TimeSpan LastTime { get; set; }
         private string ProjectileSpriteName { get; set; }
 
-        public TheSpewer(Vector2 position, float angle = 0.0f, string spriteName = "thespewer", int entityLayer = 1) : base(position, angle, spriteName, entityLayer)
+        public TheSpewer(Vector2 position, float angle = 0.0f, string spriteName = "ene/ene_thespewer", int entityLayer = 1) : base(position, angle, spriteName, entityLayer)
         {
             this.Health = 8;
             this.MaxHealth = 8;
@@ -20,16 +20,16 @@ namespace SpaceInvaderPlusPlus.Enemies
             this.FrontAcceleration = 0.1f;
             this.BackAcceleration = 0.1f;
             this.SideAcceleration = 0.2f;
-            this.DamgeStageSpriteName = "thespewer_dmg";
-            this.DamgeStageAnimatedPartSpriteName = "thespewer_pipes_dmg";
-            this.AnimatedPart = new Entity(this.Position, 0.0f, "thespewer_pipes", 1);
+            this.DamgeStageSpriteName = "ene/ene_thespewer_dmg";
+            this.DamgeStageAnimatedPartSpriteName = "ene/ene_thespewer_pipes_dmg";
+            this.AnimatedPart = new Entity(this.Position, 0.0f, "ene/ene_thespewer_pipes", 1);
             this.SelfDeathScoreCost = 500;
             this.SelfDamageScoreCost = 10;
             this.PlayerDamageScoreCost = 2;
 
             Cooldawn = 1;
             LastTime = TimeSpan.FromSeconds(0.0f);
-            ProjectileSpriteName = "thespewer_bullet";
+            ProjectileSpriteName = "ene/ene_thespewer_bullet";
         }
 
         protected override void Move(Vector2 playerPosition)

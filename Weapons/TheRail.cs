@@ -4,14 +4,14 @@ namespace SpaceInvaderPlusPlus.Weapons
 {
     internal class TheRail : Weapon
     {
-        public TheRail(Vector2 position, float angle = 0.0f, string spriteName = "therail", int entityLayer = 1) : base(position, angle, spriteName, entityLayer)
+        public TheRail(Vector2 position, float angle = 0.0f, string spriteName = "wep/wep_therail", int entityLayer = 1) : base(position, angle, spriteName, entityLayer)
         {
             this.Cooldawn = 1.5f;
             this.Ammunition = 10;
             this.MaxAmmunition = 20;
             this.Damage = 20;
-            this.ProjectileSpriteName = "rail_bullet";
-            this.FireEffect = new Entity(this.Position, 0.0f, "rail_fire", 1);
+            this.ProjectileSpriteName = "wep/wep_therail_bullet";
+            this.FireEffect = new Entity(this.Position, 0.0f, "wep/wep_therail_fire", 1);
             this.Penetration = true;
             this.AmmoScoreCost = 300;
         }

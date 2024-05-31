@@ -35,7 +35,7 @@ namespace SpaceInvaderPlusPlus.Menus
             Cooldawn = 0.2f;
             LastTime = TimeSpan.FromSeconds(0.0f);
 
-            OptionFont = Holder.CONTENT.Load<SpriteFont>("font_options");
+            OptionFont = Holder.CONTENT.Load<SpriteFont>("font/font_options");
             Options = new List<string>() { "RETURN", "APPLY AND SAVE", "Pilot Name", "Weapon System", "Difficulity" };
             OptionOffsets = new List<Vector2>();
             OptionColors = new List<Color>();

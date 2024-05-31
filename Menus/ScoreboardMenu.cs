@@ -27,12 +27,12 @@ namespace SpaceInvaderPlusPlus.Menus
             Cooldawn = 0.2f;
             LastTime = TimeSpan.FromSeconds(0.0f);
 
-            ReturnFont = Holder.CONTENT.Load<SpriteFont>("font_options");
+            ReturnFont = Holder.CONTENT.Load<SpriteFont>("font/font_options");
             ReturnContent = "Return";
             ReturnOffset = ReturnFont.MeasureString(ReturnContent) / 2;
             ReturnColor = Color.White;
 
-            PlayerRecordFont = Holder.CONTENT.Load<SpriteFont>("font_records");
+            PlayerRecordFont = Holder.CONTENT.Load<SpriteFont>("font/font_records");
             PlayerRecordColors = new List<Color>();
             for (int i = 0; i < Holder.TOP_PLAYERS.Players.Count; i++)
                 PlayerRecordColors.Add(Color.Salmon);

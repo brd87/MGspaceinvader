@@ -8,7 +8,7 @@ namespace SpaceInvaderPlusPlus
         public int Damage { get; set; }
         private float Acceleration { get; set; }
         public bool Done { get; set; }
-        public UltAbility(Vector2? position = null, float angle = 0.0f, string spriteName = "ult_shock", int entityLayer = 1)
+        public UltAbility(Vector2? position = null, float angle = 0.0f, string spriteName = "other/ult_shock", int entityLayer = 1)
             : base(position ?? new Vector2(Holder.WIDTH / 2, Holder.HEIGHT + 100), angle, spriteName, entityLayer)
         {
             Damage = 15;

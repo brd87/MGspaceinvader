@@ -21,12 +21,12 @@ namespace SpaceInvaderPlusPlus.Players
         public bool AskToFire { get; set; }
         public bool UltAbility { get; set; }
 
-        public Player(Vector2 position, float angle = 0.0f, string spriteName = "player", int entityLayer = 1) :
+        public Player(Vector2 position, float angle = 0.0f, string spriteName = "player/player", int entityLayer = 1) :
             base(position, angle, spriteName, entityLayer)
         {
-            PlFront = new PlayerPart(new Vector2(Holder.WIDTH / 2, Holder.HEIGHT / 4 * 3), "player_front");
-            PlLeft = new PlayerPart(new Vector2(Holder.WIDTH / 2, Holder.HEIGHT / 4 * 3), "player_lwing");
-            PlRight = new PlayerPart(new Vector2(Holder.WIDTH / 2, Holder.HEIGHT / 4 * 3), "player_rwing");
+            PlFront = new PlayerPart(new Vector2(Holder.WIDTH / 2, Holder.HEIGHT / 4 * 3), "player/player_front");
+            PlLeft = new PlayerPart(new Vector2(Holder.WIDTH / 2, Holder.HEIGHT / 4 * 3), "player/player_lwing");
+            PlRight = new PlayerPart(new Vector2(Holder.WIDTH / 2, Holder.HEIGHT / 4 * 3), "player/player_rwing");
 
             Health = 100;
             Shields = 100;

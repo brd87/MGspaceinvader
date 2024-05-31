@@ -15,26 +15,17 @@ namespace SpaceInvaderPlusPlus
         public bool CollisionHardMark { get; set; }
         public float Scale { get; set; }
 
-        public Entity(Vector2 position, float angle, string spriteName, int entityLayer, float scale = -1)//, ContentManager content = null)
+        public Entity(Vector2 position, float angle, string spriteName, int entityLayer, float? scale = null)//, ContentManager content = null)
         {
             Position = position;
             Velocity = Vector2.Zero;
 
             Angle = angle;
-            EntityTexture = Holder.CONTENT.Load<Texture2D>(spriteName);
-            /*
-            if(content == null)
-                EntityTexture = Holder.CONTENT.Load<Texture2D>(spriteName);
-            else
-                EntityTexture = content.Load<Texture2D>(spriteName);
-            */
+            EntityTexture = Holder.CONTENT.Load<Texture2D>(spriteName); // star/star_eye
             EntityLayer = entityLayer;
             CollisionMark = false;
             CollisionHardMark = false;
-            if (scale == -1)
-                Scale = Holder.SCALE;
-            else
-                Scale = scale;
+            Scale = scale ?? Holder.SCALE;
         }
 
         public void UpdateSprite(string spriteName)

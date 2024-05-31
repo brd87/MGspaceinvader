@@ -5,7 +5,7 @@ namespace SpaceInvaderPlusPlus.Enemies
 {
     internal class TheRusher : Enemy
     {
-        public TheRusher(Vector2 position, float angle = 0.0f, string spriteName = "therusher", int entityLayer = 1) : base(position, angle, spriteName, entityLayer)
+        public TheRusher(Vector2 position, float angle = 0.0f, string spriteName = "ene/ene_therusher", int entityLayer = 1) : base(position, angle, spriteName, entityLayer)
         {
             this.Health = 3;
             this.MaxHealth = 3;
@@ -15,9 +15,9 @@ namespace SpaceInvaderPlusPlus.Enemies
             this.FrontAcceleration = 0;
             this.BackAcceleration = 0.3f;
             this.SideAcceleration = 0.8f;
-            this.DamgeStageSpriteName = "therusher_dmg";
-            this.DamgeStageAnimatedPartSpriteName = "therusher_claws_dmg";
-            this.AnimatedPart = new Entity(this.Position, 0.0f, "therusher_claws", 1);
+            this.DamgeStageSpriteName = "ene/ene_therusher_dmg";
+            this.DamgeStageAnimatedPartSpriteName = "ene/ene_therusher_claws_dmg";
+            this.AnimatedPart = new Entity(this.Position, 0.0f, "ene/ene_therusher_claws", 1);
             this.SelfDeathScoreCost = 100;
             this.SelfDamageScoreCost = 1;
             this.PlayerDamageScoreCost = 100;

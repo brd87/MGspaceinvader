@@ -5,7 +5,7 @@ namespace SpaceInvaderPlusPlus.Environments
 {
     internal class TrapMed : Environmental
     {
-        public TrapMed(Vector2 position, float angle = 0.0f, string spriteName = "med_env", int entityLayer = 1) : base(position, angle, spriteName, entityLayer)
+        public TrapMed(Vector2 position, float angle = 0.0f, string spriteName = "env/env_med", int entityLayer = 1) : base(position, angle, spriteName, entityLayer)
         {
             this.Damage = 20;
             this.DespawnOnHit = true;

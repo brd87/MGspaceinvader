@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SpaceInvaderPlusPlus.Utilities;
 using System;
+using System.Threading;
 
 namespace SpaceInvaderPlusPlus
 {
@@ -55,18 +56,16 @@ namespace SpaceInvaderPlusPlus
 
             if (Holder.MENUMODE == 3) Exit();
             if (Holder.STARTNEW) world.RanNew();
-            //Thread BgThread = new Thread(x => spaceBackground.Update(Holder.SCORE_TRAVEL, Holder.STARTNEW));
-            //BgThread.Start();
-            spaceBackground.Update();
-
-
+            Thread BgThread = new Thread(x => spaceBackground.Update(Holder.STARTNEW, Holder.SCORE_TRAVEL));
+            BgThread.Start();
+            //spaceBackground.Update(Holder.STARTNEW, Holder.SCORE_TRAVEL);
 
             if (!Holder.RUNWORLD) menu.Update(gameTime);
             else world.Update(gameTime);
 
             Holder.KSTATE_PREV = Holder.KSTATE;
             Holder.MSTATE_PREV = Holder.MSTATE;
-            //BgThread.Join();
+            BgThread.Join();
             //Console.WriteLine($"DUPA");
             base.Update(gameTime);
         }

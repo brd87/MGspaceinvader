@@ -65,8 +65,8 @@ namespace SpaceInvaderPlusPlus
             Holder.SCORE_PICKUPS = 0;
             Holder.SCORE_AMMOWASTE = 0;
 
-            _hudFont = Holder.CONTENT.Load<SpriteFont>("font_hudmain");
-            _hudFontAux = Holder.CONTENT.Load<SpriteFont>("font_hudaux");
+            _hudFont = Holder.CONTENT.Load<SpriteFont>("font/font_hudmain");
+            _hudFontAux = Holder.CONTENT.Load<SpriteFont>("font/font_hudaux");
             _enemySawnHeightMax = -1100;
             _enemySpawnHeightMin = -100;
             _otherSawnHeightMax = -200;
@@ -85,7 +85,7 @@ namespace SpaceInvaderPlusPlus
             //_weapon = new TheDrill(new Vector2(Holder.WIDTH / 2, Holder.HEIGHT / 4 * 3));
             //_weapon = new TheGauss(new Vector2(Holder.WIDTH / 2, Holder.HEIGHT / 4 * 3));
 
-            _damageScr = new Entity(new Vector2(Holder.WIDTH / 2, Holder.HEIGHT / 2), 0.0f, "dmgeye", 1);
+            _damageScr = new Entity(new Vector2(Holder.WIDTH / 2, Holder.HEIGHT / 2), 0.0f, "other/dmgeye", 1);
 
             _enemyWall.Clear();
             _enemyRusher.Clear();

@@ -30,15 +30,15 @@ namespace SpaceInvaderPlusPlus.Menus
             Cooldawn = 0.2f;
             LastTime = TimeSpan.FromSeconds(0.0f);
 
-            TitleFont = Holder.CONTENT.Load<SpriteFont>("font_title");
+            TitleFont = Holder.CONTENT.Load<SpriteFont>("font/font_title");
             TitleContent = "S.I.P.P";
             TitleOffset = TitleFont.MeasureString(TitleContent) / 2;
 
-            SubTitleFont = Holder.CONTENT.Load<SpriteFont>("font_subtitle");
+            SubTitleFont = Holder.CONTENT.Load<SpriteFont>("font/font_subtitle");
             SubTitleContent = "Space Invader Plus Plus";
             SubTitleOffset = SubTitleFont.MeasureString(SubTitleContent) / 2;
 
-            OptionFont = Holder.CONTENT.Load<SpriteFont>("font_options");
+            OptionFont = Holder.CONTENT.Load<SpriteFont>("font/font_options");
             Options = new List<string>() { "PLAY", "Scoreboard", "Settings", "Exit" };
             OptionOffsets = new List<Vector2>();
             OptionColors = new List<Color>();

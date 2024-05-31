@@ -5,7 +5,7 @@ namespace SpaceInvaderPlusPlus.Pickups
 {
     public class MedPack : Pickup
     {
-        public MedPack(Vector2 position, float angle = 0.0f, string spriteName = "med_pack", int entityLayer = 1) : base(position, angle, spriteName, entityLayer)
+        public MedPack(Vector2 position, float angle = 0.0f, string spriteName = "pack/pack_med", int entityLayer = 1) : base(position, angle, spriteName, entityLayer)
         {
             this.GrabScoreCost = 500;
         }

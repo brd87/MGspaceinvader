@@ -5,7 +5,7 @@ namespace SpaceInvaderPlusPlus.Enemies
 {
     internal class TheWall : Enemy
     {
-        public TheWall(Vector2 position, float angle = 0.0f, string spriteName = "thewall", int entityLayer = 1) : base(position, angle, spriteName, entityLayer)
+        public TheWall(Vector2 position, float angle = 0.0f, string spriteName = "ene/ene_thewall", int entityLayer = 1) : base(position, angle, spriteName, entityLayer)
         {
             this.Health = 20;
             this.MaxHealth = 20;
@@ -15,9 +15,9 @@ namespace SpaceInvaderPlusPlus.Enemies
             this.FrontAcceleration = 1f;
             this.BackAcceleration = 0.1f;
             this.SideAcceleration = 0.4f;
-            this.DamgeStageSpriteName = "thewall_dmg";
-            this.DamgeStageAnimatedPartSpriteName = "thewall_wings_dmg";
-            this.AnimatedPart = new Entity(this.Position, 0.0f, "thewall_wings", 1);
+            this.DamgeStageSpriteName = "ene/ene_thewall_dmg";
+            this.DamgeStageAnimatedPartSpriteName = "ene/ene_thewall_wings_dmg";
+            this.AnimatedPart = new Entity(this.Position, 0.0f, "ene/ene_thewall_wings", 1);
             this.SelfDeathScoreCost = 500;
             this.SelfDamageScoreCost = 10;
             this.PlayerDamageScoreCost = 2;

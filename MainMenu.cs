@@ -44,7 +44,7 @@ namespace SpaceInvaderPlusPlus
             _settingsMenu = new SettingsMenu(gameWindow);
 
             _gameVersion = "S.I.P.P (v0.9.3)";
-            _gameVersionFont = Holder.CONTENT.Load<SpriteFont>("font_hudaux");
+            _gameVersionFont = Holder.CONTENT.Load<SpriteFont>("font/font_hudaux");
             _gameVersionOffset = _gameVersionFont.MeasureString(_gameVersion) / 2;
         }
 
