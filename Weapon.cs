@@ -7,21 +7,20 @@ namespace SpaceInvaderPlusPlus
 {
     public abstract class Weapon : Entity
     {
-        protected float Cooldawn { get; set; }
-        protected TimeSpan LastTime { get; set; }
+        protected float Cooldawn;
+        protected TimeSpan LastTime;
         public int Ammunition { get; set; }
         public int MaxAmmunition { get; set; }
         public int Damage { get; set; }
-        protected bool FireGranted { get; set; }
+        protected bool FireGranted;
         public List<Entity> Projetiles { get; set; }
-        protected Entity FireEffect { get; set; }
-        protected string ProjectileSpriteName { get; set; }
-        protected SoundEffect WepSoundEffect { get; set; }
+        protected Entity FireEffect;
+        protected string ProjectileSpriteName;
+        protected SoundEffect WepSoundEffect;
         public int Penetration { get; set; }
-        public bool PenetrationHard { get; set; }
         public float AmmoScoreCost { get; set; }
         public bool Loaded { get; set; }
-        
+
 
         protected Weapon(Vector2 position, float angle, string spriteName, int entityLayer) : base(position, angle, spriteName, entityLayer)
         {

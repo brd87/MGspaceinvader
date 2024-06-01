@@ -6,8 +6,8 @@ namespace SpaceInvaderPlusPlus
     public abstract class Pickup : Entity
     {
         private Vector2 Velocity;
-        private float Torque { get; set; }
-        protected float GrabScoreCost { get; set; }
+        private float Torque;
+        protected float GrabScoreCost;
         protected Pickup(Vector2 position, float angle, string spriteName, int entityLayer) : base(position, angle, spriteName, entityLayer)
         {
             Velocity = new Vector2(Holder.randomFloat(-0.2f, 0.2f), Holder.randomFloat());

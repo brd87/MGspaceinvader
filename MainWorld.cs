@@ -9,7 +9,6 @@ using SpaceInvaderPlusPlus.Utilities;
 using SpaceInvaderPlusPlus.Weapons;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Text.Json;
 
@@ -17,36 +16,36 @@ namespace SpaceInvaderPlusPlus
 {
     public class MainWorld
     {
-        private Player _player { get; set; }
-        private Weapon _weapon { get; set; }
-        private List<Enemy> _enemyWall { get; set; }
-        private List<Enemy> _enemyRusher { get; set; }
-        private List<Enemy> _enemySpewer { get; set; }
-        private List<Pickup> _pickups { get; set; }
-        private List<Environmental> _enviroments { get; set; }
-        private List<UltAbility> _ultAbility { get; set; }
-        private Entity _damageScr { get; set; }
-        private SpriteFont _hudFont { get; set; }
-        private SpriteFont _hudFontAux { get; set; }
-        private TimeSpan _lastTimeWall { get; set; }
-        private TimeSpan _lastTimeRusher { get; set; }
-        private TimeSpan _lastTimeSpewer { get; set; }
-        private TimeSpan _lastTimePickup { get; set; }
-        private TimeSpan _lastTimeEnviroment { get; set; }
-        private int _previusScale { get; set; }
-        private float _scaling {  get; set; }
-        private float _cooldawnWall { get; set; }
-        private float _cooldawnRusher { get; set; }
-        private float _cooldawnSpewer { get; set; }
-        private float _cooldawnPickup { get; set; }
-        private float _cooldawnEnviroment { get; set; }
-        private int _enemySawnHeightMax { get; set; }
-        private int _enemySpawnHeightMin { get; set; }
-        private int _otherSawnHeightMax { get; set; }
-        private int _otherSpawnHeightMin { get; set; }
-        private int _despawnHeight { get; set; }
-        private List<Entity> _progressEnt {  get; set; }
-        private float _progEntSpeed { get; set; }
+        private Player _player;
+        private Weapon _weapon;
+        private List<Enemy> _enemyWall;
+        private List<Enemy> _enemyRusher;
+        private List<Enemy> _enemySpewer;
+        private List<Pickup> _pickups;
+        private List<Environmental> _enviroments;
+        private List<UltAbility> _ultAbility;
+        private Entity _damageScr;
+        private SpriteFont _hudFont;
+        private SpriteFont _hudFontAux;
+        private TimeSpan _lastTimeWall;
+        private TimeSpan _lastTimeRusher;
+        private TimeSpan _lastTimeSpewer;
+        private TimeSpan _lastTimePickup;
+        private TimeSpan _lastTimeEnviroment;
+        private int _previusScale;
+        private float _scaling;
+        private float _cooldawnWall;
+        private float _cooldawnRusher;
+        private float _cooldawnSpewer;
+        private float _cooldawnPickup;
+        private float _cooldawnEnviroment;
+        private int _enemySawnHeightMax;
+        private int _enemySpawnHeightMin;
+        private int _otherSawnHeightMax;
+        private int _otherSpawnHeightMin;
+        private int _despawnHeight;
+        private List<Entity> _progressEnt;
+        private float _progEntSpeed;
 
 
         public MainWorld()

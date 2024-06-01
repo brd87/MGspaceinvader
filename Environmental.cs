@@ -1,17 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
 using SpaceInvaderPlusPlus.Players;
-using System.Collections.Generic;
 
 namespace SpaceInvaderPlusPlus
 {
     public abstract class Environmental : Entity
     {
-        protected Vector2 Velocity;
-        private float Torque { get; set; }
-        protected int Damage { get; set; }
+        private float Torque;
+        protected int Damage;
         public bool DespawnOnHit { get; set; }
-        protected int Armor {  get; set; }
-        protected float PlayerDamageScoreCost { get; set; }
+        protected int Armor;
+        protected float PlayerDamageScoreCost;
         protected Environmental(Vector2 position, float angle, string spriteName, int entityLayer) : base(position, angle, spriteName, entityLayer)
         {
             Velocity = new Vector2(Holder.randomFloat(-0.2f, 0.2f), Holder.randomFloat(0.5f));
@@ -20,7 +18,7 @@ namespace SpaceInvaderPlusPlus
 
         public void Update(Player player, Weapon weapon)
         {
-            this.Position += Velocity;
+            this.UpdateByVelocity();
             this.Angle += Torque;
             if (this.Position.X > Holder.WIDTH || this.Position.X < 0)
             {
@@ -45,7 +43,7 @@ namespace SpaceInvaderPlusPlus
                 }
             }
         }
-        
+
         public abstract void HandleCollisionPlayer(Player player);
     }
 }

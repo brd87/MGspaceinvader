@@ -5,7 +5,7 @@ namespace SpaceInvaderPlusPlus.Players
 {
     internal class PlayerPart : Entity
     {
-        private int id {  get; set; }
+        private int id { get; set; }
         public PlayerPart(Vector2 position, string spriteName, float angle = 0.0f, int entityLayer = 1) : base(position, angle, spriteName, entityLayer)
         {
             if (spriteName == "player/player_lwing") id = 0;

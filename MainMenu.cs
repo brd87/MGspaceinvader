@@ -12,13 +12,13 @@ namespace SpaceInvaderPlusPlus
 {
     public class MainMenu
     {
-        private TitleMenu _titleMenu { get; set; }
-        private ScoreboardMenu _scoreboardMenu { get; set; }
-        private SettingsMenu _settingsMenu { get; set; }
-        private SpriteFont _gameVersionFont { get; set; }
-        private Vector2 _gameVersionOffset { get; set; }
-        private string _gameVersion { get; set; }
-        private SoundEffect _menuSoundEffectIns { get; set; }
+        private TitleMenu _titleMenu;
+        private ScoreboardMenu _scoreboardMenu;
+        private SettingsMenu _settingsMenu;
+        private SpriteFont _gameVersionFont;
+        private Vector2 _gameVersionOffset;
+        private string _gameVersion;
+        private SoundEffect _menuSoundEffectIns;
         public MainMenu(GameWindow gameWindow)
         {
             Holder.TOP_PLAYERS = new TopPlayers();
@@ -61,7 +61,7 @@ namespace SpaceInvaderPlusPlus
                     select.Volume = Holder.SETTINGS.LastEffectsVolume;
                     select.Play();
                 }
-                    
+
 
             if (Holder.MENUMODE == 0)
                 _titleMenu.Update(gameTime);

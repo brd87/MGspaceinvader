@@ -8,19 +8,19 @@ namespace SpaceInvaderPlusPlus.Menus
 {
     public class ScoreboardMenu
     {
-        private float Cooldawn { get; set; }
-        private TimeSpan LastTime { get; set; }
-        private SpriteFont ReturnFont { get; set; }
-        private SpriteFont PlayerRecordFont { get; set; }
-        private string ReturnContent { get; set; }
-        private Vector2 ReturnOffset { get; set; }
-        private int LeftOffset { get; set; }
-        private int RightOffset { get; set; }
-        private int TopOffset { get; set; }
-        private int Begin { get; set; }
-        private Color ReturnColor { get; set; }
-        private List<Color> PlayerRecordColors { get; set; }
-        private int CurrentSelected { get; set; }
+        private float Cooldawn;
+        private TimeSpan LastTime;
+        private SpriteFont ReturnFont;
+        private SpriteFont PlayerRecordFont;
+        private string ReturnContent;
+        private Vector2 ReturnOffset;
+        private int LeftOffset;
+        private int RightOffset;
+        private int TopOffset;
+        private int Begin;
+        private Color ReturnColor;
+        private List<Color> PlayerRecordColors;
+        private int CurrentSelected;
 
         public ScoreboardMenu()
         {

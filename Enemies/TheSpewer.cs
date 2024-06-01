@@ -6,13 +6,13 @@ namespace SpaceInvaderPlusPlus.Enemies
 {
     internal class TheSpewer : Enemy
     {
-        private float Cooldawn { get; set; }
-        private TimeSpan LastTime { get; set; }
-        private string ProjectileSpriteName { get; set; }
+        private float Cooldawn;
+        private TimeSpan LastTime;
+        private string ProjectileSpriteName;
 
         public TheSpewer(Vector2 position, float angle = 0.0f, string spriteName = "ene/ene_thespewer", int entityLayer = 1) : base(position, angle, spriteName, entityLayer)
         {
-            
+
             this.MaxHealth = 13;
             this.Health = this.MaxHealth;
             this.Armor = 0;

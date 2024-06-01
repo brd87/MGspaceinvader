@@ -5,8 +5,8 @@ namespace SpaceInvaderPlusPlus.Utilities
 {
     public class TextInputHandler
     {
-        private string RegexPattern { get; set; }
-        private GameWindow Window { get; set; }
+        private string RegexPattern;
+        private GameWindow Window;
         public bool IsTextInputActive { get; set; }
 
 

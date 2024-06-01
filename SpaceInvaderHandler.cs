@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
@@ -11,14 +10,14 @@ namespace SpaceInvaderPlusPlus
 {
     public class SpaceInvaderHandler : Game
     {
-        private GraphicsDeviceManager _graphics { get; set; }
-        private SpaceBackground spaceBackground {  get; set; }
-        private MainWorld world {  get; set; }
-        private MainMenu menu {  get; set; }
-        private Song bg_music_menu {  get; set; }
-        private Song bg_music_combat { get; set; }
-        private string music_menu {  get; set; }
-        private string music_combat {  get; set; }
+        private GraphicsDeviceManager _graphics;
+        private SpaceBackground spaceBackground;
+        private MainWorld world;
+        private MainMenu menu;
+        private Song bg_music_menu;
+        private Song bg_music_combat;
+        private string music_menu;
+        private string music_combat;
 
         public SpaceInvaderHandler()
         {
@@ -33,7 +32,7 @@ namespace SpaceInvaderPlusPlus
             base.Initialize();
         }
 
-        protected override void LoadContent() 
+        protected override void LoadContent()
         {
             Holder.RANDOM = new Random();
             Holder.WIDTH = 1000;
@@ -77,13 +76,13 @@ namespace SpaceInvaderPlusPlus
             Thread BgThread = new Thread(x => spaceBackground.Update());
             BgThread.Start();
 
-            if (!Holder.RUNWORLD) 
+            if (!Holder.RUNWORLD)
             {
                 if ("music/" + MediaPlayer.Queue.ActiveSong.Name != music_menu)
                     MediaPlayer.Play(bg_music_menu);
                 menu.Update(gameTime);
             }
-            else 
+            else
             {
                 if ("music/" + MediaPlayer.Queue.ActiveSong.Name != music_combat)
                     MediaPlayer.Play(bg_music_combat);

@@ -12,26 +12,24 @@ namespace SpaceInvaderPlusPlus.Menus
 {
     internal class SettingsMenu
     {
-        private float Cooldawn { get; set; }
-        private TimeSpan LastTime { get; set; }
-        private SpriteFont OptionFont { get; set; }
-        private List<string> Options { get; set; }
-        private Vector2 TitleOffset { get; set; }
-        private Vector2 SubTitleOffset { get; set; }
-        private int LeftOffset { get; set; }
-        private int RightOffset { get; set; }
-        private int TopOffset { get; set; }
-        private int Begin { get; set; }
-        private List<Vector2> OptionOffsets { get; set; }
-        private List<Color> OptionColors { get; set; }
-        private int CurrentSelected { get; set; }
-        private int WeaponType { get; set; }
-        private int Difficulity { get; set; }
-        private float MusicVol {  get; set; }
-        private float SaveEffectsVol { get; set; }
-        private List<string> WeaponNames { get; set; }
-        private List<string> DifficulityNames { get; set; }
-        private TextInputHandler TextInput { get; set; }
+        private float Cooldawn;
+        private TimeSpan LastTime;
+        private SpriteFont OptionFont;
+        private List<string> Options;
+        private int LeftOffset;
+        private int RightOffset;
+        private int TopOffset;
+        private int Begin;
+        private List<Vector2> OptionOffsets;
+        private List<Color> OptionColors;
+        private int CurrentSelected;
+        private int WeaponType;
+        private int Difficulity;
+        private float MusicVol;
+        private float SaveEffectsVol;
+        private List<string> WeaponNames;
+        private List<string> DifficulityNames;
+        private TextInputHandler TextInput;
 
         public SettingsMenu(GameWindow gameWindow)
         {
@@ -195,7 +193,7 @@ namespace SpaceInvaderPlusPlus.Menus
         private void SaveSettings()
         {
             Holder.MENUMODE = 0;
-            if(MusicVol > 1.0f) MusicVol = 1.0f;
+            if (MusicVol > 1.0f) MusicVol = 1.0f;
 
             Holder.SETTINGS.LastSavedPilotName = Holder.PLAYERNAME;
             Holder.SETTINGS.LastWeaponType = WeaponType;

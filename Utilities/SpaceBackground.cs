@@ -1,17 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 
 namespace SpaceInvaderPlusPlus.Utilities
 {
     public class SpaceBackground
     {
-        private float StarSpeed {  get; set; }
-        private List<Entity> WhiteStars {  get; set; }
-        private List<Entity> RedStars { get; set; }
-        private List<Entity> YellowStars { get; set; }
-        private List<Entity> BlueStars { get; set; }
+        private float StarSpeed;
+        private List<Entity> WhiteStars;
+        private List<Entity> RedStars;
+        private List<Entity> YellowStars;
+        private List<Entity> BlueStars;
 
         public SpaceBackground()
         {

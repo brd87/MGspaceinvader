@@ -9,21 +9,21 @@ namespace SpaceInvaderPlusPlus.Menus
 {
     public class TitleMenu
     {
-        private float Cooldawn { get; set; }
-        private TimeSpan LastTime { get; set; }
-        private SpriteFont TitleFont { get; set; }
-        private SpriteFont SubTitleFont { get; set; }
-        private SpriteFont OptionFont { get; set; }
-        private string TitleContent { get; set; }
-        private string SubTitleContent { get; set; }
-        private List<string> Options { get; set; }
-        private Vector2 TitleOffset { get; set; }
-        private Vector2 SubTitleOffset { get; set; }
-        private int TopOffset { get; set; }
-        private int Begin { get; set; }
-        private List<Vector2> OptionOffsets { get; set; }
-        private List<Color> OptionColors { get; set; }
-        private int CurrentSelected { get; set; }
+        private float Cooldawn;
+        private TimeSpan LastTime;
+        private SpriteFont TitleFont;
+        private SpriteFont SubTitleFont;
+        private SpriteFont OptionFont;
+        private string TitleContent;
+        private string SubTitleContent;
+        private List<string> Options;
+        private Vector2 TitleOffset;
+        private Vector2 SubTitleOffset;
+        private int TopOffset;
+        private int Begin;
+        private List<Vector2> OptionOffsets;
+        private List<Color> OptionColors;
+        private int CurrentSelected;
 
         public TitleMenu()
         {

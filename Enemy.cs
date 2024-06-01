@@ -67,7 +67,7 @@ namespace SpaceInvaderPlusPlus
                         Holder.SCORE_DMG += SelfDamageScoreCost;
                     }
 
-                    if(weapon.Penetration <= Armor)
+                    if (weapon.Penetration <= Armor)
                         projectile.CollisionMark = true;
                 }
             }
@@ -81,7 +81,7 @@ namespace SpaceInvaderPlusPlus
                     DamgeStageCheck = true;
                 }
 
-                if(Health <= 0)
+                if (Health <= 0)
                     DeathSoundEffectIns.Play();
             }
         }
