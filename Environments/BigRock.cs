@@ -8,6 +8,7 @@ namespace SpaceInvaderPlusPlus.Environments
         public BigRock(Vector2 position, float angle = 0.0f, string spriteName = "env/env_rock", int entityLayer = 1) : base(position, angle, spriteName, entityLayer)
         {
             this.Damage = 10;
+            this.Armor = 2;
             this.DespawnOnHit = false;
         }
 
@@ -18,11 +19,6 @@ namespace SpaceInvaderPlusPlus.Environments
             {
                 player.Velocity.Y = this.Velocity.Y * 1.1f;
             }
-        }
-
-        public override void HandleCollisionProjectile(Entity projetile)
-        {
-            projetile.CollisionHardMark = true;
         }
     }
 }

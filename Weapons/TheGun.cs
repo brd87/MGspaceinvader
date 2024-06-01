@@ -14,7 +14,7 @@ namespace SpaceInvaderPlusPlus.Weapons
             this.ProjectileSpriteName = "wep/wep_thegun_bullet";
             this.FireEffect = new Entity(this.Position, 0.0f, "wep/wep_thegun_fire", 1);
             this.WepSoundEffect = Holder.CONTENT.Load<SoundEffect>("eff/eff_gun");
-            this.Penetration = false;
+            this.Penetration = 0;
             this.AmmoScoreCost = 5;
         }
 

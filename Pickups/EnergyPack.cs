@@ -27,8 +27,8 @@ namespace SpaceInvaderPlusPlus.Pickups
                 if (weapon.Ammunition > weapon.MaxAmmunition)
                     weapon.Ammunition = weapon.MaxAmmunition;
             }
-            else if (player.Shields < 100)
-                player.Shields = 100;
+            else
+                player.PlayerRecharge(200, true);
         }
     }
 }

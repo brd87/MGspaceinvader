@@ -10,6 +10,7 @@ namespace SpaceInvaderPlusPlus
     {
         public int Health { get; set; }
         public int MaxHealth { get; set; }
+        public int Armor { get; set; }
         protected int Damage { get; set; }
         protected int SelfCollisionDamage { get; set; }
         protected int PlayerCollisionDamage { get; set; }
@@ -60,12 +61,14 @@ namespace SpaceInvaderPlusPlus
             {
                 if (Vector2.Distance(this.Position, projectile.Position) < this.EntityTexture.Height / 3 * 2 + projectile.EntityTexture.Height / 3)
                 {
-                    if (!projectile.CollisionMark || weapon.Penetration)
+                    if (!projectile.CollisionMark || weapon.Penetration >= Armor)
                     {
                         Health -= weapon.Damage;
-                        projectile.CollisionMark = true;
                         Holder.SCORE_DMG += SelfDamageScoreCost;
                     }
+
+                    if(weapon.Penetration <= Armor)
+                        projectile.CollisionMark = true;
                 }
             }
 

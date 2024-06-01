@@ -10,6 +10,7 @@ namespace SpaceInvaderPlusPlus
         private float Torque { get; set; }
         protected int Damage { get; set; }
         public bool DespawnOnHit { get; set; }
+        protected int Armor {  get; set; }
         protected float PlayerDamageScoreCost { get; set; }
         protected Environmental(Vector2 position, float angle, string spriteName, int entityLayer) : base(position, angle, spriteName, entityLayer)
         {
@@ -17,7 +18,7 @@ namespace SpaceInvaderPlusPlus
             Torque = Holder.randomFloat(-0.01f, 0.01f);
         }
 
-        public void Update(Player player, List<Entity> projetiles)
+        public void Update(Player player, Weapon weapon)
         {
             this.Position += Velocity;
             this.Angle += Torque;
@@ -32,15 +33,19 @@ namespace SpaceInvaderPlusPlus
             {
                 HandleCollisionPlayer(player);
             }
-            foreach (Entity projectile in projetiles)
+            foreach (Entity projectile in weapon.Projetiles)
             {
                 if (Vector2.Distance(this.Position, projectile.Position) < this.EntityTexture.Height / 3 * 2 + projectile.EntityTexture.Width / 2)
-                    HandleCollisionProjectile(projectile);
+                {
+                    if (!projectile.CollisionMark && weapon.Penetration >= Armor)
+                        this.CollisionMark = true;
+
+                    if (weapon.Penetration <= Armor)
+                        projectile.CollisionMark = true;
+                }
             }
         }
-
+        
         public abstract void HandleCollisionPlayer(Player player);
-
-        public abstract void HandleCollisionProjectile(Entity projetile);
     }
 }

@@ -255,7 +255,7 @@ namespace SpaceInvaderPlusPlus
 
 
             foreach (Environmental env in _enviroments)
-                env.Update(_player, _weapon.Projetiles);
+                env.Update(_player, _weapon);
 
             foreach (UltAbility ult in _ultAbility)
                 ult.Update(new List<List<Enemy>> { _enemyWall, _enemyRusher, _enemySpewer });
@@ -283,7 +283,7 @@ namespace SpaceInvaderPlusPlus
             //_weapon
             for (int i = 0; i < _weapon.Projetiles.Count; i++)
             {
-                if (_weapon.Projetiles[i].Position.Y < 0 || (_weapon.Projetiles[i].CollisionMark && !_weapon.Penetration) || _weapon.Projetiles[i].CollisionHardMark)
+                if (_weapon.Projetiles[i].Position.Y < 0 || _weapon.Projetiles[i].CollisionMark)
                 {
                     if (!_weapon.Projetiles[i].CollisionMark)
                         Holder.SCORE_AMMOWASTE += _weapon.AmmoScoreCost;

@@ -17,7 +17,8 @@ namespace SpaceInvaderPlusPlus
         protected Entity FireEffect { get; set; }
         protected string ProjectileSpriteName { get; set; }
         protected SoundEffect WepSoundEffect { get; set; }
-        public bool Penetration { get; set; }
+        public int Penetration { get; set; }
+        public bool PenetrationHard { get; set; }
         public float AmmoScoreCost { get; set; }
         public bool Loaded { get; set; }
         

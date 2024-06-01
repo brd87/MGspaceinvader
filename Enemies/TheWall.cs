@@ -7,8 +7,9 @@ namespace SpaceInvaderPlusPlus.Enemies
     {
         public TheWall(Vector2 position, float angle = 0.0f, string spriteName = "ene/ene_thewall", int entityLayer = 1) : base(position, angle, spriteName, entityLayer)
         {
-            this.Health = 20;
             this.MaxHealth = 20;
+            this.Health = this.MaxHealth;
+            this.Armor = 1;
             this.Damage = 10;
             this.SelfCollisionDamage = 0;
             this.PlayerCollisionDamage = 1;

@@ -12,6 +12,7 @@ namespace SpaceInvaderPlusPlus.Pickups
 
         protected override void HandleCollision(Player player, Weapon weapon)
         {
+            player.PlayerRecharge(50);
             if (player.UltAbility) return;
             else player.UltAbility = true;
         }

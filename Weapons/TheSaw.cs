@@ -10,11 +10,11 @@ namespace SpaceInvaderPlusPlus.Weapons
             this.Cooldawn = 0.5f;
             this.Ammunition = 20;
             this.MaxAmmunition = 40;
-            this.Damage = 2;
+            this.Damage = 4;
             this.ProjectileSpriteName = "wep/wep_thesaw_bullet";
             this.FireEffect = new Entity(this.Position, 0.0f, "wep/wep_thesaw_fire", 1);
             this.WepSoundEffect = Holder.CONTENT.Load<SoundEffect>("eff/eff_saw");
-            this.Penetration = true;
+            this.Penetration = 1;
             this.AmmoScoreCost = 50;
         }
 

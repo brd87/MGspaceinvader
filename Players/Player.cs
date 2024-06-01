@@ -186,5 +186,15 @@ namespace SpaceInvaderPlusPlus.Players
             if (Health > 100)
                 Health = 100;
         }
+
+        public void PlayerRecharge(int recharge, bool overLoad = false)
+        {
+            int maxShield = 100;
+            if (overLoad) maxShield = 200;
+            if (Shields >= maxShield) return;
+            Shields += recharge;
+            if (Shields > maxShield)
+                Shields = maxShield;
+        }
     }
 }

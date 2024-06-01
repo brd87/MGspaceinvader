@@ -12,8 +12,10 @@ namespace SpaceInvaderPlusPlus.Enemies
 
         public TheSpewer(Vector2 position, float angle = 0.0f, string spriteName = "ene/ene_thespewer", int entityLayer = 1) : base(position, angle, spriteName, entityLayer)
         {
-            this.Health = 8;
-            this.MaxHealth = 8;
+            
+            this.MaxHealth = 13;
+            this.Health = this.MaxHealth;
+            this.Armor = 0;
             this.Damage = 20;
             this.SelfCollisionDamage = 1;
             this.PlayerCollisionDamage = 80;

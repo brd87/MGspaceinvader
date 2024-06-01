@@ -12,7 +12,6 @@ namespace SpaceInvaderPlusPlus
         public Texture2D EntityTexture { get; set; }
         public int EntityLayer { get; set; }
         public bool CollisionMark { get; set; }
-        public bool CollisionHardMark { get; set; }
         public float Scale { get; set; }
 
         public Entity(Vector2 position, float angle, string spriteName, int entityLayer, float? scale = null)//, ContentManager content = null)
@@ -24,7 +23,6 @@ namespace SpaceInvaderPlusPlus
             EntityTexture = Holder.CONTENT.Load<Texture2D>(spriteName); // star/star_eye
             EntityLayer = entityLayer;
             CollisionMark = false;
-            CollisionHardMark = false;
             Scale = scale ?? Holder.SCALE;
         }
 

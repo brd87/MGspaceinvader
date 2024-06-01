@@ -8,8 +8,9 @@ namespace SpaceInvaderPlusPlus.Enemies
     {
         public TheRusher(Vector2 position, float angle = 0.0f, string spriteName = "ene/ene_therusher", int entityLayer = 1) : base(position, angle, spriteName, entityLayer)
         {
-            this.Health = 3;
-            this.MaxHealth = 3;
+            this.MaxHealth = 5;
+            this.Health = this.MaxHealth;
+            this.Armor = 0;
             this.Damage = 10;
             this.SelfCollisionDamage = this.MaxHealth;
             this.PlayerCollisionDamage = 0;

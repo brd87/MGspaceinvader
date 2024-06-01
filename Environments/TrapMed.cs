@@ -9,6 +9,7 @@ namespace SpaceInvaderPlusPlus.Environments
         {
             this.Damage = 20;
             this.DespawnOnHit = true;
+            this.Armor = 1;
             this.PlayerDamageScoreCost = 50;
         }
 
@@ -19,12 +20,6 @@ namespace SpaceInvaderPlusPlus.Environments
             this.CollisionMark = true;
             Holder.SCORE_DMGPLAYER += this.PlayerDamageScoreCost;
             player.CollisionMark = true;
-        }
-
-        public override void HandleCollisionProjectile(Entity projetile)
-        {
-            projetile.CollisionMark = true;
-            this.CollisionMark = true;
         }
     }
 }
