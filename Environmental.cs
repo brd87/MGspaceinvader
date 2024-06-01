@@ -10,7 +10,7 @@ namespace SpaceInvaderPlusPlus
         public bool DespawnOnHit { get; set; }
         protected int Armor;
         protected float PlayerDamageScoreCost;
-        protected Environmental(Vector2 position, float angle, string spriteName, int entityLayer) : base(position, angle, spriteName, entityLayer)
+        protected Environmental(Vector2 position, float angle, string spriteName) : base(position, angle, spriteName)
         {
             Velocity = new Vector2(Holder.randomFloat(-0.2f, 0.2f), Holder.randomFloat(0.5f));
             Torque = Holder.randomFloat(-0.01f, 0.01f);

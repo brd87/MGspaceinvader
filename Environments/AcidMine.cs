@@ -5,7 +5,7 @@ namespace SpaceInvaderPlusPlus.Environments
 {
     internal class AcidMine : Environmental
     {
-        public AcidMine(Vector2 position, float angle = 0.0f, string spriteName = "env/env_mine", int entityLayer = 1) : base(position, angle, spriteName, entityLayer)
+        public AcidMine(Vector2 position, float angle = 0.0f, string spriteName = "env/env_mine") : base(position, angle, spriteName)
         {
             this.Damage = 50;
             this.DespawnOnHit = true;

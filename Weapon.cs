@@ -22,7 +22,7 @@ namespace SpaceInvaderPlusPlus
         public bool Loaded { get; set; }
 
 
-        protected Weapon(Vector2 position, float angle, string spriteName, int entityLayer) : base(position, angle, spriteName, entityLayer)
+        protected Weapon(Vector2 position, float angle, string spriteName) : base(position, angle, spriteName)
         {
             LastTime = TimeSpan.FromSeconds(0.0f);
             FireGranted = false;

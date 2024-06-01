@@ -17,22 +17,22 @@ namespace SpaceInvaderPlusPlus.Utilities
 
             WhiteStars = new List<Entity>();
             while (WhiteStars.Count < 800)
-                WhiteStars.Add(new Entity(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(-10, Holder.HEIGHT)), 0.0f, "star/star_white", 1,
+                WhiteStars.Add(new Entity(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(-10, Holder.HEIGHT)), 0.0f, "star/star_white",
                     Holder.randomFloat(Holder.SCALE * 0.5f, Holder.SCALE * 1.5f)));
 
             RedStars = new List<Entity>();
             while (RedStars.Count < 10)
-                RedStars.Add(new Entity(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(-10, Holder.HEIGHT)), 0.0f, "star/star_red", 1,
+                RedStars.Add(new Entity(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(-10, Holder.HEIGHT)), 0.0f, "star/star_red",
                     Holder.randomFloat(Holder.SCALE * 0.5f, Holder.SCALE * 1.5f)));
 
             YellowStars = new List<Entity>();
             while (YellowStars.Count < 50)
-                YellowStars.Add(new Entity(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(-10, Holder.HEIGHT)), 0.0f, "star/star_yellow", 1,
+                YellowStars.Add(new Entity(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(-10, Holder.HEIGHT)), 0.0f, "star/star_yellow",
                     Holder.randomFloat(Holder.SCALE * 0.5f, Holder.SCALE * 1.5f)));
 
             BlueStars = new List<Entity>();
             while (BlueStars.Count < 200)
-                BlueStars.Add(new Entity(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(-10, Holder.HEIGHT)), 0.0f, "star/star_blue", 1,
+                BlueStars.Add(new Entity(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(-10, Holder.HEIGHT)), 0.0f, "star/star_blue",
                     Holder.randomFloat(Holder.SCALE * 0.5f, Holder.SCALE * 1.5f)));
         }
 
@@ -45,7 +45,7 @@ namespace SpaceInvaderPlusPlus.Utilities
                 if (WhiteStars[i].Position.Y > Holder.HEIGHT + 10)
                 {
                     WhiteStars.RemoveAt(i);
-                    WhiteStars.Add(new Entity(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(-10, 0)), 0.0f, "star/star_white", 1,
+                    WhiteStars.Add(new Entity(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(-10, 0)), 0.0f, "star/star_white",
                         Holder.randomFloat(Holder.SCALE * 0.5f, Holder.SCALE * 1.5f)));
                     i--;
                 }
@@ -56,7 +56,7 @@ namespace SpaceInvaderPlusPlus.Utilities
                 if (RedStars[i].Position.Y > Holder.HEIGHT + 10)
                 {
                     RedStars.RemoveAt(i);
-                    RedStars.Add(new Entity(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(-10, 0)), 0.0f, "star/star_red", 1,
+                    RedStars.Add(new Entity(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(-10, 0)), 0.0f, "star/star_red",
                         Holder.randomFloat(Holder.SCALE * 0.5f, Holder.SCALE * 1.5f)));
                     i--;
                 }
@@ -67,7 +67,7 @@ namespace SpaceInvaderPlusPlus.Utilities
                 if (YellowStars[i].Position.Y > Holder.HEIGHT + 10)
                 {
                     YellowStars.RemoveAt(i);
-                    YellowStars.Add(new Entity(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(-10, 0)), 0.0f, "star/star_yellow", 1,
+                    YellowStars.Add(new Entity(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(-10, 0)), 0.0f, "star/star_yellow",
                         Holder.randomFloat(Holder.SCALE * 0.5f, Holder.SCALE * 1.5f)));
                     i--;
                 }
@@ -78,7 +78,7 @@ namespace SpaceInvaderPlusPlus.Utilities
                 if (BlueStars[i].Position.Y > Holder.HEIGHT + 10)
                 {
                     BlueStars.RemoveAt(i);
-                    BlueStars.Add(new Entity(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(-10, 0)), 0.0f, "star/star_blue", 1,
+                    BlueStars.Add(new Entity(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(-10, 0)), 0.0f, "star/star_blue",
                         Holder.randomFloat(Holder.SCALE * 0.5f, Holder.SCALE * 1.5f)));
                     i--;
                 }

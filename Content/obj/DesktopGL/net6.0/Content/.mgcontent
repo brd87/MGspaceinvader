@@ -34,7 +34,7 @@
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/music/combat.mp3</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/music/menu.mp3</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/other/dmgeye.png</File>
-    <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/other/gz.png</File>
+    <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/other/error.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/other/ult_shock.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/pack/pack_energy.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/pack/pack_med.png</File>
@@ -43,6 +43,10 @@
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/player/player_lwing.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/player/player_rwing.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/player/player.png</File>
+    <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/rem/rem_p1.png</File>
+    <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/rem/rem_p2.png</File>
+    <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/rem/rem_p3.png</File>
+    <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/rem/rem_p4.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/star/gaze.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/star/star_blue.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/star/star_red.png</File>
@@ -59,6 +63,10 @@
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/wep/wep_thesaw.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

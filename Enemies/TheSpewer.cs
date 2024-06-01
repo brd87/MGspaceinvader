@@ -10,7 +10,7 @@ namespace SpaceInvaderPlusPlus.Enemies
         private TimeSpan LastTime;
         private string ProjectileSpriteName;
 
-        public TheSpewer(Vector2 position, float angle = 0.0f, string spriteName = "ene/ene_thespewer", int entityLayer = 1) : base(position, angle, spriteName, entityLayer)
+        public TheSpewer(Vector2 position, float angle = 0.0f, string spriteName = "ene/ene_thespewer") : base(position, angle, spriteName)
         {
 
             this.MaxHealth = 13;

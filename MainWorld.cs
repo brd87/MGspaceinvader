@@ -18,6 +18,7 @@ namespace SpaceInvaderPlusPlus
     {
         private Player _player;
         private Weapon _weapon;
+        private List<Particles> _particles;
         private List<Enemy> _enemyWall;
         private List<Enemy> _enemyRusher;
         private List<Enemy> _enemySpewer;
@@ -50,6 +51,7 @@ namespace SpaceInvaderPlusPlus
 
         public MainWorld()
         {
+            _particles = new List<Particles>();
             _enemyWall = new List<Enemy>();
             _enemyRusher = new List<Enemy>();
             _enemySpewer = new List<Enemy>();
@@ -89,8 +91,6 @@ namespace SpaceInvaderPlusPlus
                 _weapon = new TheRail(new Vector2(Holder.WIDTH / 2, Holder.HEIGHT / 4 * 3));
             else
                 _weapon = new TheGun(new Vector2(Holder.WIDTH / 2, Holder.HEIGHT / 4 * 3));
-            //_weapon = new TheDrill(new Vector2(Holder.WIDTH / 2, Holder.HEIGHT / 4 * 3));
-            //_weapon = new TheGauss(new Vector2(Holder.WIDTH / 2, Holder.HEIGHT / 4 * 3));
 
             _damageScr = new Entity(new Vector2(Holder.WIDTH / 2, Holder.HEIGHT / 2), 0.0f, "other/dmgeye", 1);
 
@@ -214,6 +214,8 @@ namespace SpaceInvaderPlusPlus
             _weapon.DrawAll();
             _player.DrawAll();
 
+            foreach (Particles part in _particles)
+                part.DrawAll();
 
             foreach (Enemy enemy in _enemyWall)
                 enemy.DrawAll();
@@ -256,6 +258,9 @@ namespace SpaceInvaderPlusPlus
             foreach (Environmental env in _enviroments)
                 env.Update(_player, _weapon);
 
+            foreach (Particles part in _particles)
+                part.Update(gameTime);
+
             foreach (UltAbility ult in _ultAbility)
                 ult.Update(new List<List<Enemy>> { _enemyWall, _enemyRusher, _enemySpewer });
         }
@@ -273,7 +278,7 @@ namespace SpaceInvaderPlusPlus
                 }
             }
             while (_progressEnt.Count < (int)Holder.SCORE_TRAVEL / 500)
-                _progressEnt.Add(new Entity(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(-10, Holder.HEIGHT)), Holder.randomFloat(-0.2f, 0.2f), "star/gaze", 1,
+                _progressEnt.Add(new Entity(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(-10, Holder.HEIGHT)), Holder.randomFloat(-0.2f, 0.2f), "star/gaze",
                     Holder.randomFloat(Holder.SCALE * 0.5f, Holder.SCALE * 1.5f)));
 
             //_player
@@ -296,6 +301,7 @@ namespace SpaceInvaderPlusPlus
             {
                 if (_enemyWall[i].Position.Y > _despawnHeight || _enemyWall[i].Health <= 0)
                 {
+                    _particles.Add(new Particles(gameTime, _enemyWall[i].MaxHealth, _enemyWall[i].Position, _enemyWall[i].EntityTexture.Height / 2, _enemyWall[i].Velocity));
                     _enemyWall.RemoveAt(i);
                     i--;
                 }
@@ -311,6 +317,7 @@ namespace SpaceInvaderPlusPlus
             {
                 if (_enemyRusher[i].Position.Y > _despawnHeight || _enemyRusher[i].Health <= 0)
                 {
+                    _particles.Add(new Particles(gameTime, _enemyRusher[i].MaxHealth, _enemyRusher[i].Position, _enemyRusher[i].EntityTexture.Height / 2, _enemyRusher[i].Velocity));
                     _enemyRusher.RemoveAt(i);
                     i--;
                 }
@@ -326,6 +333,7 @@ namespace SpaceInvaderPlusPlus
             {
                 if (_enemySpewer[i].Position.Y > _despawnHeight || _enemySpewer[i].Health <= 0)
                 {
+                    _particles.Add(new Particles(gameTime, _enemySpewer[i].MaxHealth, _enemySpewer[i].Position, _enemySpewer[i].EntityTexture.Height / 2, _enemySpewer[i].Velocity));
                     _enemySpewer.RemoveAt(i);
                     i--;
                 }
@@ -376,6 +384,16 @@ namespace SpaceInvaderPlusPlus
                     _enviroments.Add(new BigRock(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(_otherSawnHeightMax, _otherSpawnHeightMin))));
                 if (type == 2)
                     _enviroments.Add(new AcidMine(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(_otherSawnHeightMax, _otherSpawnHeightMin))));
+            }
+
+            //_particles
+            for (int i = 0; i < _particles.Count; i++)
+            {
+                if (_particles[i].EndAll)
+                {
+                    _particles.RemoveAt(i);
+                    i--;
+                }
             }
 
             //_ultAbility

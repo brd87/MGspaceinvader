@@ -5,7 +5,7 @@ namespace SpaceInvaderPlusPlus.Weapons
 {
     internal class TheGun : Weapon
     {
-        public TheGun(Vector2 position, float angle = 0.0f, string spriteName = "wep/wep_thegun", int entityLayer = 1) : base(position, angle, spriteName, entityLayer)
+        public TheGun(Vector2 position, float angle = 0.0f, string spriteName = "wep/wep_thegun") : base(position, angle, spriteName)
         {
             this.Cooldawn = 0.05f;
             this.Ammunition = 100;

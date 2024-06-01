@@ -5,7 +5,7 @@ namespace SpaceInvaderPlusPlus.Environments
 {
     internal class BigRock : Environmental
     {
-        public BigRock(Vector2 position, float angle = 0.0f, string spriteName = "env/env_rock", int entityLayer = 1) : base(position, angle, spriteName, entityLayer)
+        public BigRock(Vector2 position, float angle = 0.0f, string spriteName = "env/env_rock") : base(position, angle, spriteName)
         {
             this.Damage = 10;
             this.Armor = 2;

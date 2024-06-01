@@ -5,7 +5,7 @@ namespace SpaceInvaderPlusPlus.Weapons
 {
     internal class TheSaw : Weapon
     {
-        public TheSaw(Vector2 position, float angle = 0.0f, string spriteName = "wep/wep_thesaw", int entityLayer = 1) : base(position, angle, spriteName, entityLayer)
+        public TheSaw(Vector2 position, float angle = 0.0f, string spriteName = "wep/wep_thesaw") : base(position, angle, spriteName)
         {
             this.Cooldawn = 0.5f;
             this.Ammunition = 20;
@@ -26,7 +26,7 @@ namespace SpaceInvaderPlusPlus.Weapons
             foreach (Entity entity in this.Projetiles)
             {
                 entity.Velocity.Y -= 0.4f;
-                entity.Angle += 0.01f;
+                entity.Angle += 0.3f;
                 if (shipPosition.X < entity.Position.X)
                     entity.Velocity.X -= 0.7f;
                 if (shipPosition.X > entity.Position.X)

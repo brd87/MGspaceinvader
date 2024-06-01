@@ -5,7 +5,7 @@ namespace SpaceInvaderPlusPlus.Pickups
 {
     internal class UltPack : Pickup
     {
-        public UltPack(Vector2 position, float angle = 0.0f, string spriteName = "pack/pack_ult", int entityLayer = 1) : base(position, angle, spriteName, entityLayer)
+        public UltPack(Vector2 position, float angle = 0.0f, string spriteName = "pack/pack_ult") : base(position, angle, spriteName)
         {
             this.GrabScoreCost = 0;
         }

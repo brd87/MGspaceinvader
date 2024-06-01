@@ -28,7 +28,7 @@ namespace SpaceInvaderPlusPlus
         protected float PlayerDamageScoreCost { get; set; }
         public bool UltRecived { get; set; }
 
-        protected Enemy(Vector2 position, float angle, string spriteName, int entityLayer) : base(position, angle, spriteName, entityLayer)
+        protected Enemy(Vector2 position, float angle, string spriteName) : base(position, angle, spriteName)
         {
             DamgeStageCheck = false;
             Projetiles = new List<Entity>();

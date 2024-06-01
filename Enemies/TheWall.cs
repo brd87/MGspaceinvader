@@ -5,7 +5,7 @@ namespace SpaceInvaderPlusPlus.Enemies
 {
     internal class TheWall : Enemy
     {
-        public TheWall(Vector2 position, float angle = 0.0f, string spriteName = "ene/ene_thewall", int entityLayer = 1) : base(position, angle, spriteName, entityLayer)
+        public TheWall(Vector2 position, float angle = 0.0f, string spriteName = "ene/ene_thewall") : base(position, angle, spriteName)
         {
             this.MaxHealth = 20;
             this.Health = this.MaxHealth;

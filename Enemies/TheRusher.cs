@@ -5,7 +5,7 @@ namespace SpaceInvaderPlusPlus.Enemies
 {
     internal class TheRusher : Enemy
     {
-        public TheRusher(Vector2 position, float angle = 0.0f, string spriteName = "ene/ene_therusher", int entityLayer = 1) : base(position, angle, spriteName, entityLayer)
+        public TheRusher(Vector2 position, float angle = 0.0f, string spriteName = "ene/ene_therusher") : base(position, angle, spriteName)
         {
             this.MaxHealth = 5;
             this.Health = this.MaxHealth;

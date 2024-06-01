@@ -8,7 +8,7 @@ namespace SpaceInvaderPlusPlus
         private Vector2 Velocity;
         private float Torque;
         protected float GrabScoreCost;
-        protected Pickup(Vector2 position, float angle, string spriteName, int entityLayer) : base(position, angle, spriteName, entityLayer)
+        protected Pickup(Vector2 position, float angle, string spriteName) : base(position, angle, spriteName)
         {
             Velocity = new Vector2(Holder.randomFloat(-0.2f, 0.2f), Holder.randomFloat());
             Torque = Holder.randomFloat(-0.02f, 0.02f);

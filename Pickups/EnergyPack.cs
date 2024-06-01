@@ -5,7 +5,7 @@ namespace SpaceInvaderPlusPlus.Pickups
 {
     internal class EnergyPack : Pickup
     {
-        public EnergyPack(Vector2 position, float angle = 0.0f, string spriteName = "pack/pack_energy", int entityLayer = 1) : base(position, angle, spriteName, entityLayer)
+        public EnergyPack(Vector2 position, float angle = 0.0f, string spriteName = "pack/pack_energy") : base(position, angle, spriteName)
         {
             this.GrabScoreCost = 50;
         }
