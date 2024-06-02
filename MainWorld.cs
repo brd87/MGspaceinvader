@@ -94,6 +94,7 @@ namespace SpaceInvaderPlusPlus
 
             _damageScr = new Entity(new Vector2(Holder.WIDTH / 2, Holder.HEIGHT / 2), 0.0f, "other/dmgeye", 1);
 
+            _particles.Clear();
             _enemyWall.Clear();
             _enemyRusher.Clear();
             _enemySpewer.Clear();

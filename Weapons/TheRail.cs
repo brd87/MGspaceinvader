@@ -8,8 +8,8 @@ namespace SpaceInvaderPlusPlus.Weapons
         public TheRail(Vector2 position, float angle = 0.0f, string spriteName = "wep/wep_therail") : base(position, angle, spriteName)
         {
             this.Cooldawn = 1.5f;
-            this.Ammunition = 10;
-            this.MaxAmmunition = 20;
+            this.Ammunition = 15;
+            this.MaxAmmunition = 30;
             this.Damage = 20;
             this.ProjectileSpriteName = "wep/wep_therail_bullet";
             this.FireEffect = new Entity(this.Position, 0.0f, "wep/wep_therail_fire", 1);

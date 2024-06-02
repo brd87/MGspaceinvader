@@ -8,8 +8,8 @@ namespace SpaceInvaderPlusPlus.Weapons
         public TheGun(Vector2 position, float angle = 0.0f, string spriteName = "wep/wep_thegun") : base(position, angle, spriteName)
         {
             this.Cooldawn = 0.05f;
-            this.Ammunition = 100;
-            this.MaxAmmunition = 200;
+            this.Ammunition = 150;
+            this.MaxAmmunition = 300;
             this.Damage = 1;
             this.ProjectileSpriteName = "wep/wep_thegun_bullet";
             this.FireEffect = new Entity(this.Position, 0.0f, "wep/wep_thegun_fire", 1);

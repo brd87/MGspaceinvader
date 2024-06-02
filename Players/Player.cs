@@ -32,17 +32,13 @@ namespace SpaceInvaderPlusPlus.Players
             Shields = 100;
             FrontAcceleration = 0.6f;
             SideAcceleration = 0.4f;
-            BackAcceleration = 0.5f;
-            Stabilisers = 0.3f;
+            BackAcceleration = 0.4f;
+            Stabilisers = 0.2f;
             Drag = 0.2f;
             if (Holder.SETTINGS.LastDifficulty == 0)
             {
                 Health *= 2;
                 Shields *= 2;
-                FrontAcceleration *= 1.2f;
-                SideAcceleration *= 1.5f;
-                BackAcceleration *= 1.2f;
-                Stabilisers *= 1.5f;
                 UltAbility = true;
             }
             else if (Holder.SETTINGS.LastDifficulty == 1)
@@ -53,20 +49,12 @@ namespace SpaceInvaderPlusPlus.Players
             {
                 Health = 75;
                 Shields = 75;
-                FrontAcceleration *= 0.75f;
-                SideAcceleration *= 0.75f;
-                BackAcceleration *= 0.75f;
-                Stabilisers *= 0.5f;
                 UltAbility = false;
             }
             else
             {
                 Health = 50;
                 Shields = 50;
-                FrontAcceleration *= 0.6f;
-                SideAcceleration *= 0.5f;
-                BackAcceleration *= 0.6f;
-                Stabilisers *= 0.3f;
                 UltAbility = false;
             }
         }
@@ -114,13 +102,13 @@ namespace SpaceInvaderPlusPlus.Players
             }
             if (Holder.KSTATE.IsKeyUp(Keys.A) && Holder.KSTATE.IsKeyUp(Keys.D))
             {
-                if (Velocity.X > 0.3f)
+                if (Velocity.X > 0.4f)
                     Velocity.X -= Stabilisers;
-                if (Velocity.X < -0.3f)
+                else if (Velocity.X < -0.4f)
                     Velocity.X += Stabilisers;
                 if (Angle > 0.0f)
                     Angle -= 0.01f;
-                if (Angle < 0.0f)
+                else if (Angle < 0.0f)
                     Angle += 0.01f;
             }
             UpdateByVelocity();
