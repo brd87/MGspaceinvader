@@ -3,35 +3,38 @@ using SpaceInvaderPlusPlus.Players;
 
 namespace SpaceInvaderPlusPlus
 {
-    public abstract class Pickup : Entity
+    public abstract class Pickup
     {
+        public Entity PicMain {  get; set; }
         private Vector2 Velocity;
         private float Torque;
         protected float GrabScoreCost;
-        protected Pickup(Vector2 position, float angle, string spriteName) : base(position, angle, spriteName)
+        protected float Layer;
+        protected Pickup(ref General general)
         {
-            Velocity = new Vector2(Holder.randomFloat(-0.2f, 0.2f), Holder.randomFloat());
-            Torque = Holder.randomFloat(-0.02f, 0.02f);
+            Velocity = new Vector2(general.randomFloat(-0.2f, 0.2f), general.randomFloat());
+            Torque = general.randomFloat(-0.02f, 0.02f);
+            Layer = 0.9f;
         }
 
-        public void Update(Player player, Weapon weapon)
+        public void Update(ref General general, ref Player player, ref Weapon weapon)
         {
-            this.Position += Velocity;
-            this.Angle += Torque;
-            if (this.Position.X > Holder.WIDTH || this.Position.X < 0)
+            this.PicMain.Position += Velocity;
+            this.PicMain.Angle += Torque;
+            if (this.PicMain.Position.X > general.WIDTH || this.PicMain.Position.X < 0)
             {
                 Velocity.X *= -1;
                 Torque *= -1;
             }
 
-            if (Vector2.Distance(this.Position, player.Position) < this.EntityTexture.Height / 2 + player.EntityTexture.Height / 2)
+            if (Vector2.Distance(this.PicMain.Position, player.PlMain.Position) < this.PicMain.EntityTexture.Height / 2 + player.PlMain.EntityTexture.Height / 2)
             {
-                this.CollisionMark = true;
-                Holder.SCORE_PICKUPS += GrabScoreCost;
-                HandleCollision(player, weapon);
+                this.PicMain.CollisionMark = true;
+                general.SCORE_PICKUPS += GrabScoreCost;
+                HandleCollision(ref general, ref player, ref weapon);
             }
         }
 
-        protected abstract void HandleCollision(Player player, Weapon weapon);
+        protected abstract void HandleCollision(ref General general, ref Player player, ref Weapon weapon);
     }
 }

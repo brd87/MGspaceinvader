@@ -25,20 +25,20 @@ namespace SpaceInvaderPlusPlus.Menus
         private List<Color> OptionColors;
         private int CurrentSelected;
 
-        public TitleMenu()
+        public TitleMenu(ref General general)
         {
             Cooldawn = 0.2f;
             LastTime = TimeSpan.FromSeconds(0.0f);
 
-            TitleFont = Holder.CONTENT.Load<SpriteFont>("font/font_title");
+            TitleFont = general.CONTENT.Load<SpriteFont>("font/font_title");
             TitleContent = "S.I.P.P";
             TitleOffset = TitleFont.MeasureString(TitleContent) / 2;
 
-            SubTitleFont = Holder.CONTENT.Load<SpriteFont>("font/font_subtitle");
+            SubTitleFont = general.CONTENT.Load<SpriteFont>("font/font_subtitle");
             SubTitleContent = "Space Invader Plus Plus";
             SubTitleOffset = SubTitleFont.MeasureString(SubTitleContent) / 2;
 
-            OptionFont = Holder.CONTENT.Load<SpriteFont>("font/font_options");
+            OptionFont = general.CONTENT.Load<SpriteFont>("font/font_options");
             Options = new List<string>() { "PLAY", "Scoreboard", "Settings", "Exit" };
             OptionOffsets = new List<Vector2>();
             OptionColors = new List<Color>();
@@ -59,11 +59,11 @@ namespace SpaceInvaderPlusPlus.Menus
             CurrentSelected = 0;
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(ref General general, GameTime gameTime)
         {
             if (gameTime.TotalGameTime - LastTime >= TimeSpan.FromSeconds(Cooldawn))
             {
-                if (Holder.KSTATE.IsKeyDown(Keys.W))
+                if (general.KSTATE.IsKeyDown(Keys.W))
                 {
                     LastTime = gameTime.TotalGameTime;
                     OptionColors[CurrentSelected] = Color.Gray;
@@ -73,7 +73,7 @@ namespace SpaceInvaderPlusPlus.Menus
                         CurrentSelected--;
                     OptionColors[CurrentSelected] = Color.White;
                 }
-                else if (Holder.KSTATE.IsKeyDown(Keys.S))
+                else if (general.KSTATE.IsKeyDown(Keys.S))
                 {
                     LastTime = gameTime.TotalGameTime;
                     OptionColors[CurrentSelected] = Color.Gray;
@@ -86,20 +86,20 @@ namespace SpaceInvaderPlusPlus.Menus
             }
 
             for (int i = 0; i < Options.Count; i++)
-                if (i == CurrentSelected && Holder.KSTATE.IsKeyDown(Keys.Enter))
-                    if (Holder.KSTATE != Holder.KSTATE_PREV)
+                if (i == CurrentSelected && general.KSTATE.IsKeyDown(Keys.Enter))
+                    if (general.KSTATE != general.KSTATE_PREV)
                     {
-                        Holder.MENUMODE = i;
-                        if (CurrentSelected == 0) Holder.STARTNEW = true;
+                        general.MENUMODE = i;
+                        if (CurrentSelected == 0) general.STARTNEW = true;
                     }
         }
 
-        public void Draw()
+        public void Draw(ref General general)
         {
-            Holder.SPRITE_BATCH.DrawString(TitleFont, TitleContent, new Vector2(Holder.WIDTH / 2, 270) - TitleOffset, Color.Wheat);
-            Holder.SPRITE_BATCH.DrawString(SubTitleFont, SubTitleContent, new Vector2(Holder.WIDTH / 2, 340) - SubTitleOffset, Color.Wheat);
+            general.SPRITE_BATCH.DrawString(TitleFont, TitleContent, new Vector2(general.WIDTH / 2, 270) - TitleOffset, Color.Wheat);
+            general.SPRITE_BATCH.DrawString(SubTitleFont, SubTitleContent, new Vector2(general.WIDTH / 2, 340) - SubTitleOffset, Color.Wheat);
             for (int i = 0; i < Options.Count; i++)
-                Holder.SPRITE_BATCH.DrawString(OptionFont, Options[i], new Vector2(Holder.WIDTH / 2, Begin + i * TopOffset) - OptionOffsets[i], OptionColors[i]);
+                general.SPRITE_BATCH.DrawString(OptionFont, Options[i], new Vector2(general.WIDTH / 2, Begin + i * TopOffset) - OptionOffsets[i], OptionColors[i]);
         }
     }
 }

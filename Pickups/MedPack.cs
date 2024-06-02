@@ -5,21 +5,20 @@ namespace SpaceInvaderPlusPlus.Pickups
 {
     public class MedPack : Pickup
     {
-        public MedPack(Vector2 position, float angle = 0.0f, string spriteName = "pack/pack_med") : base(position, angle, spriteName)
+        private int Heal;
+        public MedPack(ref General general, Vector2 position, float angle = 0.0f, string spriteName = "pack/pack_med") : base(ref general)
         {
+            PicMain = new Entity(ref general, position, angle, spriteName, this.Layer);
             this.GrabScoreCost = 500;
+            if (general.SETTINGS.LastDifficulty == 0 || general.SETTINGS.LastDifficulty == 1)
+                Heal = 100;
+            else
+                Heal = 50;
         }
 
-        protected override void HandleCollision(Player player, Weapon weapon)
+        protected override void HandleCollision(ref General general, ref Player player, ref Weapon weapon)
         {
-            if (Holder.SETTINGS.LastDifficulty == 0 || Holder.SETTINGS.LastDifficulty == 1)
-            {
-                player.PlayerHeal(100);
-            }
-            else
-            {
-                player.PlayerHeal(50);
-            }
+            player.PlayerHeal(ref Heal);
         }
     }
 }

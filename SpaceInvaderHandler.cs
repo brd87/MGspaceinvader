@@ -10,6 +10,7 @@ namespace SpaceInvaderPlusPlus
 {
     public class SpaceInvaderHandler : Game
     {
+        public General _general;
         private GraphicsDeviceManager _graphics;
         private SpaceBackground spaceBackground;
         private MainWorld world;
@@ -21,6 +22,7 @@ namespace SpaceInvaderPlusPlus
 
         public SpaceInvaderHandler()
         {
+            _general = new General();
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
@@ -34,63 +36,60 @@ namespace SpaceInvaderPlusPlus
 
         protected override void LoadContent()
         {
-            Holder.RANDOM = new Random();
-            Holder.WIDTH = 1000;
-            Holder.HEIGHT = 900;
-            Holder.SCALE = 1.0f;
-            Holder.STARTNEW = false;
-            Holder.MENUMODE = 0;
-            Holder.RUNWORLD = false;
-            Holder.CONTENT = this.Content;
-            Holder.SPRITE_BATCH = new SpriteBatch(GraphicsDevice);
+            _general.RANDOM = new Random();
+            _general.WIDTH = 1000;
+            _general.HEIGHT = 900;
+            _general.SCALE = 1.0f;
+            _general.STARTNEW = false;
+            _general.MENUMODE = 0;
+            _general.RUNWORLD = false;
+            _general.CONTENT = this.Content;
+            _general.SPRITE_BATCH = new SpriteBatch(GraphicsDevice);
 
-            spaceBackground = new SpaceBackground();
-            world = new MainWorld();
-            menu = new MainMenu(Window);
+            spaceBackground = new SpaceBackground(ref _general);
+            world = new MainWorld(ref _general);
+            menu = new MainMenu(Window, ref _general);
 
             _graphics.IsFullScreen = false;
-            _graphics.PreferredBackBufferWidth = Holder.WIDTH;
-            _graphics.PreferredBackBufferHeight = Holder.HEIGHT;
+            _graphics.PreferredBackBufferWidth = _general.WIDTH;
+            _graphics.PreferredBackBufferHeight = _general.HEIGHT;
             _graphics.ApplyChanges();
 
             music_menu = "music/menu";
             music_combat = "music/combat";
-            bg_music_menu = Holder.CONTENT.Load<Song>(music_menu);
-            bg_music_combat = Holder.CONTENT.Load<Song>(music_combat);
+            bg_music_menu = _general.CONTENT.Load<Song>(music_menu);
+            bg_music_combat = _general.CONTENT.Load<Song>(music_combat);
             MediaPlayer.Play(bg_music_menu);
             MediaPlayer.IsRepeating = true;
-            MediaPlayer.Volume = Holder.SETTINGS.LastMusicVolume;
+            MediaPlayer.Volume = _general.SETTINGS.LastMusicVolume;
         }
 
         protected override void Update(GameTime gameTime)
         {
-            Holder.KSTATE = Keyboard.GetState();
-            Holder.MSTATE = Mouse.GetState();
+            _general.KSTATE = Keyboard.GetState();
 
-            if (Holder.MENUMODE == 3) Exit();
-            if (Holder.STARTNEW)
+            if (_general.MENUMODE == 3) Exit();
+            if (_general.STARTNEW)
             {
-                world.RanNew();
-                //MediaPlayer.Play(bg_music_combat);
+                world.RanNew(ref _general);
             }
-            Thread BgThread = new Thread(x => spaceBackground.Update());
+            Thread BgThread = new Thread(x => spaceBackground.Update(ref _general));
             BgThread.Start();
 
-            if (!Holder.RUNWORLD)
+            if (!_general.RUNWORLD)
             {
                 if ("music/" + MediaPlayer.Queue.ActiveSong.Name != music_menu)
                     MediaPlayer.Play(bg_music_menu);
-                menu.Update(gameTime);
+                menu.Update(ref gameTime, ref _general);
             }
             else
             {
                 if ("music/" + MediaPlayer.Queue.ActiveSong.Name != music_combat)
                     MediaPlayer.Play(bg_music_combat);
-                world.Update(gameTime);
+                world.Update(ref gameTime, ref _general);
             }
 
-            Holder.KSTATE_PREV = Holder.KSTATE;
-            Holder.MSTATE_PREV = Holder.MSTATE;
+            _general.KSTATE_PREV = _general.KSTATE;
             BgThread.Join();
 
             base.Update(gameTime);
@@ -100,16 +99,16 @@ namespace SpaceInvaderPlusPlus
         {
             GraphicsDevice.Clear(Color.Black);
 
-            Holder.SPRITE_BATCH.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+            _general.SPRITE_BATCH.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
 
-            spaceBackground.DrawAll();
+            spaceBackground.DrawAll(ref _general);
 
-            if (!Holder.RUNWORLD)
-                menu.Draw();
+            if (!_general.RUNWORLD)
+                menu.Draw(ref _general);
             else
-                world.Draw();
+                world.Draw(ref _general);
 
-            Holder.SPRITE_BATCH.End();
+            _general.SPRITE_BATCH.End();
 
             base.Draw(gameTime);
         }

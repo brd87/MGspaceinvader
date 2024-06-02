@@ -3,8 +3,9 @@ using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace SpaceInvaderPlusPlus.Players
 {
-    public class Player : Entity
+    public class Player
     {
+        public Entity PlMain {  get; set; }
         private PlayerPart PlFront;
         private PlayerPart PlLeft;
         private PlayerPart PlRight;
@@ -21,12 +22,12 @@ namespace SpaceInvaderPlusPlus.Players
         public bool AskToFire { get; set; }
         public bool UltAbility { get; set; }
 
-        public Player(Vector2 position, float angle = 0.0f, string spriteName = "player/player", int entityLayer = 1) :
-            base(position, angle, spriteName, entityLayer)
+        public Player(ref General general, ref Vector2 position)
         {
-            PlFront = new PlayerPart(new Vector2(Holder.WIDTH / 2, Holder.HEIGHT / 4 * 3), "player/player_front");
-            PlLeft = new PlayerPart(new Vector2(Holder.WIDTH / 2, Holder.HEIGHT / 4 * 3), "player/player_lwing");
-            PlRight = new PlayerPart(new Vector2(Holder.WIDTH / 2, Holder.HEIGHT / 4 * 3), "player/player_rwing");
+            PlMain = new Entity(ref general, position, 0.0f, "player/player", 1);
+            PlFront = new PlayerPart(ref general, new Vector2(general.WIDTH / 2, general.HEIGHT / 4 * 3), "player/player_front");
+            PlLeft = new PlayerPart(ref general, new Vector2(general.WIDTH / 2, general.HEIGHT / 4 * 3), "player/player_lwing");
+            PlRight = new PlayerPart(ref general, new Vector2(general.WIDTH / 2, general.HEIGHT / 4 * 3), "player/player_rwing");
 
             Health = 100;
             Shields = 100;
@@ -35,17 +36,17 @@ namespace SpaceInvaderPlusPlus.Players
             BackAcceleration = 0.4f;
             Stabilisers = 0.2f;
             Drag = 0.2f;
-            if (Holder.SETTINGS.LastDifficulty == 0)
+            if (general.SETTINGS.LastDifficulty == 0)
             {
                 Health *= 2;
                 Shields *= 2;
                 UltAbility = true;
             }
-            else if (Holder.SETTINGS.LastDifficulty == 1)
+            else if (general.SETTINGS.LastDifficulty == 1)
             {
                 UltAbility = true;
             }
-            else if (Holder.SETTINGS.LastDifficulty == 2)
+            else if (general.SETTINGS.LastDifficulty == 2)
             {
                 Health = 75;
                 Shields = 75;
@@ -59,99 +60,99 @@ namespace SpaceInvaderPlusPlus.Players
             }
         }
 
-        public void Update()
+        public void Update(ref General general)
         {
-            if (CollisionMark)
-                CollisionMark = false;
+            if (PlMain.CollisionMark)
+                PlMain.CollisionMark = false;
             if (AskToFire)
                 AskToFire = false;
 
-            if (Holder.KSTATE.IsKeyDown(Keys.Space))
+            if (general.KSTATE.IsKeyDown(Keys.Space))
                 AskToFire = true;
 
             //Input Down
-            if (Holder.KSTATE.IsKeyDown(Keys.W))
-                Velocity.Y -= FrontAcceleration;
+            if (general.KSTATE.IsKeyDown(Keys.W))
+                PlMain.Velocity.Y -= FrontAcceleration;
 
-            if (Holder.KSTATE.IsKeyDown(Keys.S))
-                Velocity.Y += BackAcceleration;
+            if (general.KSTATE.IsKeyDown(Keys.S))
+                PlMain.Velocity.Y += BackAcceleration;
 
-            if (Holder.KSTATE.IsKeyDown(Keys.A))
+            if (general.KSTATE.IsKeyDown(Keys.A))
             {
-                Velocity.X -= SideAcceleration;
-                if (Angle > -0.2f)
-                    Angle -= 0.01f;
+                PlMain.Velocity.X -= SideAcceleration;
+                if (PlMain.Angle > -0.2f)
+                    PlMain.Angle -= 0.01f;
             }
-            if (Holder.KSTATE.IsKeyDown(Keys.D))
+            if (general.KSTATE.IsKeyDown(Keys.D))
             {
-                Velocity.X += SideAcceleration;
-                if (Angle < 0.2f)
-                    Angle += 0.01f;
+                PlMain.Velocity.X += SideAcceleration;
+                if (PlMain.Angle < 0.2f)
+                    PlMain.Angle += 0.01f;
             }
 
             //Input Up
-            if (Holder.KSTATE.IsKeyUp(Keys.Space))
+            if (general.KSTATE.IsKeyUp(Keys.Space))
                 AskToFire = false;
 
-            if (Holder.KSTATE.IsKeyUp(Keys.W) && Holder.KSTATE.IsKeyUp(Keys.S))
+            if (general.KSTATE.IsKeyUp(Keys.W) && general.KSTATE.IsKeyUp(Keys.S))
             {
-                if (Velocity.Y < 0.3f)
-                    Velocity.Y += Drag;
-                if (Velocity.Y > -0.2f)
-                    Velocity.Y -= Stabilisers;
+                if (PlMain.Velocity.Y < 0.3f)
+                    PlMain.Velocity.Y += Drag;
+                if (PlMain.Velocity.Y > -0.2f)
+                    PlMain.Velocity.Y -= Stabilisers;
             }
-            if (Holder.KSTATE.IsKeyUp(Keys.A) && Holder.KSTATE.IsKeyUp(Keys.D))
+            if (general.KSTATE.IsKeyUp(Keys.A) && general.KSTATE.IsKeyUp(Keys.D))
             {
-                if (Velocity.X > 0.4f)
-                    Velocity.X -= Stabilisers;
-                else if (Velocity.X < -0.4f)
-                    Velocity.X += Stabilisers;
-                if (Angle > 0.0f)
-                    Angle -= 0.01f;
-                else if (Angle < 0.0f)
-                    Angle += 0.01f;
+                if (PlMain.Velocity.X > 0.4f)
+                    PlMain.Velocity.X -= Stabilisers;
+                else if (PlMain.Velocity.X < -0.4f)
+                    PlMain.Velocity.X += Stabilisers;
+                if (PlMain.Angle > 0.0f)
+                    PlMain.Angle -= 0.01f;
+                else if (PlMain.Angle < 0.0f)
+                    PlMain.Angle += 0.01f;
             }
-            UpdateByVelocity();
+            PlMain.UpdateByVelocity();
 
             //COR
-            if (Position.X < 0)
+            if (PlMain.Position.X < 0)
             {
-                Position.X = 0;
-                Velocity.X = 0;
+                PlMain.Position.X = 0;
+                PlMain.Velocity.X = 0;
             }
 
-            if (Position.X > Holder.WIDTH)
+            if (PlMain.Position.X > general.WIDTH)
             {
-                Position.X = Holder.WIDTH;
-                Velocity.X = 0;
+                PlMain.Position.X = general.WIDTH;
+                PlMain.Velocity.X = 0;
             }
 
-            if (Position.Y < 0)
+            if (PlMain.Position.Y < 0)
             {
-                Position.Y = 0;
-                Velocity.Y = 3;
+                PlMain.Position.Y = 0;
+                PlMain.Velocity.Y = 3;
             }
 
-            if (Position.Y > Holder.HEIGHT)
+            if (PlMain.Position.Y > general.HEIGHT)
             {
-                Position.Y = Holder.HEIGHT;
-                Velocity.Y = 0;
+                PlMain.Position.Y = general.HEIGHT;
+                PlMain.Velocity.Y = 0;
             }
 
-            PlFront.Update(Position);
-            PlLeft.Update(Position);
-            PlRight.Update(Position);
+            PlFront.Update(ref general, ref PlMain.Position);
+            PlLeft.Update(ref general, ref PlMain.Position);
+            PlRight.Update(ref general, ref PlMain.Position);
         }
 
-        public void DrawAll()
+        public void DrawAll(ref General general)
         {
-            PlFront.DrawEntity();
-            PlLeft.DrawEntity();
-            PlRight.DrawEntity();
-            DrawEntity();
+            PlFront.DrawEntity(ref general);
+            PlLeft.DrawEntity(ref general);
+            PlRight.DrawEntity(ref general);
+            PlMain.DrawEntity(ref general);
         }
 
-        public void PlayerDamage(int damage)
+        public void PlayerDamage(ref int damage)
         {
             if (Shields > 0)
             {
@@ -167,7 +168,7 @@ namespace SpaceInvaderPlusPlus.Players
             if (Health < 0) Health = 0;
         }
 
-        public void PlayerHeal(int heal)
+        public void PlayerHeal(ref int heal)
         {
             if (Health >= 100) return;
             Health += heal;
@@ -175,7 +176,7 @@ namespace SpaceInvaderPlusPlus.Players
                 Health = 100;
         }
 
-        public void PlayerRecharge(int recharge, bool overLoad = false)
+        public void PlayerRecharge(ref int recharge, bool overLoad = false)
         {
             int maxShield = 100;
             if (overLoad) maxShield = 200;

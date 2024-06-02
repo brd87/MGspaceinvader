@@ -6,8 +6,9 @@ using System.Collections.Generic;
 
 namespace SpaceInvaderPlusPlus
 {
-    public abstract class Enemy : Entity
+    public abstract class Enemy
     {
+        public Entity EnMain {  get; set; }
         public int Health { get; set; }
         public int MaxHealth { get; set; }
         public int Armor { get; set; }
@@ -27,44 +28,46 @@ namespace SpaceInvaderPlusPlus
         protected float SelfDamageScoreCost { get; set; }
         protected float PlayerDamageScoreCost { get; set; }
         public bool UltRecived { get; set; }
+        protected float Layer;
 
-        protected Enemy(Vector2 position, float angle, string spriteName) : base(position, angle, spriteName)
+        protected Enemy(ref General general)
         {
             DamgeStageCheck = false;
             Projetiles = new List<Entity>();
             UltRecived = false;
-            DeathSoundEffectIns = Holder.CONTENT.Load<SoundEffect>("eff/eff_death").CreateInstance();
-            DeathSoundEffectIns.Volume = Holder.SETTINGS.LastEffectsVolume;
+            DeathSoundEffectIns = general.CONTENT.Load<SoundEffect>("eff/eff_death").CreateInstance();
+            DeathSoundEffectIns.Volume = general.SETTINGS.LastEffectsVolume;
+            Layer = 0.9f;
         }
 
-        public void Update(Player player, Weapon weapon, GameTime gameTime = null)
+        public void Update(ref General general, ref Player player, ref Weapon weapon, GameTime gameTime = null)
         {
-            if (this.CollisionMark)
-                this.CollisionMark = false;
+            if (this.EnMain.CollisionMark)
+                this.EnMain.CollisionMark = false;
 
-            Move(player.Position);
-            UpdateByVelocity();
-            this.AnimatedPart.Position = this.Position;
-            CollisionCheck(player, weapon);
-            Attack(player, gameTime);
-            if (Health <= 0) Holder.SCORE_DMG += SelfDeathScoreCost;
+            Move(ref general, ref player.PlMain.Position);
+            EnMain.UpdateByVelocity();
+            this.AnimatedPart.Position = this.EnMain.Position;
+            CollisionCheck(ref general, ref player, ref weapon);
+            Attack(ref general, ref player, gameTime);
+            if (Health <= 0) general.SCORE_DMG += SelfDeathScoreCost;
         }
 
-        private void CollisionCheck(Player player, Weapon weapon)
+        private void CollisionCheck(ref General general, ref Player player, ref Weapon weapon)
         {
-            if (Vector2.Distance(this.Position, player.Position) < this.EntityTexture.Height / 2 + player.EntityTexture.Height / 2)
+            if (Vector2.Distance(this.EnMain.Position, player.PlMain.Position) < this.EnMain.EntityTexture.Height / 2 + player.PlMain.EntityTexture.Height / 2)
             {
-                this.CollisionMark = true;
+                this.EnMain.CollisionMark = true;
                 Health -= SelfCollisionDamage;
             }
             foreach (Entity projectile in weapon.Projetiles)
             {
-                if (Vector2.Distance(this.Position, projectile.Position) < this.EntityTexture.Height / 3 * 2 + projectile.EntityTexture.Height / 3)
+                if (Vector2.Distance(this.EnMain.Position, projectile.Position) < this.EnMain.EntityTexture.Height / 3 * 2 + projectile.EntityTexture.Height / 3)
                 {
                     if (!projectile.CollisionMark || weapon.Penetration >= Armor)
                     {
                         Health -= weapon.Damage;
-                        Holder.SCORE_DMG += SelfDamageScoreCost;
+                        general.SCORE_DMG += SelfDamageScoreCost;
                     }
 
                     if (weapon.Penetration <= Armor)
@@ -76,8 +79,8 @@ namespace SpaceInvaderPlusPlus
             {
                 if (!DamgeStageCheck)
                 {
-                    this.UpdateSprite(DamgeStageSpriteName);
-                    this.AnimatedPart.UpdateSprite(DamgeStageAnimatedPartSpriteName);
+                    this.EnMain.UpdateSprite(ref general, DamgeStageSpriteName);
+                    this.AnimatedPart.UpdateSprite(ref general,  DamgeStageAnimatedPartSpriteName);
                     DamgeStageCheck = true;
                 }
 
@@ -86,22 +89,22 @@ namespace SpaceInvaderPlusPlus
             }
         }
 
-        protected abstract void Move(Vector2 playerPosition);
+        protected abstract void Move(ref General general, ref Vector2 playerPosition);
 
-        protected abstract void Attack(Player player, GameTime gameTime = null);
+        protected abstract void Attack(ref General general, ref Player player, GameTime gameTime = null);
 
-        public void DrawAll()
+        public void DrawAll(ref General general)
         {
             if (this.Projetiles != null)
             {
                 foreach (var entity in Projetiles)
                 {
-                    entity.DrawEntity();
+                    entity.DrawEntity(ref general);
                 }
             }
 
-            AnimatedPart.DrawEntity();
-            this.DrawEntity();
+            AnimatedPart.DrawEntity(ref general);
+            this.EnMain.DrawEntity(ref general);
         }
     }
 }

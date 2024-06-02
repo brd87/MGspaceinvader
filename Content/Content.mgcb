@@ -43,6 +43,12 @@
 /processorParam:Quality=Best
 /build:eff/eff_select.wav
 
+#begin eff/eff_ult.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:eff/eff_ult.wav
+
 #begin ene/ene_therusher_claws_dmg.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -456,6 +462,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:rem/rem_p4.png
+
+#begin rem/rem_p5.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rem/rem_p5.png
+
+#begin rem/rem_p6.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:rem/rem_p6.png
 
 #begin star/gaze.png
 /importer:TextureImporter

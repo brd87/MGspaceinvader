@@ -5,8 +5,9 @@ using System.Collections.Generic;
 
 namespace SpaceInvaderPlusPlus
 {
-    public abstract class Weapon : Entity
+    public abstract class Weapon
     {
+        protected Entity WepMain;
         protected float Cooldawn;
         protected TimeSpan LastTime;
         public int Ammunition { get; set; }
@@ -22,14 +23,14 @@ namespace SpaceInvaderPlusPlus
         public bool Loaded { get; set; }
 
 
-        protected Weapon(Vector2 position, float angle, string spriteName) : base(position, angle, spriteName)
+        protected Weapon()
         {
             LastTime = TimeSpan.FromSeconds(0.0f);
             FireGranted = false;
             Projetiles = new List<Entity>();
         }
 
-        public void Update(bool AskToFire, Vector2 shipPosition, GameTime gameTime)
+        public void Update(ref General general, bool AskToFire, Vector2 shipPosition, GameTime gameTime)
         {
             if (gameTime.TotalGameTime - LastTime >= TimeSpan.FromSeconds(Cooldawn))
                 Loaded = true;
@@ -37,10 +38,10 @@ namespace SpaceInvaderPlusPlus
             if (AskToFire && Loaded && Ammunition > 0)
             {
                 SoundEffectInstance WepSoundEffectIns = WepSoundEffect.CreateInstance();
-                WepSoundEffectIns.Volume = Holder.SETTINGS.LastEffectsVolume;
+                WepSoundEffectIns.Volume = general.SETTINGS.LastEffectsVolume;
                 WepSoundEffectIns.Play();
 
-                Projetiles.Add(new Entity(this.Position + new Vector2(0, -10), 0.0f, ProjectileSpriteName, 1));
+                Projetiles.Add(new Entity(ref general, WepMain.Position + new Vector2(0, -10), 0.0f, ProjectileSpriteName, 1));
                 LastTime = gameTime.TotalGameTime;
                 Loaded = false;
                 Ammunition -= 1;
@@ -48,26 +49,26 @@ namespace SpaceInvaderPlusPlus
                 FireEffect.Position = shipPosition - new Vector2(0, 37);
             }
 
-            this.Position = shipPosition;
+            WepMain.Position = shipPosition;
         }
 
-        public void DrawAll()
+        public void DrawAll(ref General general)
         {
-            if (this.Projetiles != null)
+            if (Projetiles != null)
             {
                 foreach (var entity in Projetiles)
                 {
-                    entity.DrawEntity();
+                    entity.DrawEntity(ref general);
                 }
             }
 
             if (FireGranted)
             {
-                FireEffect.DrawEntity();
+                FireEffect.DrawEntity(ref general);
                 FireGranted = false;
             }
 
-            this.DrawEntity();
+            WepMain.DrawEntity(ref general);
         }
 
         public abstract void ProjectileUpdate(Vector2 shipPosition);

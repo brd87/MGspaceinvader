@@ -9,6 +9,7 @@
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/eff/eff_rail.wav</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/eff/eff_saw.wav</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/eff/eff_select.wav</File>
+    <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/eff/eff_ult.wav</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/ene/ene_therusher_claws_dmg.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/ene/ene_therusher_claws.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/ene/ene_therusher_dmg.png</File>
@@ -47,6 +48,8 @@
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/rem/rem_p2.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/rem/rem_p3.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/rem/rem_p4.png</File>
+    <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/rem/rem_p5.png</File>
+    <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/rem/rem_p6.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/star/gaze.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/star/star_blue.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/star/star_red.png</File>
@@ -63,6 +66,9 @@
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/wep/wep_thesaw.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

@@ -31,12 +31,12 @@ namespace SpaceInvaderPlusPlus.Menus
         private List<string> DifficulityNames;
         private TextInputHandler TextInput;
 
-        public SettingsMenu(GameWindow gameWindow)
+        public SettingsMenu(ref General general, GameWindow gameWindow)
         {
             Cooldawn = 0.2f;
             LastTime = TimeSpan.FromSeconds(0.0f);
 
-            OptionFont = Holder.CONTENT.Load<SpriteFont>("font/font_options");
+            OptionFont = general.CONTENT.Load<SpriteFont>("font/font_options");
             Options = new List<string>() { "RETURN", "APPLY AND SAVE", "Pilot Name", "Weapon System", "Difficulity", "Music", "Effects" };
             OptionOffsets = new List<Vector2>();
             OptionColors = new List<Color>();
@@ -53,11 +53,11 @@ namespace SpaceInvaderPlusPlus.Menus
 
             CurrentSelected = 0;
 
-            Holder.PLAYERNAME = Holder.SETTINGS.LastSavedPilotName;
-            WeaponType = Holder.SETTINGS.LastWeaponType;
-            Difficulity = Holder.SETTINGS.LastDifficulty;
-            MusicVol = Holder.SETTINGS.LastMusicVolume;
-            SaveEffectsVol = Holder.SETTINGS.LastEffectsVolume;
+            general.PLAYERNAME = general.SETTINGS.LastSavedPilotName;
+            WeaponType = general.SETTINGS.LastWeaponType;
+            Difficulity = general.SETTINGS.LastDifficulty;
+            MusicVol = general.SETTINGS.LastMusicVolume;
+            SaveEffectsVol = general.SETTINGS.LastEffectsVolume;
 
             WeaponNames = new List<string> { "A-100 \"Warpig\"", "DS-X \"Smart Diax\"", "Rg50 \"Shashlik\"" };
             DifficulityNames = new List<string> { "Stable (EASY)", "Containgus (MEDIUM)", "Colapse (HARD)", "Quasimorphosis (HARDER)" };
@@ -69,15 +69,16 @@ namespace SpaceInvaderPlusPlus.Menus
             TopOffset = 38;
             Begin = 400;
 
-            TextInput = new TextInputHandler("^[a-zA-Z0-9_<>-]$", gameWindow);
+            TextInput = new TextInputHandler("^[a-zA-Z0-9_<>-]$", ref gameWindow);
+            TextInput.SetGeneralInstance(ref general);
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(ref General general, GameTime gameTime)
         {
             if (gameTime.TotalGameTime - LastTime >= TimeSpan.FromSeconds(Cooldawn))
                 if (!TextInput.IsTextInputActive)
                 {
-                    if (Holder.KSTATE.IsKeyDown(Keys.W))
+                    if (general.KSTATE.IsKeyDown(Keys.W))
                     {
                         LastTime = gameTime.TotalGameTime;
                         OptionColors[CurrentSelected] = Color.Gray;
@@ -87,7 +88,7 @@ namespace SpaceInvaderPlusPlus.Menus
                             CurrentSelected--;
                         OptionColors[CurrentSelected] = Color.White;
                     }
-                    else if (Holder.KSTATE.IsKeyDown(Keys.S))
+                    else if (general.KSTATE.IsKeyDown(Keys.S))
                     {
                         LastTime = gameTime.TotalGameTime;
                         OptionColors[CurrentSelected] = Color.Gray;
@@ -101,13 +102,13 @@ namespace SpaceInvaderPlusPlus.Menus
 
 
             for (int i = 0; i < Options.Count; i++)
-                if (i == CurrentSelected && Holder.KSTATE.IsKeyDown(Keys.Enter))
-                    if (Holder.KSTATE != Holder.KSTATE_PREV)
+                if (i == CurrentSelected && general.KSTATE.IsKeyDown(Keys.Enter))
+                    if (general.KSTATE != general.KSTATE_PREV)
                     {
                         if (CurrentSelected == 0)
-                            ReturnFrom();
+                            ReturnFrom(ref general);
                         else if (CurrentSelected == 1)
-                            SaveSettings();
+                            SaveSettings(ref general);
                         else if (CurrentSelected == 2)
                         {
                             if (!TextInput.IsTextInputActive)
@@ -135,74 +136,74 @@ namespace SpaceInvaderPlusPlus.Menus
                         }
                         else if (CurrentSelected == 6)
                         {
-                            Holder.SETTINGS.LastEffectsVolume += 0.1f;
-                            if (Holder.SETTINGS.LastEffectsVolume > 1.1) Holder.SETTINGS.LastEffectsVolume = 0;
-                            else if (Holder.SETTINGS.LastEffectsVolume > 1.0f) Holder.SETTINGS.LastEffectsVolume = 1.0f;
+                            general.SETTINGS.LastEffectsVolume += 0.1f;
+                            if (general.SETTINGS.LastEffectsVolume > 1.1) general.SETTINGS.LastEffectsVolume = 0;
+                            else if (general.SETTINGS.LastEffectsVolume > 1.0f) general.SETTINGS.LastEffectsVolume = 1.0f;
                         }
                     }
         }
 
-        public void Draw()
+        public void Draw(ref General general)
         {
             for (int i = 0; i < Options.Count; i++)
             {
                 if (i < 2)
                 {
-                    Holder.SPRITE_BATCH.DrawString(OptionFont, Options[i], new Vector2(Holder.WIDTH / 2, Begin + i * TopOffset) - OptionOffsets[i], OptionColors[i]);
+                    general.SPRITE_BATCH.DrawString(OptionFont, Options[i], new Vector2(general.WIDTH / 2, Begin + i * TopOffset) - OptionOffsets[i], OptionColors[i]);
                 }
                 else if (i == 2)
                 {
-                    Holder.SPRITE_BATCH.DrawString(OptionFont, Options[i], new Vector2(Holder.WIDTH / 2 - LeftOffset, Begin + i * TopOffset), OptionColors[i]);
-                    Holder.SPRITE_BATCH.DrawString(OptionFont, Holder.PLAYERNAME, new Vector2(Holder.WIDTH / 2 + RightOffset, Begin + i * TopOffset), OptionColors[i]);
+                    general.SPRITE_BATCH.DrawString(OptionFont, Options[i], new Vector2(general.WIDTH / 2 - LeftOffset, Begin + i * TopOffset), OptionColors[i]);
+                    general.SPRITE_BATCH.DrawString(OptionFont, general.PLAYERNAME, new Vector2(general.WIDTH / 2 + RightOffset, Begin + i * TopOffset), OptionColors[i]);
                 }
                 else if (i == 3)
                 {
-                    Holder.SPRITE_BATCH.DrawString(OptionFont, Options[i], new Vector2(Holder.WIDTH / 2 - LeftOffset, Begin + i * TopOffset), OptionColors[i]);
-                    Holder.SPRITE_BATCH.DrawString(OptionFont, WeaponNames[WeaponType], new Vector2(Holder.WIDTH / 2 + RightOffset, Begin + i * TopOffset), OptionColors[i]);
+                    general.SPRITE_BATCH.DrawString(OptionFont, Options[i], new Vector2(general.WIDTH / 2 - LeftOffset, Begin + i * TopOffset), OptionColors[i]);
+                    general.SPRITE_BATCH.DrawString(OptionFont, WeaponNames[WeaponType], new Vector2(general.WIDTH / 2 + RightOffset, Begin + i * TopOffset), OptionColors[i]);
                 }
                 else if (i == 4)
                 {
-                    Holder.SPRITE_BATCH.DrawString(OptionFont, Options[i], new Vector2(Holder.WIDTH / 2 - LeftOffset, Begin + i * TopOffset), OptionColors[i]);
-                    Holder.SPRITE_BATCH.DrawString(OptionFont, DifficulityNames[Difficulity], new Vector2(Holder.WIDTH / 2 + RightOffset, Begin + i * TopOffset), OptionColors[i]);
+                    general.SPRITE_BATCH.DrawString(OptionFont, Options[i], new Vector2(general.WIDTH / 2 - LeftOffset, Begin + i * TopOffset), OptionColors[i]);
+                    general.SPRITE_BATCH.DrawString(OptionFont, DifficulityNames[Difficulity], new Vector2(general.WIDTH / 2 + RightOffset, Begin + i * TopOffset), OptionColors[i]);
                 }
                 else if (i == 5)
                 {
-                    Holder.SPRITE_BATCH.DrawString(OptionFont, Options[i], new Vector2(Holder.WIDTH / 2 - LeftOffset, Begin + i * TopOffset), OptionColors[i]);
-                    Holder.SPRITE_BATCH.DrawString(OptionFont, ((int)(MusicVol * 10)).ToString(), new Vector2(Holder.WIDTH / 2 + RightOffset, Begin + i * TopOffset), OptionColors[i]);
+                    general.SPRITE_BATCH.DrawString(OptionFont, Options[i], new Vector2(general.WIDTH / 2 - LeftOffset, Begin + i * TopOffset), OptionColors[i]);
+                    general.SPRITE_BATCH.DrawString(OptionFont, ((int)(MusicVol * 10)).ToString(), new Vector2(general.WIDTH / 2 + RightOffset, Begin + i * TopOffset), OptionColors[i]);
                 }
                 else if (i == 6)
                 {
-                    Holder.SPRITE_BATCH.DrawString(OptionFont, Options[i], new Vector2(Holder.WIDTH / 2 - LeftOffset, Begin + i * TopOffset), OptionColors[i]);
-                    Holder.SPRITE_BATCH.DrawString(OptionFont, ((int)(Holder.SETTINGS.LastEffectsVolume * 10)).ToString(), new Vector2(Holder.WIDTH / 2 + RightOffset, Begin + i * TopOffset), OptionColors[i]);
+                    general.SPRITE_BATCH.DrawString(OptionFont, Options[i], new Vector2(general.WIDTH / 2 - LeftOffset, Begin + i * TopOffset), OptionColors[i]);
+                    general.SPRITE_BATCH.DrawString(OptionFont, ((int)(general.SETTINGS.LastEffectsVolume * 10)).ToString(), new Vector2(general.WIDTH / 2 + RightOffset, Begin + i * TopOffset), OptionColors[i]);
                 }
             }
         }
 
-        private void ReturnFrom()
+        private void ReturnFrom(ref General general)
         {
-            Holder.MENUMODE = 0;
+            general.MENUMODE = 0;
 
-            Holder.PLAYERNAME = Holder.SETTINGS.LastSavedPilotName;
-            WeaponType = Holder.SETTINGS.LastWeaponType;
-            Difficulity = Holder.SETTINGS.LastDifficulty;
-            MusicVol = Holder.SETTINGS.LastMusicVolume;
-            Holder.SETTINGS.LastEffectsVolume = SaveEffectsVol;
-            MediaPlayer.Volume = Holder.SETTINGS.LastMusicVolume;
+            general.PLAYERNAME = general.SETTINGS.LastSavedPilotName;
+            WeaponType = general.SETTINGS.LastWeaponType;
+            Difficulity = general.SETTINGS.LastDifficulty;
+            MusicVol = general.SETTINGS.LastMusicVolume;
+            general.SETTINGS.LastEffectsVolume = SaveEffectsVol;
+            MediaPlayer.Volume = general.SETTINGS.LastMusicVolume;
         }
 
-        private void SaveSettings()
+        private void SaveSettings(ref General general)
         {
-            Holder.MENUMODE = 0;
+            general.MENUMODE = 0;
             if (MusicVol > 1.0f) MusicVol = 1.0f;
 
-            Holder.SETTINGS.LastSavedPilotName = Holder.PLAYERNAME;
-            Holder.SETTINGS.LastWeaponType = WeaponType;
-            Holder.SETTINGS.LastDifficulty = Difficulity;
-            Holder.SETTINGS.LastMusicVolume = MusicVol;
+            general.SETTINGS.LastSavedPilotName = general.PLAYERNAME;
+            general.SETTINGS.LastWeaponType = WeaponType;
+            general.SETTINGS.LastDifficulty = Difficulity;
+            general.SETTINGS.LastMusicVolume = MusicVol;
 
             string gameFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "SIPP");
             string settingsPath = Path.Combine(gameFolder, "settings.json");
-            string json = JsonSerializer.Serialize(Holder.SETTINGS, new JsonSerializerOptions { WriteIndented = true });
+            string json = JsonSerializer.Serialize(general.SETTINGS, new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(settingsPath, json);
         }
     }

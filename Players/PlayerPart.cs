@@ -6,38 +6,38 @@ namespace SpaceInvaderPlusPlus.Players
     internal class PlayerPart : Entity
     {
         private int id { get; set; }
-        public PlayerPart(Vector2 position, string spriteName, float angle = 0.0f, int entityLayer = 1) : base(position, angle, spriteName, entityLayer)
+        public PlayerPart(ref General general, Vector2 position, string spriteName, float angle = 0.0f, int entityLayer = 1) : base(ref general, position, angle, spriteName, entityLayer)
         {
             if (spriteName == "player/player_lwing") id = 0;
             if (spriteName == "player/player_front") id = 1;
             if (spriteName == "player/player_rwing") id = 2;
         }
 
-        public void Update(Vector2 shipPosition)
+        public void Update(ref General general, ref Vector2 shipPosition)
         {
             Position = shipPosition;
 
-            if ((id == 1 || id == 0) && Holder.KSTATE.IsKeyDown(Keys.A) && Angle > -0.2f)
+            if ((id == 1 || id == 0) && general.KSTATE.IsKeyDown(Keys.A) && Angle > -0.2f)
                 Angle -= 0.01f;
-            if ((id == 1 || id == 2) && Holder.KSTATE.IsKeyDown(Keys.D) && Angle < 0.2f)
+            if ((id == 1 || id == 2) && general.KSTATE.IsKeyDown(Keys.D) && Angle < 0.2f)
                 Angle += 0.01f;
 
-            if (id == 2 && Holder.KSTATE.IsKeyDown(Keys.A) && Angle > -0.4f)
+            if (id == 2 && general.KSTATE.IsKeyDown(Keys.A) && Angle > -0.4f)
                 Angle -= 0.02f;
-            if (id == 0 && Holder.KSTATE.IsKeyDown(Keys.D) && Angle < 0.4f)
+            if (id == 0 && general.KSTATE.IsKeyDown(Keys.D) && Angle < 0.4f)
                 Angle += 0.02f;
 
-            if (id == 0 && Holder.KSTATE.IsKeyDown(Keys.W) && Angle > -0.4f)
+            if (id == 0 && general.KSTATE.IsKeyDown(Keys.W) && Angle > -0.4f)
                 Angle -= 0.02f;
-            if (id == 0 && Holder.KSTATE.IsKeyDown(Keys.S) && Angle < 0.4f)
+            if (id == 0 && general.KSTATE.IsKeyDown(Keys.S) && Angle < 0.4f)
                 Angle += 0.02f;
 
-            if (id == 2 && Holder.KSTATE.IsKeyDown(Keys.W) && Angle < 0.4f)
+            if (id == 2 && general.KSTATE.IsKeyDown(Keys.W) && Angle < 0.4f)
                 Angle += 0.02f;
-            if (id == 2 && Holder.KSTATE.IsKeyDown(Keys.S) && Angle > -0.4f)
+            if (id == 2 && general.KSTATE.IsKeyDown(Keys.S) && Angle > -0.4f)
                 Angle -= 0.02f;
 
-            if (Holder.KSTATE.IsKeyUp(Keys.A) && Holder.KSTATE.IsKeyUp(Keys.D) && Holder.KSTATE.IsKeyUp(Keys.W) && Holder.KSTATE.IsKeyUp(Keys.S))
+            if (general.KSTATE.IsKeyUp(Keys.A) && general.KSTATE.IsKeyUp(Keys.D) && general.KSTATE.IsKeyUp(Keys.W) && general.KSTATE.IsKeyUp(Keys.S))
             {
                 if (Angle > 0.0f)
                     Angle -= 0.01f;

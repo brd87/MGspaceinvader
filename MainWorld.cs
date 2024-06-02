@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
+using System.Threading;
 
 namespace SpaceInvaderPlusPlus
 {
@@ -49,7 +50,7 @@ namespace SpaceInvaderPlusPlus
         private float _progEntSpeed;
 
 
-        public MainWorld()
+        public MainWorld(ref General general)
         {
             _particles = new List<Particles>();
             _enemyWall = new List<Enemy>();
@@ -62,37 +63,38 @@ namespace SpaceInvaderPlusPlus
             _progEntSpeed = 0.25f;
         }
 
-        public void RanNew()
+        public void RanNew(ref General general)
         {
-            Holder.STARTNEW = false;
-            Holder.RUNWORLD = true;
-            Holder.SCORE_TRAVEL = 0;
-            Holder.SCORE_DMG = 0;
-            Holder.SCORE_DMGPLAYER = 0;
-            Holder.SCORE_PICKUPS = 0;
-            Holder.SCORE_AMMOWASTE = 0;
+            general.STARTNEW = false;
+            general.RUNWORLD = true;
+            general.SCORE_TRAVEL = 0;
+            general.SCORE_DMG = 0;
+            general.SCORE_DMGPLAYER = 0;
+            general.SCORE_PICKUPS = 0;
+            general.SCORE_AMMOWASTE = 0;
 
-            _hudFont = Holder.CONTENT.Load<SpriteFont>("font/font_hudmain");
-            _hudFontAux = Holder.CONTENT.Load<SpriteFont>("font/font_hudaux");
+            _hudFont = general.CONTENT.Load<SpriteFont>("font/font_hudmain");
+            _hudFontAux = general.CONTENT.Load<SpriteFont>("font/font_hudaux");
             _enemySawnHeightMax = -1100;
             _enemySpawnHeightMin = -100;
             _otherSawnHeightMax = -200;
             _otherSpawnHeightMin = -100;
-            _despawnHeight = Holder.HEIGHT + 100;
+            _despawnHeight = general.HEIGHT + 100;
 
             _progressEnt.Clear();
 
-            _player = new Player(new Vector2(Holder.WIDTH / 2, Holder.HEIGHT / 4 * 3));
-            if (Holder.SETTINGS.LastWeaponType == 0)
-                _weapon = new TheGun(new Vector2(Holder.WIDTH / 2, Holder.HEIGHT / 4 * 3));
-            else if (Holder.SETTINGS.LastWeaponType == 1)
-                _weapon = new TheSaw(new Vector2(Holder.WIDTH / 2, Holder.HEIGHT / 4 * 3));
-            else if (Holder.SETTINGS.LastWeaponType == 2)
-                _weapon = new TheRail(new Vector2(Holder.WIDTH / 2, Holder.HEIGHT / 4 * 3));
+            Vector2 spawnVector = new Vector2(general.WIDTH / 2, general.HEIGHT / 4 * 3);
+            _player = new Player(ref general, ref spawnVector);
+            if (general.SETTINGS.LastWeaponType == 0)
+                _weapon = new TheGun(ref general, ref spawnVector);
+            else if (general.SETTINGS.LastWeaponType == 1)
+                _weapon = new TheSaw(ref general, ref spawnVector);
+            else if (general.SETTINGS.LastWeaponType == 2)
+                _weapon = new TheRail(ref general, ref spawnVector);
             else
-                _weapon = new TheGun(new Vector2(Holder.WIDTH / 2, Holder.HEIGHT / 4 * 3));
+                _weapon = new TheGun(ref general, ref spawnVector);
 
-            _damageScr = new Entity(new Vector2(Holder.WIDTH / 2, Holder.HEIGHT / 2), 0.0f, "other/dmgeye", 1);
+            _damageScr = new Entity(ref general, new Vector2(general.WIDTH / 2, general.HEIGHT / 2), 0.0f, "other/dmgeye", 1);
 
             _particles.Clear();
             _enemyWall.Clear();
@@ -107,10 +109,10 @@ namespace SpaceInvaderPlusPlus
             _lastTimeEnviroment = TimeSpan.FromSeconds(0.0f);
             _lastTimePickup = TimeSpan.FromSeconds(0.0f);
 
-            if (Holder.SETTINGS.LastDifficulty == 0)
+            if (general.SETTINGS.LastDifficulty == 0)
             {
-                Holder.SCORE_MULTIPLAYER = 0.4f;
-                Holder.SCORE_TRAVEL = 0;
+                general.SCORE_MULTIPLAYER = 0.4f;
+                general.SCORE_TRAVEL = 0;
                 _scaling = 0.99f;
                 _cooldawnWall = 25;
                 _cooldawnRusher = 3;
@@ -118,10 +120,10 @@ namespace SpaceInvaderPlusPlus
                 _cooldawnEnviroment = 15;
                 _cooldawnPickup = 10;
             }
-            else if (Holder.SETTINGS.LastDifficulty == 1)
+            else if (general.SETTINGS.LastDifficulty == 1)
             {
-                Holder.SCORE_MULTIPLAYER = 1;
-                Holder.SCORE_TRAVEL = 0;
+                general.SCORE_MULTIPLAYER = 1;
+                general.SCORE_TRAVEL = 0;
                 _scaling = 0.98f;
                 _cooldawnWall = 25;
                 _cooldawnRusher = 2;
@@ -129,10 +131,10 @@ namespace SpaceInvaderPlusPlus
                 _cooldawnEnviroment = 10;
                 _cooldawnPickup = 10;
             }
-            else if (Holder.SETTINGS.LastDifficulty == 2)
+            else if (general.SETTINGS.LastDifficulty == 2)
             {
-                Holder.SCORE_MULTIPLAYER = 1.4f;
-                Holder.SCORE_TRAVEL = 1000;
+                general.SCORE_MULTIPLAYER = 1.4f;
+                general.SCORE_TRAVEL = 1000;
                 _scaling = 0.97f;
                 _cooldawnWall = 20;
                 _cooldawnRusher = 2;
@@ -142,8 +144,8 @@ namespace SpaceInvaderPlusPlus
             }
             else
             {
-                Holder.SCORE_MULTIPLAYER = 1.6f;
-                Holder.SCORE_TRAVEL = 2000;
+                general.SCORE_MULTIPLAYER = 1.6f;
+                general.SCORE_TRAVEL = 2000;
                 _scaling = 0.96f;
                 _cooldawnWall = 15;
                 _cooldawnRusher = 1;
@@ -155,109 +157,111 @@ namespace SpaceInvaderPlusPlus
             _previusScale = 0;
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(ref GameTime gameTime, ref General general)
         {
-            if (Holder.KSTATE.IsKeyDown(Keys.Escape))
-                Holder.RUNWORLD = false;
+            if (general.KSTATE.IsKeyDown(Keys.Escape))
+                general.RUNWORLD = false;
 
             //Update / Input / Movement / Actions
-            HandleUpdates(gameTime);
+            HandleUpdates(ref general, ref gameTime);
 
             //Despawn / Spawns
-            HandleSpawnDespawn(gameTime);
+            HandleSpawnDespawn(ref gameTime, ref general);
 
 
             //Handle difficulity
-            if (_previusScale != (int)(Holder.SCORE_TRAVEL / 500))
-                DiffScaling();
+            if (_previusScale != (int)(general.SCORE_TRAVEL / 500))
+                DiffScaling(ref general);
 
-            Holder.SCORE_TRAVEL++;
+            general.SCORE_TRAVEL++;
         }
 
-        public void HandleDeath()
+        private void HandleDeath(ref General general)
         {
-            Holder.RUNWORLD = false;
-            int finalScore = (int)((Holder.SCORE_TRAVEL + Holder.SCORE_PICKUPS + Holder.SCORE_DMG - Holder.SCORE_AMMOWASTE - Holder.SCORE_DMGPLAYER) * Holder.SCORE_MULTIPLAYER);
-            PlayerRecord newRecord = new PlayerRecord(Holder.SETTINGS.LastSavedPilotName, finalScore);
-            if (Holder.TOP_PLAYERS.Players.Count == 0 && finalScore > 0)
-                Holder.TOP_PLAYERS.Players.Add(newRecord);
+            general.RUNWORLD = false;
+            int finalScore = (int)((general.SCORE_TRAVEL + general.SCORE_PICKUPS + general.SCORE_DMG - general.SCORE_AMMOWASTE - general.SCORE_DMGPLAYER) * general.SCORE_MULTIPLAYER);
+            PlayerRecord newRecord = new PlayerRecord(general.SETTINGS.LastSavedPilotName, finalScore);
+            if (general.TOP_PLAYERS.Players.Count == 0 && finalScore > 0)
+                general.TOP_PLAYERS.Players.Add(newRecord);
             else
             {
                 bool inserted = false;
-                for (int i = 0; i < Holder.TOP_PLAYERS.Players.Count; i++)
+                for (int i = 0; i < general.TOP_PLAYERS.Players.Count; i++)
                 {
-                    if (finalScore > Holder.TOP_PLAYERS.Players[i].Score)
+                    if (finalScore > general.TOP_PLAYERS.Players[i].Score)
                     {
-                        Holder.TOP_PLAYERS.Players.Insert(i, newRecord);
+                        general.TOP_PLAYERS.Players.Insert(i, newRecord);
                         inserted = true;
                         break;
                     }
                 }
-                if (!inserted && Holder.TOP_PLAYERS.Players.Count < 20 && finalScore > 0)
-                    Holder.TOP_PLAYERS.Players.Add(newRecord);
-                if (Holder.TOP_PLAYERS.Players.Count > 20)
-                    Holder.TOP_PLAYERS.Players.RemoveAt(Holder.TOP_PLAYERS.Players.Count - 1);
+                if (!inserted && general.TOP_PLAYERS.Players.Count < 20 && finalScore > 0)
+                    general.TOP_PLAYERS.Players.Add(newRecord);
+                if (general.TOP_PLAYERS.Players.Count > 20)
+                    general.TOP_PLAYERS.Players.RemoveAt(general.TOP_PLAYERS.Players.Count - 1);
             }
 
             string gameFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "SIPP");
             string settingsPath = Path.Combine(gameFolder, "top.json");
-            string json = JsonSerializer.Serialize(Holder.TOP_PLAYERS, new JsonSerializerOptions { WriteIndented = true });
+            string json = JsonSerializer.Serialize(general.TOP_PLAYERS, new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(settingsPath, json);
         }
 
-        public void Draw()
+        public void Draw(ref General general)
         {
+            General generalLoc = general;
+
             foreach (var entity in _progressEnt)
-                entity.DrawEntity();
+                entity.DrawEntity(ref general);
 
             foreach (Environmental env in _enviroments)
-                env.DrawEntity();
-            _weapon.DrawAll();
-            _player.DrawAll();
+                env.EnvMain.DrawEntity(ref general);
+            _weapon.DrawAll(ref general);
+            _player.DrawAll(ref general);
 
             foreach (Particles part in _particles)
-                part.DrawAll();
+                part.DrawAll(ref general);
 
             foreach (Enemy enemy in _enemyWall)
-                enemy.DrawAll();
+                enemy.DrawAll(ref general);
             foreach (Enemy enemy in _enemyRusher)
-                enemy.DrawAll();
+                enemy.DrawAll(ref general);
             foreach (Enemy enemy in _enemySpewer)
-                enemy.DrawAll();
+                enemy.DrawAll(ref general);
 
 
             foreach (Pickup pickup in _pickups)
-                pickup.DrawEntity();
+                pickup.PicMain.DrawEntity(ref general);
 
             foreach (UltAbility ult in _ultAbility)
-                ult.DrawEntity();
+                ult.DrawEntity(ref general);
 
-            if (_player.CollisionMark)
-                _damageScr.DrawEntity();
+            if (_player.PlMain.CollisionMark)
+                _damageScr.DrawEntity(ref general);
 
-            DrawHUD(_player, _weapon);
+            DrawHUD(ref general);
         }
 
-        private void HandleUpdates(GameTime gameTime)
+        private void HandleUpdates(ref General general, ref GameTime gameTime)
         {
-            _player.Update();
-            _weapon.Update(_player.AskToFire, _player.Position, gameTime);
-            _weapon.ProjectileUpdate(_player.Position);
+            _player.Update(ref general);
+            _weapon.Update(ref general, _player.AskToFire, _player.PlMain.Position, gameTime);
+            _weapon.ProjectileUpdate(_player.PlMain.Position);
 
             foreach (Enemy enemy in _enemyWall)
-                enemy.Update(_player, _weapon);
+                enemy.Update(ref general, ref _player, ref _weapon);
             foreach (Enemy enemy in _enemyRusher)
-                enemy.Update(_player, _weapon);
+                enemy.Update(ref general, ref _player, ref _weapon);
             foreach (Enemy enemy in _enemySpewer)
-                enemy.Update(_player, _weapon, gameTime);
+                enemy.Update(ref general, ref _player, ref _weapon, gameTime);
 
 
             foreach (Pickup pickup in _pickups)
-                pickup.Update(_player, _weapon);
+                pickup.Update(ref general, ref _player, ref _weapon);
 
 
             foreach (Environmental env in _enviroments)
-                env.Update(_player, _weapon);
+                env.Update(ref general, ref _player, ref _weapon);
 
             foreach (Particles part in _particles)
                 part.Update(gameTime);
@@ -266,32 +270,32 @@ namespace SpaceInvaderPlusPlus
                 ult.Update(new List<List<Enemy>> { _enemyWall, _enemyRusher, _enemySpewer });
         }
 
-        private void HandleSpawnDespawn(GameTime gameTime)
+        private void HandleSpawnDespawn(ref GameTime gameTime, ref General general)
         {
             //_progressEnt
             for (int i = 0; i < _progressEnt.Count; i++)
             {
                 _progressEnt[i].Position.Y += _progEntSpeed;
-                if (_progressEnt[i].Position.Y > Holder.HEIGHT + 100)
+                if (_progressEnt[i].Position.Y > general.HEIGHT + 100)
                 {
                     _progressEnt.RemoveAt(i);
                     i--;
                 }
             }
-            while (_progressEnt.Count < (int)Holder.SCORE_TRAVEL / 500)
-                _progressEnt.Add(new Entity(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(-10, Holder.HEIGHT)), Holder.randomFloat(-0.2f, 0.2f), "star/gaze",
-                    Holder.randomFloat(Holder.SCALE * 0.5f, Holder.SCALE * 1.5f)));
+            while (_progressEnt.Count < (int)general.SCORE_TRAVEL / 500)
+                _progressEnt.Add(new Entity(ref general, new Vector2(general.RANDOM.Next(0, general.WIDTH), general.RANDOM.Next(-10, general.HEIGHT)),
+                    general.randomFloat(-0.2f, 0.2f), "star/gaze", general.randomFloat(general.SCALE * 0.5f, general.SCALE * 1.5f)));
 
             //_player
             if (_player.Health <= 0)
-                HandleDeath();
+                HandleDeath(ref general);
             //_weapon
             for (int i = 0; i < _weapon.Projetiles.Count; i++)
             {
                 if (_weapon.Projetiles[i].Position.Y < 0 || _weapon.Projetiles[i].CollisionMark)
                 {
                     if (!_weapon.Projetiles[i].CollisionMark)
-                        Holder.SCORE_AMMOWASTE += _weapon.AmmoScoreCost;
+                        general.SCORE_AMMOWASTE += _weapon.AmmoScoreCost;
                     _weapon.Projetiles.RemoveAt(i);
                     i--;
                 }
@@ -300,9 +304,10 @@ namespace SpaceInvaderPlusPlus
             //_enemyWall
             for (int i = 0; i < _enemyWall.Count; i++)
             {
-                if (_enemyWall[i].Position.Y > _despawnHeight || _enemyWall[i].Health <= 0)
+                if (_enemyWall[i].EnMain.Position.Y > _despawnHeight || _enemyWall[i].Health <= 0)
                 {
-                    _particles.Add(new Particles(gameTime, _enemyWall[i].MaxHealth, _enemyWall[i].Position, _enemyWall[i].EntityTexture.Height / 2, _enemyWall[i].Velocity));
+                    _particles.Add(new Particles(ref general, gameTime, _enemyWall[i].MaxHealth, _enemyWall[i].EnMain.Position, 
+                        _enemyWall[i].EnMain.EntityTexture.Height / 2, _enemyWall[i].EnMain.Velocity, 1));
                     _enemyWall.RemoveAt(i);
                     i--;
                 }
@@ -310,15 +315,16 @@ namespace SpaceInvaderPlusPlus
             if (gameTime.TotalGameTime - _lastTimeWall >= TimeSpan.FromSeconds(_cooldawnWall))
             {
                 _lastTimeWall = gameTime.TotalGameTime;
-                _enemyWall.Add(new TheWall(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(_enemySawnHeightMax, _enemySpawnHeightMin))));
+                _enemyWall.Add(new TheWall(ref general, new Vector2(general.RANDOM.Next(0, general.WIDTH), general.RANDOM.Next(_enemySawnHeightMax, _enemySpawnHeightMin))));
             }
 
             //_enemyRusher
             for (int i = 0; i < _enemyRusher.Count; i++)
             {
-                if (_enemyRusher[i].Position.Y > _despawnHeight || _enemyRusher[i].Health <= 0)
+                if (_enemyRusher[i].EnMain.Position.Y > _despawnHeight || _enemyRusher[i].Health <= 0)
                 {
-                    _particles.Add(new Particles(gameTime, _enemyRusher[i].MaxHealth, _enemyRusher[i].Position, _enemyRusher[i].EntityTexture.Height / 2, _enemyRusher[i].Velocity));
+                    _particles.Add(new Particles(ref general, gameTime, _enemyRusher[i].MaxHealth, _enemyRusher[i].EnMain.Position, 
+                        _enemyRusher[i].EnMain.EntityTexture.Height / 2, _enemyRusher[i].EnMain.Velocity));
                     _enemyRusher.RemoveAt(i);
                     i--;
                 }
@@ -326,15 +332,16 @@ namespace SpaceInvaderPlusPlus
             if (gameTime.TotalGameTime - _lastTimeRusher >= TimeSpan.FromSeconds(_cooldawnRusher))
             {
                 _lastTimeRusher = gameTime.TotalGameTime;
-                _enemyRusher.Add(new TheRusher(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(_enemySawnHeightMax, _enemySpawnHeightMin))));
+                _enemyRusher.Add(new TheRusher(ref general, new Vector2(general.RANDOM.Next(0, general.WIDTH), general.RANDOM.Next(_enemySawnHeightMax, _enemySpawnHeightMin))));
             }
 
             //_enemySpewer
             for (int i = 0; i < _enemySpewer.Count; i++)
             {
-                if (_enemySpewer[i].Position.Y > _despawnHeight || _enemySpewer[i].Health <= 0)
+                if (_enemySpewer[i].EnMain.Position.Y > _despawnHeight || _enemySpewer[i].Health <= 0)
                 {
-                    _particles.Add(new Particles(gameTime, _enemySpewer[i].MaxHealth, _enemySpewer[i].Position, _enemySpewer[i].EntityTexture.Height / 2, _enemySpewer[i].Velocity));
+                    _particles.Add(new Particles(ref general, gameTime, _enemySpewer[i].MaxHealth, _enemySpewer[i].EnMain.Position, 
+                        _enemySpewer[i].EnMain.EntityTexture.Height / 2, _enemySpewer[i].EnMain.Velocity, 2));
                     _enemySpewer.RemoveAt(i);
                     i--;
                 }
@@ -342,13 +349,13 @@ namespace SpaceInvaderPlusPlus
             if (gameTime.TotalGameTime - _lastTimeSpewer >= TimeSpan.FromSeconds(_cooldawnSpewer))
             {
                 _lastTimeSpewer = gameTime.TotalGameTime;
-                _enemySpewer.Add(new TheSpewer(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(_enemySawnHeightMax, _enemySpawnHeightMin))));
+                _enemySpewer.Add(new TheSpewer(ref general, new Vector2(general.RANDOM.Next(0, general.WIDTH), general.RANDOM.Next(_enemySawnHeightMax, _enemySpawnHeightMin))));
             }
 
             //_pickups
             for (int i = 0; i < _pickups.Count; i++)
             {
-                if (_pickups[i].Position.Y > _despawnHeight || _pickups[i].CollisionMark)
+                if (_pickups[i].PicMain.Position.Y > _despawnHeight || _pickups[i].PicMain.CollisionMark)
                 {
                     _pickups.RemoveAt(i);
                     i--;
@@ -357,19 +364,19 @@ namespace SpaceInvaderPlusPlus
             if (gameTime.TotalGameTime - _lastTimePickup >= TimeSpan.FromSeconds(_cooldawnPickup))
             {
                 _lastTimePickup = gameTime.TotalGameTime;
-                int type = Holder.RANDOM.Next(0, 3);
-                if (type == 0)
-                    _pickups.Add(new MedPack(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(_otherSawnHeightMax, _otherSpawnHeightMin))));
-                if (type == 1)
-                    _pickups.Add(new EnergyPack(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(_otherSawnHeightMax, _otherSpawnHeightMin))));
-                if (type == 2)
-                    _pickups.Add(new UltPack(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(_otherSawnHeightMax, _otherSpawnHeightMin))));
+                int type = general.RANDOM.Next(0, 10);
+                if (type <= 3)
+                    _pickups.Add(new MedPack(ref general, new Vector2(general.RANDOM.Next(0, general.WIDTH), general.RANDOM.Next(_otherSawnHeightMax, _otherSpawnHeightMin))));
+                else if (type <= 7)
+                    _pickups.Add(new EnergyPack(ref general, new Vector2(general.RANDOM.Next(0, general.WIDTH), general.RANDOM.Next(_otherSawnHeightMax, _otherSpawnHeightMin))));
+                else if (type <= 9)
+                    _pickups.Add(new UltPack(ref general, new Vector2(general.RANDOM.Next(0, general.WIDTH), general.RANDOM.Next(_otherSawnHeightMax, _otherSpawnHeightMin))));
             }
 
             //_enviroments
             for (int i = 0; i < _enviroments.Count; i++)
             {
-                if (_enviroments[i].Position.Y > _despawnHeight || (_enviroments[i].CollisionMark && _enviroments[i].DespawnOnHit))
+                if (_enviroments[i].EnvMain.Position.Y > _despawnHeight || (_enviroments[i].EnvMain.CollisionMark && _enviroments[i].DespawnOnHit))
                 {
                     _enviroments.RemoveAt(i);
                     i--;
@@ -378,13 +385,13 @@ namespace SpaceInvaderPlusPlus
             if (gameTime.TotalGameTime - _lastTimeEnviroment >= TimeSpan.FromSeconds(_cooldawnEnviroment))
             {
                 _lastTimeEnviroment = gameTime.TotalGameTime;
-                int type = Holder.RANDOM.Next(0, 3);
-                if (type == 0)
-                    _enviroments.Add(new TrapMed(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(_otherSawnHeightMax, _otherSpawnHeightMin))));
-                if (type == 1)
-                    _enviroments.Add(new BigRock(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(_otherSawnHeightMax, _otherSpawnHeightMin))));
-                if (type == 2)
-                    _enviroments.Add(new AcidMine(new Vector2(Holder.RANDOM.Next(0, Holder.WIDTH), Holder.RANDOM.Next(_otherSawnHeightMax, _otherSpawnHeightMin))));
+                int type = general.RANDOM.Next(0, 10);
+                if (type <= 2)
+                    _enviroments.Add(new TrapMed(ref general, new Vector2(general.RANDOM.Next(0, general.WIDTH), general.RANDOM.Next(_otherSawnHeightMax, _otherSpawnHeightMin))));
+                else if (type <= 6)
+                    _enviroments.Add(new BigRock(ref general, new Vector2(general.RANDOM.Next(0, general.WIDTH), general.RANDOM.Next(_otherSawnHeightMax, _otherSpawnHeightMin))));
+                else if (type <= 9)
+                    _enviroments.Add(new AcidMine(ref general, new Vector2(general.RANDOM.Next(0, general.WIDTH), general.RANDOM.Next(_otherSawnHeightMax, _otherSpawnHeightMin))));
             }
 
             //_particles
@@ -406,37 +413,38 @@ namespace SpaceInvaderPlusPlus
                     i--;
                 }
             }
-            if (_player.UltAbility && Holder.KSTATE.IsKeyDown(Keys.LeftControl))
+            if (_player.UltAbility && general.KSTATE.IsKeyDown(Keys.LeftControl))
             {
-                _ultAbility.Add(new UltAbility());
+                _ultAbility.Add(new UltAbility(ref general));
                 _player.UltAbility = false;
             }
         }
 
-        public void DiffScaling()
+        private void DiffScaling(ref General general)
         {
-            _previusScale = (int)(Holder.SCORE_TRAVEL / 500);
-            _cooldawnWall *= _scaling; //1 - 0.01f * _previusScale;
-            _cooldawnRusher *= _scaling; //1 - 0.01f * _previusScale;
-            _cooldawnSpewer *= _scaling; //1 - 0.01f * _previusScale;
+            _previusScale = (int)(general.SCORE_TRAVEL / 500);
+            _cooldawnWall *= _scaling;
+            _cooldawnRusher *= _scaling;
+            _cooldawnSpewer *= _scaling;
         }
 
-        public void DrawHUD(Player player, Weapon weapon)
+        private void DrawHUD(ref General general)
         {
-            Holder.SPRITE_BATCH.DrawString(_hudFont, $"HEALTH: {player.Health}%", new Vector2(20, 20), Color.White);
-            Holder.SPRITE_BATCH.DrawString(_hudFont, $"SHIELDS: {player.Shields}%", new Vector2(360, 20), Color.White);
-            Holder.SPRITE_BATCH.DrawString(_hudFont, $"AMMO {weapon.Ammunition}|{weapon.MaxAmmunition}", new Vector2(720, 20), Color.White);
+            general.SPRITE_BATCH.DrawString(_hudFont, $"HEALTH: {_player.Health}%", new Vector2(20, 20), Color.White);
+            general.SPRITE_BATCH.DrawString(_hudFont, $"SHIELDS: {_player.Shields}%", new Vector2(360, 20), Color.White);
+            general.SPRITE_BATCH.DrawString(_hudFont, $"AMMO {_weapon.Ammunition}|{_weapon.MaxAmmunition}", new Vector2(720, 20), Color.White);
             if (_player.UltAbility)
-                Holder.SPRITE_BATCH.DrawString(_hudFontAux, $"POWER WEAPON READY", new Vector2(380, 50), Color.LightSkyBlue);
+                general.SPRITE_BATCH.DrawString(_hudFontAux, $"POWER WEAPON READY", new Vector2(380, 50), Color.LightSkyBlue);
             if (!_weapon.Loaded && _weapon.Ammunition > 0)
-                Holder.SPRITE_BATCH.DrawString(_hudFontAux, $"LOADING...", new Vector2(720, 50), Color.IndianRed);
-            Holder.SPRITE_BATCH.DrawString(_hudFont, $"Travel: {Holder.SCORE_TRAVEL}", new Vector2(400, 850), Color.White);
+                general.SPRITE_BATCH.DrawString(_hudFontAux, $"LOADING...", new Vector2(720, 50), Color.IndianRed);
+            general.SPRITE_BATCH.DrawString(_hudFont, $"Travel: {general.SCORE_TRAVEL}", new Vector2(400, 850), Color.White);
 
-            Holder.SPRITE_BATCH.DrawString(_hudFontAux, $"Bonuses:", new Vector2(20, 782), Color.IndianRed);
-            Holder.SPRITE_BATCH.DrawString(_hudFontAux, $"+DMG: {Holder.SCORE_DMG}", new Vector2(20, 800), Color.IndianRed);
-            Holder.SPRITE_BATCH.DrawString(_hudFontAux, $"-DMG: {Holder.SCORE_DMGPLAYER}", new Vector2(20, 818), Color.IndianRed);
-            Holder.SPRITE_BATCH.DrawString(_hudFontAux, $"AMEF: {Holder.SCORE_AMMOWASTE}", new Vector2(20, 836), Color.IndianRed);
-            Holder.SPRITE_BATCH.DrawString(_hudFontAux, $"PICK: {Holder.SCORE_PICKUPS}", new Vector2(20, 854), Color.IndianRed);
+            general.SPRITE_BATCH.DrawString(_hudFontAux, $"Bonuses:", new Vector2(20, 782), Color.IndianRed);
+            general.SPRITE_BATCH.DrawString(_hudFontAux, $"+DMG: {general.SCORE_DMG}", new Vector2(20, 800), Color.IndianRed);
+            general.SPRITE_BATCH.DrawString(_hudFontAux, $"-DMG: {general.SCORE_DMGPLAYER}", new Vector2(20, 818), Color.IndianRed);
+            general.SPRITE_BATCH.DrawString(_hudFontAux, $"AMEF: {general.SCORE_AMMOWASTE}", new Vector2(20, 836), Color.IndianRed);
+            general.SPRITE_BATCH.DrawString(_hudFontAux, $"PICK: {general.SCORE_PICKUPS}", new Vector2(20, 854), Color.IndianRed);
         }
+
     }
 }
