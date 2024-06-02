@@ -36,6 +36,7 @@
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/music/menu.mp3</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/other/dmgeye.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/other/error.png</File>
+    <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/other/gaze.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/other/ult_shock.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/pack/pack_energy.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/pack/pack_med.png</File>
@@ -50,11 +51,12 @@
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/rem/rem_p4.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/rem/rem_p5.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/rem/rem_p6.png</File>
-    <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/star/gaze.png</File>
+    <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/rem/rem_p7.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/star/star_blue.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/star/star_red.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/star/star_white.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/star/star_yellow.png</File>
+    <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/star/wreck.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/wep/wep_thegun_bullet.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/wep/wep_thegun_fire.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/wep/wep_thegun.png</File>
@@ -66,6 +68,8 @@
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/wep/wep_thesaw.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

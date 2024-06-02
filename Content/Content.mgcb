@@ -319,6 +319,18 @@
 /processorParam:TextureFormat=Color
 /build:other/error.png
 
+#begin other/gaze.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:other/gaze.png
+
 #begin other/ult_shock.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -487,7 +499,7 @@
 /processorParam:TextureFormat=Color
 /build:rem/rem_p6.png
 
-#begin star/gaze.png
+#begin rem/rem_p7.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -497,7 +509,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:star/gaze.png
+/build:rem/rem_p7.png
 
 #begin star/star_blue.png
 /importer:TextureImporter
@@ -546,6 +558,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:star/star_yellow.png
+
+#begin star/wreck.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:star/wreck.png
 
 #begin wep/wep_thegun_bullet.png
 /importer:TextureImporter

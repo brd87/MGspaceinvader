@@ -9,6 +9,7 @@ namespace SpaceInvaderPlusPlus
         private float Torque;
         protected int Damage;
         public bool DespawnOnHit { get; set; }
+        public int ParticleSetId { get; set; }
         protected int Armor;
         protected float PlayerDamageScoreCost;
         protected float Layer;

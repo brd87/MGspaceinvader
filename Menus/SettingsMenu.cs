@@ -106,9 +106,16 @@ namespace SpaceInvaderPlusPlus.Menus
                     if (general.KSTATE != general.KSTATE_PREV)
                     {
                         if (CurrentSelected == 0)
+                        {
                             ReturnFrom(ref general);
+                        }
                         else if (CurrentSelected == 1)
-                            SaveSettings(ref general);
+                        {
+                            if (general.PLAYERNAME.Length != 0)
+                                SaveSettings(ref general);
+                            else
+                                general.PLAYERNAME = "NAMELESS PILOT";
+                        }
                         else if (CurrentSelected == 2)
                         {
                             if (!TextInput.IsTextInputActive)

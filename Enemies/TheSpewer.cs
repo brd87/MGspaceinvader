@@ -8,7 +8,6 @@ namespace SpaceInvaderPlusPlus.Enemies
     {
         private float Cooldawn;
         private TimeSpan LastTime;
-        private string ProjectileSpriteName;
 
         public TheSpewer(ref General general, Vector2 position, float angle = 0.0f, string spriteName = "ene/ene_thespewer") : base(ref general)
         {
@@ -16,7 +15,7 @@ namespace SpaceInvaderPlusPlus.Enemies
             this.MaxHealth = 13;
             this.Health = this.MaxHealth;
             this.Armor = 0;
-            this.Damage = 20;
+            this.ParticleSetId = 2;
             this.SelfCollisionDamage = 1;
             this.PlayerCollisionDamage = 80;
             this.FrontAcceleration = 0.1f;
@@ -27,11 +26,10 @@ namespace SpaceInvaderPlusPlus.Enemies
             this.AnimatedPart = new Entity(ref general, this.EnMain.Position, 0.0f, "ene/ene_thespewer_pipes", null, this.Layer);
             this.SelfDeathScoreCost = 500;
             this.SelfDamageScoreCost = 10;
-            this.PlayerDamageScoreCost = 2;
+            this.PlayerCollisionScoreCost = 500;
 
-            Cooldawn = 1;
+            Cooldawn = 2;
             LastTime = TimeSpan.FromSeconds(0.0f);
-            ProjectileSpriteName = "ene/ene_thespewer_bullet";
         }
 
         protected override void Move(ref General general, ref Vector2 playerPosition)
@@ -95,55 +93,14 @@ namespace SpaceInvaderPlusPlus.Enemies
 
         protected override void Attack(ref General general, ref Player player, GameTime gameTime = null)
         {
-            if (gameTime.TotalGameTime - LastTime >= TimeSpan.FromSeconds(Cooldawn) && this.Projetiles.Count < 3 && this.EnMain.Position.Y > 0)
+            if(AskTofire)
+                AskTofire = false;
+
+            if (gameTime.TotalGameTime - LastTime >= TimeSpan.FromSeconds(Cooldawn) && this.EnMain.Position.Y > 0)
             {
-                this.Projetiles.Add(new Entity(ref general, this.EnMain.Position - new Vector2(0, 25), 0.0f, ProjectileSpriteName, null, this.Layer));
+                AskTofire = true;
                 LastTime = gameTime.TotalGameTime;
             }
-
-            ProjectileUpdate(ref general, player);
         }
-
-        private void ProjectileUpdate(ref General general, Player player)
-        {
-            Rectangle playerBody = new Rectangle((int)player.PlMain.Position.X, (int)player.PlMain.Position.Y, player.PlMain.EntityTexture.Width, player.PlMain.EntityTexture.Height);
-            for (int i = 0; i < this.Projetiles.Count; i++)
-            {
-                this.Projetiles[i].Position.Y += 4;
-                if (this.Projetiles[i].Position.X > player.PlMain.Position.X)
-                {
-                    this.Projetiles[i].Position.X -= 0.2f;
-                    if (this.Projetiles[i].Angle < 0.05f)
-                        this.Projetiles[i].Angle += 0.001f;
-                }
-                else if (this.Projetiles[i].Position.X < player.PlMain.Position.X)
-                {
-                    this.Projetiles[i].Position.X += 0.2f;
-                    if (this.Projetiles[i].Angle > -0.05f)
-                        this.Projetiles[i].Angle -= 0.001f;
-                }
-                else
-                {
-                    if (this.Projetiles[i].Angle > 0)
-                        this.Projetiles[i].Angle += 0.01f;
-                    if (this.Projetiles[i].Angle < 0)
-                        this.Projetiles[i].Angle -= 0.01f;
-                }
-
-                if (playerBody.Intersects(new Rectangle((int)this.Projetiles[i].Position.X, (int)this.Projetiles[i].Position.Y, this.Projetiles[i].EntityTexture.Width, this.Projetiles[i].EntityTexture.Height)))
-                {
-                    int damage = this.Damage;
-                    player.PlayerDamage(ref damage);
-                    general.SCORE_DMGPLAYER += this.PlayerDamageScoreCost;
-                    this.Projetiles.RemoveAt(i);
-                    i--;
-                    player.PlMain.CollisionMark = true;
-                }
-                else if (this.Projetiles[i].Position.Y > general.HEIGHT + 100)
-                    this.Projetiles.RemoveAt(i);
-            }
-
-        }
-
     }
 }

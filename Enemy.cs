@@ -12,31 +12,34 @@ namespace SpaceInvaderPlusPlus
         public int Health { get; set; }
         public int MaxHealth { get; set; }
         public int Armor { get; set; }
-        protected int Damage { get; set; }
-        protected int SelfCollisionDamage { get; set; }
-        protected int PlayerCollisionDamage { get; set; }
-        protected float FrontAcceleration { get; set; }
-        protected float SideAcceleration { get; set; }
-        protected float BackAcceleration { get; set; }
-        protected String DamgeStageSpriteName { get; set; }
-        protected String DamgeStageAnimatedPartSpriteName { get; set; }
-        private bool DamgeStageCheck { get; set; }
-        protected List<Entity> Projetiles { get; set; }
-        protected Entity AnimatedPart { get; set; }
-        private SoundEffectInstance DeathSoundEffectIns { get; set; }
-        protected float SelfDeathScoreCost { get; set; }
-        protected float SelfDamageScoreCost { get; set; }
-        protected float PlayerDamageScoreCost { get; set; }
+        public int ParticleSetId { get; set; }
+        protected int Damage;
+        protected int SelfCollisionDamage;
+        protected int PlayerCollisionDamage;
+        protected float FrontAcceleration;
+        protected float SideAcceleration;
+        protected float BackAcceleration;
+        protected String DamgeStageSpriteName;
+        protected String DamgeStageAnimatedPartSpriteName;
+        private bool DamgeStageCheck;
+        protected Entity AnimatedPart;
+        private SoundEffectInstance DeathSoundEffectIns;
+        protected float SelfDeathScoreCost;
+        protected float SelfDamageScoreCost;
+        protected float PlayerDamageScoreCost;
+        protected float PlayerCollisionScoreCost;
+
+        public bool AskTofire { get; set; }
         public bool UltRecived { get; set; }
         protected float Layer;
 
         protected Enemy(ref General general)
         {
             DamgeStageCheck = false;
-            Projetiles = new List<Entity>();
             UltRecived = false;
             DeathSoundEffectIns = general.CONTENT.Load<SoundEffect>("eff/eff_death").CreateInstance();
             DeathSoundEffectIns.Volume = general.SETTINGS.LastEffectsVolume;
+            AskTofire = false;
             Layer = 0.9f;
         }
 
@@ -59,6 +62,8 @@ namespace SpaceInvaderPlusPlus
             {
                 this.EnMain.CollisionMark = true;
                 Health -= SelfCollisionDamage;
+                player.PlayerDamage(ref PlayerCollisionDamage);
+                general.SCORE_DMGPLAYER += PlayerCollisionScoreCost;
             }
             foreach (Entity projectile in weapon.Projetiles)
             {
@@ -95,14 +100,6 @@ namespace SpaceInvaderPlusPlus
 
         public void DrawAll(ref General general)
         {
-            if (this.Projetiles != null)
-            {
-                foreach (var entity in Projetiles)
-                {
-                    entity.DrawEntity(ref general);
-                }
-            }
-
             AnimatedPart.DrawEntity(ref general);
             this.EnMain.DrawEntity(ref general);
         }

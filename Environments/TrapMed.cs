@@ -11,6 +11,7 @@ namespace SpaceInvaderPlusPlus.Environments
             this.EnvMain.Velocity = new Vector2(general.randomFloat(-0.2f, 0.2f), general.randomFloat(0.5f));
             this.Damage = 20;
             this.DespawnOnHit = true;
+            this.ParticleSetId = 4;
             this.Armor = 1;
             this.PlayerDamageScoreCost = 50;
         }

@@ -11,6 +11,7 @@ namespace SpaceInvaderPlusPlus.Enemies
             this.MaxHealth = 20;
             this.Health = this.MaxHealth;
             this.Armor = 1;
+            this.ParticleSetId = 1;
             this.Damage = 10;
             this.SelfCollisionDamage = 0;
             this.PlayerCollisionDamage = 1;

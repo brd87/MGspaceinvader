@@ -20,6 +20,7 @@ namespace SpaceInvaderPlusPlus
         private Player _player;
         private Weapon _weapon;
         private List<Particles> _particles;
+        private List<EnemyProjectile> _enemyProjectiles;
         private List<Enemy> _enemyWall;
         private List<Enemy> _enemyRusher;
         private List<Enemy> _enemySpewer;
@@ -53,6 +54,7 @@ namespace SpaceInvaderPlusPlus
         public MainWorld(ref General general)
         {
             _particles = new List<Particles>();
+            _enemyProjectiles = new List<EnemyProjectile>();
             _enemyWall = new List<Enemy>();
             _enemyRusher = new List<Enemy>();
             _enemySpewer = new List<Enemy>();
@@ -82,6 +84,7 @@ namespace SpaceInvaderPlusPlus
             _despawnHeight = general.HEIGHT + 100;
 
             _progressEnt.Clear();
+            _enemyProjectiles.Clear();
 
             Vector2 spawnVector = new Vector2(general.WIDTH / 2, general.HEIGHT / 4 * 3);
             _player = new Player(ref general, ref spawnVector);
@@ -222,6 +225,9 @@ namespace SpaceInvaderPlusPlus
             foreach (Particles part in _particles)
                 part.DrawAll(ref general);
 
+            foreach (EnemyProjectile enemyPro in _enemyProjectiles)
+                enemyPro.ProMain.DrawEntity(ref general);
+
             foreach (Enemy enemy in _enemyWall)
                 enemy.DrawAll(ref general);
             foreach (Enemy enemy in _enemyRusher)
@@ -266,6 +272,9 @@ namespace SpaceInvaderPlusPlus
             foreach (Particles part in _particles)
                 part.Update(gameTime);
 
+            foreach (EnemyProjectile enemyPro in _enemyProjectiles)
+                enemyPro.Update(ref general, ref _player);
+
             foreach (UltAbility ult in _ultAbility)
                 ult.Update(new List<List<Enemy>> { _enemyWall, _enemyRusher, _enemySpewer });
         }
@@ -284,7 +293,7 @@ namespace SpaceInvaderPlusPlus
             }
             while (_progressEnt.Count < (int)general.SCORE_TRAVEL / 500)
                 _progressEnt.Add(new Entity(ref general, new Vector2(general.RANDOM.Next(0, general.WIDTH), general.RANDOM.Next(-10, general.HEIGHT)),
-                    general.randomFloat(-0.2f, 0.2f), "star/gaze", general.randomFloat(general.SCALE * 0.5f, general.SCALE * 1.5f)));
+                    general.randomFloat(-0.2f, 0.2f), "other/gaze", general.randomFloat(general.SCALE * 0.5f, general.SCALE * 1.5f)));
 
             //_player
             if (_player.Health <= 0)
@@ -307,7 +316,7 @@ namespace SpaceInvaderPlusPlus
                 if (_enemyWall[i].EnMain.Position.Y > _despawnHeight || _enemyWall[i].Health <= 0)
                 {
                     _particles.Add(new Particles(ref general, gameTime, _enemyWall[i].MaxHealth, _enemyWall[i].EnMain.Position, 
-                        _enemyWall[i].EnMain.EntityTexture.Height / 2, _enemyWall[i].EnMain.Velocity, 1));
+                        _enemyWall[i].EnMain.EntityTexture.Height / 2, _enemyWall[i].EnMain.Velocity, _enemyWall[i].ParticleSetId));
                     _enemyWall.RemoveAt(i);
                     i--;
                 }
@@ -338,10 +347,12 @@ namespace SpaceInvaderPlusPlus
             //_enemySpewer
             for (int i = 0; i < _enemySpewer.Count; i++)
             {
+                if (_enemySpewer[i].AskTofire)
+                    _enemyProjectiles.Add(new EnemyProjectile(ref general, ref _enemySpewer[i].EnMain.Position));
                 if (_enemySpewer[i].EnMain.Position.Y > _despawnHeight || _enemySpewer[i].Health <= 0)
                 {
                     _particles.Add(new Particles(ref general, gameTime, _enemySpewer[i].MaxHealth, _enemySpewer[i].EnMain.Position, 
-                        _enemySpewer[i].EnMain.EntityTexture.Height / 2, _enemySpewer[i].EnMain.Velocity, 2));
+                        _enemySpewer[i].EnMain.EntityTexture.Height / 2, _enemySpewer[i].EnMain.Velocity, _enemySpewer[i].ParticleSetId));
                     _enemySpewer.RemoveAt(i);
                     i--;
                 }
@@ -378,6 +389,10 @@ namespace SpaceInvaderPlusPlus
             {
                 if (_enviroments[i].EnvMain.Position.Y > _despawnHeight || (_enviroments[i].EnvMain.CollisionMark && _enviroments[i].DespawnOnHit))
                 {
+                    if (_enviroments[i].EnvMain.CollisionMark && _enviroments[i].DespawnOnHit)
+                        _particles.Add(new Particles(ref general, gameTime, 3, _enviroments[i].EnvMain.Position,
+                            _enviroments[i].EnvMain.EntityTexture.Height / 2, _enviroments[i].EnvMain.Velocity, _enviroments[i].ParticleSetId));
+
                     _enviroments.RemoveAt(i);
                     i--;
                 }
@@ -400,6 +415,16 @@ namespace SpaceInvaderPlusPlus
                 if (_particles[i].EndAll)
                 {
                     _particles.RemoveAt(i);
+                    i--;
+                }
+            }
+
+            //_enemyProjectiles
+            for (int i = 0; i < _enemyProjectiles.Count; i++)
+            {
+                if (_enemyProjectiles[i].ProMain.Position.Y > _despawnHeight || _enemyProjectiles[i].ProMain.CollisionMark)
+                {
+                    _enemyProjectiles.RemoveAt(i);
                     i--;
                 }
             }
