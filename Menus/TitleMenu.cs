@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace SpaceInvaderPlusPlus.Menus
 {
-    public class TitleMenu
+    internal class TitleMenu
     {
         private float Cooldawn;
         private TimeSpan LastTime;
@@ -90,16 +90,20 @@ namespace SpaceInvaderPlusPlus.Menus
                     if (general.KSTATE != general.KSTATE_PREV)
                     {
                         general.MENUMODE = i;
-                        if (CurrentSelected == 0) general.STARTNEW = true;
+                        if (CurrentSelected == 0) general.GAMESTATE = 1;
+                        else if(CurrentSelected == 3) general.GAMESTATE = 4;
                     }
         }
 
         public void Draw(ref General general)
         {
-            general.SPRITE_BATCH.DrawString(TitleFont, TitleContent, new Vector2(general.WIDTH / 2, 270) - TitleOffset, Color.Wheat);
-            general.SPRITE_BATCH.DrawString(SubTitleFont, SubTitleContent, new Vector2(general.WIDTH / 2, 340) - SubTitleOffset, Color.Wheat);
+            general.SPRITE_BATCH.DrawString(TitleFont, TitleContent, new Vector2(general.WIDTH / 2, 270) - TitleOffset, Color.Wheat,
+                0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
+            general.SPRITE_BATCH.DrawString(SubTitleFont, SubTitleContent, new Vector2(general.WIDTH / 2, 340) - SubTitleOffset, Color.Wheat,
+                0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
             for (int i = 0; i < Options.Count; i++)
-                general.SPRITE_BATCH.DrawString(OptionFont, Options[i], new Vector2(general.WIDTH / 2, Begin + i * TopOffset) - OptionOffsets[i], OptionColors[i]);
+                general.SPRITE_BATCH.DrawString(OptionFont, Options[i], new Vector2(general.WIDTH / 2, Begin + i * TopOffset) - OptionOffsets[i], OptionColors[i],
+                    0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
         }
     }
 }

@@ -19,8 +19,8 @@ namespace SpaceInvaderPlusPlus.Utilities
         {
             PlayerDamageScoreCost = 500;
             Damage = 20;
-            Layer = 0.8f;
-            ProMain = new Entity(ref general, SpawnPos, 0.0f, "ene/ene_thespewer_bullet", null, this.Layer);
+            Layer = 0.498f;
+            ProMain = new Entity(ref general, SpawnPos, 0.0f, general.ASSETLIBRARY.tEneProjectile, null, this.Layer);
         }
         public void Update(ref General general, ref Player player)
         {

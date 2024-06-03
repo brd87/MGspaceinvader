@@ -8,15 +8,13 @@ using System.Threading;
 
 namespace SpaceInvaderPlusPlus
 {
-    public class SpaceInvaderHandler : Game
+    internal class SpaceInvaderHandler : Game
     {
         public General _general;
         private GraphicsDeviceManager _graphics;
         private SpaceBackground spaceBackground;
         private MainWorld world;
         private MainMenu menu;
-        private Song bg_music_menu;
-        private Song bg_music_combat;
         private string music_menu;
         private string music_combat;
 
@@ -36,15 +34,16 @@ namespace SpaceInvaderPlusPlus
 
         protected override void LoadContent()
         {
+            
             _general.RANDOM = new Random();
             _general.WIDTH = 1000;
             _general.HEIGHT = 900;
             _general.SCALE = 1.0f;
-            _general.STARTNEW = false;
+            _general.GAMESTATE = 0;
             _general.MENUMODE = 0;
-            _general.RUNWORLD = false;
             _general.CONTENT = this.Content;
             _general.SPRITE_BATCH = new SpriteBatch(GraphicsDevice);
+            _general.ASSETLIBRARY = new AssetLibrary(ref _general);
 
             spaceBackground = new SpaceBackground(ref _general);
             world = new MainWorld(ref _general);
@@ -57,9 +56,7 @@ namespace SpaceInvaderPlusPlus
 
             music_menu = "music/menu";
             music_combat = "music/combat";
-            bg_music_menu = _general.CONTENT.Load<Song>(music_menu);
-            bg_music_combat = _general.CONTENT.Load<Song>(music_combat);
-            MediaPlayer.Play(bg_music_menu);
+            MediaPlayer.Play(_general.ASSETLIBRARY.bg_music_menu);
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Volume = _general.SETTINGS.LastMusicVolume;
         }
@@ -68,25 +65,34 @@ namespace SpaceInvaderPlusPlus
         {
             _general.KSTATE = Keyboard.GetState();
 
-            if (_general.MENUMODE == 3) Exit();
-            if (_general.STARTNEW)
-            {
-                world.RanNew(ref _general);
-            }
             Thread BgThread = new Thread(x => spaceBackground.Update(ref _general));
             BgThread.Start();
 
-            if (!_general.RUNWORLD)
+            if(_general.GAMESTATE == 0)
             {
                 if ("music/" + MediaPlayer.Queue.ActiveSong.Name != music_menu)
-                    MediaPlayer.Play(bg_music_menu);
+                    MediaPlayer.Play(_general.ASSETLIBRARY.bg_music_menu);
                 menu.Update(ref gameTime, ref _general);
+            }
+            else if(_general.GAMESTATE == 1)
+            {
+                if ("music/" + MediaPlayer.Queue.ActiveSong.Name != music_combat)
+                    MediaPlayer.Play(_general.ASSETLIBRARY.bg_music_combat);
+                world.RanNew(ref _general);
+                _general.GAMESTATE = 2;
+            }
+            else if(_general.GAMESTATE == 2)
+            {
+                world.Update(ref gameTime, ref _general);
+            }
+            else if (_general.GAMESTATE == 3)
+            {
+                world.CleanUp();
+                _general.GAMESTATE = 0;
             }
             else
             {
-                if ("music/" + MediaPlayer.Queue.ActiveSong.Name != music_combat)
-                    MediaPlayer.Play(bg_music_combat);
-                world.Update(ref gameTime, ref _general);
+                Exit();
             }
 
             _general.KSTATE_PREV = _general.KSTATE;
@@ -99,13 +105,13 @@ namespace SpaceInvaderPlusPlus
         {
             GraphicsDevice.Clear(Color.Black);
 
-            _general.SPRITE_BATCH.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+            _general.SPRITE_BATCH.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
 
             spaceBackground.DrawAll(ref _general);
 
-            if (!_general.RUNWORLD)
+            if (_general.GAMESTATE == 0)
                 menu.Draw(ref _general);
-            else
+            else if (_general.GAMESTATE == 2)
                 world.Draw(ref _general);
 
             _general.SPRITE_BATCH.End();

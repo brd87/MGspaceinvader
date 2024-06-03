@@ -3,12 +3,12 @@ using SpaceInvaderPlusPlus.Players;
 
 namespace SpaceInvaderPlusPlus.Pickups
 {
-    public class MedPack : Pickup
+    internal class MedPack : Pickup
     {
         private int Heal;
-        public MedPack(ref General general, Vector2 position, float angle = 0.0f, string spriteName = "pack/pack_med") : base(ref general)
+        public MedPack(ref General general, Vector2 position, float angle = 0.0f) : base(ref general)
         {
-            PicMain = new Entity(ref general, position, angle, spriteName, this.Layer);
+            PicMain = new Entity(ref general, position, angle, general.ASSETLIBRARY.tPack_Medpack, null, this.Layer);
             this.GrabScoreCost = 500;
             if (general.SETTINGS.LastDifficulty == 0 || general.SETTINGS.LastDifficulty == 1)
                 Heal = 100;

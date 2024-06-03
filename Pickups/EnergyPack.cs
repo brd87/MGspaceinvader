@@ -6,9 +6,9 @@ namespace SpaceInvaderPlusPlus.Pickups
     internal class EnergyPack : Pickup
     {
         private int Reacharge;
-        public EnergyPack(ref General general, Vector2 position, float angle = 0.0f, string spriteName = "pack/pack_energy") : base(ref general)
+        public EnergyPack(ref General general, Vector2 position, float angle = 0.0f) : base(ref general)
         {
-            PicMain = new Entity(ref general, position, angle, spriteName, this.Layer);
+            PicMain = new Entity(ref general, position, angle, general.ASSETLIBRARY.tPack_Energy, null, this.Layer);
             this.GrabScoreCost = 50;
             Reacharge = 200;
         }

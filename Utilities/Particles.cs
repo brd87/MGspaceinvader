@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
@@ -17,20 +18,20 @@ namespace SpaceInvaderPlusPlus.Utilities
         { 
             Spawned = gameTime.TotalGameTime;
             Cooldawn = 5;
-            Layer = 0.2f;
+            Layer = 0.4f;
             EndAll = false;
             if(amount > 20) amount = 20;
-            List<string> spriteNames;
+            List<Texture2D> spriteNames;
             if (set == 1)
-                spriteNames = new List<string>() { "rem/rem_p1", "rem/rem_p2", "rem/rem_p3", "rem/rem_p5" };
+                spriteNames = new List<Texture2D>() { general.ASSETLIBRARY.tRem_p1, general.ASSETLIBRARY.tRem_p2, general.ASSETLIBRARY.tRem_p3, general.ASSETLIBRARY.tRem_p5 };
             else if (set == 2)
-                spriteNames = new List<string>() { "rem/rem_p1", "rem/rem_p2", "rem/rem_p3", "rem/rem_p6" };
+                spriteNames = new List<Texture2D>() { general.ASSETLIBRARY.tRem_p1, general.ASSETLIBRARY.tRem_p2, general.ASSETLIBRARY.tRem_p3, general.ASSETLIBRARY.tRem_p6 };
             else if (set == 3)
-                spriteNames = new List<string>() { "rem/rem_p6" };
+                spriteNames = new List<Texture2D>() { general.ASSETLIBRARY.tRem_p6 };
             else if (set == 4)
-                spriteNames = new List<string>() { "rem/rem_p7" };
+                spriteNames = new List<Texture2D>() { general.ASSETLIBRARY.tRem_p7 };
             else
-                spriteNames = new List<string>() { "rem/rem_p1", "rem/rem_p2", "rem/rem_p3", "rem/rem_p4" };
+                spriteNames = new List<Texture2D>() { general.ASSETLIBRARY.tRem_p1, general.ASSETLIBRARY.tRem_p2, general.ASSETLIBRARY.tRem_p3, general.ASSETLIBRARY.tRem_p4 };
 
             Parts = new List<Entity>();
             Torques = new List<float>();
@@ -42,8 +43,8 @@ namespace SpaceInvaderPlusPlus.Utilities
             {
                 Parts.Add(new Entity(ref general, new Vector2(general.RANDOM.Next(minX, maxX), general.RANDOM.Next(minY, maxY)), general.randomFloat(-0.5f, 0.5f), spriteNames[general.RANDOM.Next(0, spriteNames.Count)],
                     general.randomFloat(general.SCALE * 0.7f, general.SCALE * 1.3f), Layer));
-                Parts[i].Velocity = new Vector2(general.RANDOM.Next(-3, 3), general.RANDOM.Next(-3, 3)) + generalVelocity;
-                Torques.Add(general.randomFloat(-0.02f, 0.02f));
+                Parts[i].Velocity = new Vector2(general.randomFloat(-2, 2), general.randomFloat(-3, 2)) + generalVelocity;
+                Torques.Add(general.randomFloat(-0.01f, 0.01f));
             }
         }
 

@@ -5,9 +5,12 @@ namespace SpaceInvaderPlusPlus.Enemies
 {
     internal class TheWall : Enemy
     {
-        public TheWall(ref General general, Vector2 position, float angle = 0.0f, string spriteName = "ene/ene_thewall") : base(ref general)
+        public TheWall(ref General general, Vector2 position, float angle = 0.0f) : base(ref general)
         {
-            this.EnMain = new Entity(ref general, position, angle, spriteName, this.Layer);
+            this.EnMain = new Entity(ref general, position, angle, general.ASSETLIBRARY.tEne_Wall, null, this.Layer);
+            this.AnimatedPart = new Entity(ref general, this.EnMain.Position, 0.0f, general.ASSETLIBRARY.tEne_Wall_Ani, null, this.Layer - 0.001f);
+            this.DamgeStageSpriteName = general.ASSETLIBRARY.tEne_Wall_Dmg;
+            this.DamgeStageAnimatedPartSpriteName = general.ASSETLIBRARY.tEne_Wall_Ani_Dmg;
             this.MaxHealth = 20;
             this.Health = this.MaxHealth;
             this.Armor = 1;
@@ -18,9 +21,7 @@ namespace SpaceInvaderPlusPlus.Enemies
             this.FrontAcceleration = 1f;
             this.BackAcceleration = 0.1f;
             this.SideAcceleration = 0.4f;
-            this.DamgeStageSpriteName = "ene/ene_thewall_dmg";
-            this.DamgeStageAnimatedPartSpriteName = "ene/ene_thewall_wings_dmg";
-            this.AnimatedPart = new Entity(ref general, this.EnMain.Position, 0.0f, "ene/ene_thewall_wings", null, this.Layer);
+
             this.SelfDeathScoreCost = 500;
             this.SelfDamageScoreCost = 10;
             this.PlayerDamageScoreCost = 2;

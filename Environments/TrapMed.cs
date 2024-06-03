@@ -7,7 +7,7 @@ namespace SpaceInvaderPlusPlus.Environments
     {
         public TrapMed(ref General general, Vector2 position, float angle = 0.0f, string spriteName = "env/env_med") : base(ref general)
         {
-            this.EnvMain = new Entity(ref general, position, angle, spriteName, this.Layer);
+            this.EnvMain = new Entity(ref general, position, angle, general.ASSETLIBRARY.tEnv_Med, null, this.Layer);
             this.EnvMain.Velocity = new Vector2(general.randomFloat(-0.2f, 0.2f), general.randomFloat(0.5f));
             this.Damage = 20;
             this.DespawnOnHit = true;

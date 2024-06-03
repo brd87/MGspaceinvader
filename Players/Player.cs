@@ -3,7 +3,7 @@ using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace SpaceInvaderPlusPlus.Players
 {
-    public class Player
+    internal class Player
     {
         public Entity PlMain {  get; set; }
         private PlayerPart PlFront;
@@ -24,10 +24,10 @@ namespace SpaceInvaderPlusPlus.Players
 
         public Player(ref General general, ref Vector2 position)
         {
-            PlMain = new Entity(ref general, position, 0.0f, "player/player", 1);
-            PlFront = new PlayerPart(ref general, new Vector2(general.WIDTH / 2, general.HEIGHT / 4 * 3), "player/player_front");
-            PlLeft = new PlayerPart(ref general, new Vector2(general.WIDTH / 2, general.HEIGHT / 4 * 3), "player/player_lwing");
-            PlRight = new PlayerPart(ref general, new Vector2(general.WIDTH / 2, general.HEIGHT / 4 * 3), "player/player_rwing");
+            PlMain = new Entity(ref general, position, 0.0f, general.ASSETLIBRARY.tPlayer, null, 0.93f);
+            PlFront = new PlayerPart(ref general, new Vector2(general.WIDTH / 2, general.HEIGHT / 4 * 3), general.ASSETLIBRARY.tPlayer_Front);
+            PlLeft = new PlayerPart(ref general, new Vector2(general.WIDTH / 2, general.HEIGHT / 4 * 3), general.ASSETLIBRARY.tPlayer_Left);
+            PlRight = new PlayerPart(ref general, new Vector2(general.WIDTH / 2, general.HEIGHT / 4 * 3), general.ASSETLIBRARY.tPlayer_Right);
 
             Health = 100;
             Shields = 100;

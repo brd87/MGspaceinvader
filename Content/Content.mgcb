@@ -295,6 +295,18 @@
 /processorParam:Quality=Best
 /build:music/menu.mp3
 
+#begin other/bg_rock.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:other/bg_rock.png
+
 #begin other/dmgeye.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -342,6 +354,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:other/ult_shock.png
+
+#begin other/wreck.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:other/wreck.png
 
 #begin pack/pack_energy.png
 /importer:TextureImporter
@@ -558,18 +582,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:star/star_yellow.png
-
-#begin star/wreck.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:star/wreck.png
 
 #begin wep/wep_thegun_bullet.png
 /importer:TextureImporter

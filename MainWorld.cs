@@ -15,7 +15,7 @@ using System.Threading;
 
 namespace SpaceInvaderPlusPlus
 {
-    public class MainWorld
+    internal class MainWorld
     {
         private Player _player;
         private Weapon _weapon;
@@ -28,8 +28,7 @@ namespace SpaceInvaderPlusPlus
         private List<Environmental> _enviroments;
         private List<UltAbility> _ultAbility;
         private Entity _damageScr;
-        private SpriteFont _hudFont;
-        private SpriteFont _hudFontAux;
+        private Hud _hud;
         private TimeSpan _lastTimeWall;
         private TimeSpan _lastTimeRusher;
         private TimeSpan _lastTimeSpewer;
@@ -47,8 +46,8 @@ namespace SpaceInvaderPlusPlus
         private int _otherSawnHeightMax;
         private int _otherSpawnHeightMin;
         private int _despawnHeight;
-        private List<Entity> _progressEnt;
-        private float _progEntSpeed;
+        //private List<Entity> _progressEnt;
+        //private float _progEntSpeed;
 
 
         public MainWorld(ref General general)
@@ -61,29 +60,38 @@ namespace SpaceInvaderPlusPlus
             _pickups = new List<Pickup>();
             _enviroments = new List<Environmental>();
             _ultAbility = new List<UltAbility>();
-            _progressEnt = new List<Entity>();
-            _progEntSpeed = 0.25f;
+            _hud = new Hud(ref general);
+//            _progressEnt = new List<Entity>();
+//            _progEntSpeed = 0.25f;
+        }
+
+        public void CleanUp()
+        {
+            _particles.Clear();
+            _enemyWall.Clear();
+            _enemyRusher.Clear();
+            _enemySpewer.Clear();
+            _enviroments.Clear();
+            _pickups.Clear();
+            _ultAbility.Clear();
         }
 
         public void RanNew(ref General general)
         {
-            general.STARTNEW = false;
-            general.RUNWORLD = true;
+            //CleanUp();
             general.SCORE_TRAVEL = 0;
             general.SCORE_DMG = 0;
             general.SCORE_DMGPLAYER = 0;
             general.SCORE_PICKUPS = 0;
             general.SCORE_AMMOWASTE = 0;
 
-            _hudFont = general.CONTENT.Load<SpriteFont>("font/font_hudmain");
-            _hudFontAux = general.CONTENT.Load<SpriteFont>("font/font_hudaux");
             _enemySawnHeightMax = -1100;
             _enemySpawnHeightMin = -100;
             _otherSawnHeightMax = -200;
             _otherSpawnHeightMin = -100;
             _despawnHeight = general.HEIGHT + 100;
 
-            _progressEnt.Clear();
+//            _progressEnt.Clear();
             _enemyProjectiles.Clear();
 
             Vector2 spawnVector = new Vector2(general.WIDTH / 2, general.HEIGHT / 4 * 3);
@@ -97,14 +105,7 @@ namespace SpaceInvaderPlusPlus
             else
                 _weapon = new TheGun(ref general, ref spawnVector);
 
-            _damageScr = new Entity(ref general, new Vector2(general.WIDTH / 2, general.HEIGHT / 2), 0.0f, "other/dmgeye", 1);
-
-            _particles.Clear();
-            _enemyWall.Clear();
-            _enemyRusher.Clear();
-            _enemySpewer.Clear();
-            _enviroments.Clear();
-            _pickups.Clear();
+            _damageScr = new Entity(ref general, new Vector2(general.WIDTH / 2, general.HEIGHT / 2), 0.0f, general.ASSETLIBRARY.tOther_dmgeye, 1);
 
             _lastTimeWall = TimeSpan.FromSeconds(0.0f);
             _lastTimeRusher = TimeSpan.FromSeconds(0.0f);
@@ -163,7 +164,7 @@ namespace SpaceInvaderPlusPlus
         public void Update(ref GameTime gameTime, ref General general)
         {
             if (general.KSTATE.IsKeyDown(Keys.Escape))
-                general.RUNWORLD = false;
+                general.GAMESTATE = 3;
 
             //Update / Input / Movement / Actions
             HandleUpdates(ref general, ref gameTime);
@@ -181,7 +182,8 @@ namespace SpaceInvaderPlusPlus
 
         private void HandleDeath(ref General general)
         {
-            general.RUNWORLD = false;
+            general.GAMESTATE = 3;
+
             int finalScore = (int)((general.SCORE_TRAVEL + general.SCORE_PICKUPS + general.SCORE_DMG - general.SCORE_AMMOWASTE - general.SCORE_DMGPLAYER) * general.SCORE_MULTIPLAYER);
             PlayerRecord newRecord = new PlayerRecord(general.SETTINGS.LastSavedPilotName, finalScore);
             if (general.TOP_PLAYERS.Players.Count == 0 && finalScore > 0)
@@ -214,8 +216,8 @@ namespace SpaceInvaderPlusPlus
         {
             General generalLoc = general;
 
-            foreach (var entity in _progressEnt)
-                entity.DrawEntity(ref general);
+//            foreach (var entity in _progressEnt)
+//                entity.DrawEntity(ref general);
 
             foreach (Environmental env in _enviroments)
                 env.EnvMain.DrawEntity(ref general);
@@ -240,12 +242,12 @@ namespace SpaceInvaderPlusPlus
                 pickup.PicMain.DrawEntity(ref general);
 
             foreach (UltAbility ult in _ultAbility)
-                ult.DrawEntity(ref general);
+                ult.UltMain.DrawEntity(ref general);
 
             if (_player.PlMain.CollisionMark)
                 _damageScr.DrawEntity(ref general);
 
-            DrawHUD(ref general);
+            _hud.DrawHUD(ref general, ref _player, ref _weapon);
         }
 
         private void HandleUpdates(ref General general, ref GameTime gameTime)
@@ -261,10 +263,8 @@ namespace SpaceInvaderPlusPlus
             foreach (Enemy enemy in _enemySpewer)
                 enemy.Update(ref general, ref _player, ref _weapon, gameTime);
 
-
             foreach (Pickup pickup in _pickups)
                 pickup.Update(ref general, ref _player, ref _weapon);
-
 
             foreach (Environmental env in _enviroments)
                 env.Update(ref general, ref _player, ref _weapon);
@@ -282,22 +282,23 @@ namespace SpaceInvaderPlusPlus
         private void HandleSpawnDespawn(ref GameTime gameTime, ref General general)
         {
             //_progressEnt
-            for (int i = 0; i < _progressEnt.Count; i++)
-            {
-                _progressEnt[i].Position.Y += _progEntSpeed;
-                if (_progressEnt[i].Position.Y > general.HEIGHT + 100)
-                {
-                    _progressEnt.RemoveAt(i);
-                    i--;
-                }
-            }
-            while (_progressEnt.Count < (int)general.SCORE_TRAVEL / 500)
-                _progressEnt.Add(new Entity(ref general, new Vector2(general.RANDOM.Next(0, general.WIDTH), general.RANDOM.Next(-10, general.HEIGHT)),
-                    general.randomFloat(-0.2f, 0.2f), "other/gaze", general.randomFloat(general.SCALE * 0.5f, general.SCALE * 1.5f)));
+//            for (int i = 0; i < _progressEnt.Count; i++)
+//            {
+//                _progressEnt[i].Position.Y += _progEntSpeed;
+//                if (_progressEnt[i].Position.Y > general.HEIGHT + 100)
+//                {
+//                    _progressEnt.RemoveAt(i);
+//                    i--;
+//                }
+//            }
+//            while (_progressEnt.Count < (int)general.SCORE_TRAVEL / 500)
+//                _progressEnt.Add(new Entity(ref general, new Vector2(general.RANDOM.Next(0, general.WIDTH), general.RANDOM.Next(-10, general.HEIGHT)),
+//                    general.randomFloat(-0.2f, 0.2f), "other/gaze", general.randomFloat(general.SCALE * 0.5f, general.SCALE * 1.5f), 0.01f));
 
             //_player
             if (_player.Health <= 0)
                 HandleDeath(ref general);
+
             //_weapon
             for (int i = 0; i < _weapon.Projetiles.Count; i++)
             {
@@ -432,7 +433,7 @@ namespace SpaceInvaderPlusPlus
             //_ultAbility
             for (int i = 0; i < _ultAbility.Count; i++)
             {
-                if (_ultAbility[i].Position.Y > _despawnHeight || _ultAbility[i].Done)
+                if (_ultAbility[i].UltMain.Position.Y > _despawnHeight || _ultAbility[i].Done)
                 {
                     _ultAbility.RemoveAt(i);
                     i--;
@@ -452,24 +453,5 @@ namespace SpaceInvaderPlusPlus
             _cooldawnRusher *= _scaling;
             _cooldawnSpewer *= _scaling;
         }
-
-        private void DrawHUD(ref General general)
-        {
-            general.SPRITE_BATCH.DrawString(_hudFont, $"HEALTH: {_player.Health}%", new Vector2(20, 20), Color.White);
-            general.SPRITE_BATCH.DrawString(_hudFont, $"SHIELDS: {_player.Shields}%", new Vector2(360, 20), Color.White);
-            general.SPRITE_BATCH.DrawString(_hudFont, $"AMMO {_weapon.Ammunition}|{_weapon.MaxAmmunition}", new Vector2(720, 20), Color.White);
-            if (_player.UltAbility)
-                general.SPRITE_BATCH.DrawString(_hudFontAux, $"POWER WEAPON READY", new Vector2(380, 50), Color.LightSkyBlue);
-            if (!_weapon.Loaded && _weapon.Ammunition > 0)
-                general.SPRITE_BATCH.DrawString(_hudFontAux, $"LOADING...", new Vector2(720, 50), Color.IndianRed);
-            general.SPRITE_BATCH.DrawString(_hudFont, $"Travel: {general.SCORE_TRAVEL}", new Vector2(400, 850), Color.White);
-
-            general.SPRITE_BATCH.DrawString(_hudFontAux, $"Bonuses:", new Vector2(20, 782), Color.IndianRed);
-            general.SPRITE_BATCH.DrawString(_hudFontAux, $"+DMG: {general.SCORE_DMG}", new Vector2(20, 800), Color.IndianRed);
-            general.SPRITE_BATCH.DrawString(_hudFontAux, $"-DMG: {general.SCORE_DMGPLAYER}", new Vector2(20, 818), Color.IndianRed);
-            general.SPRITE_BATCH.DrawString(_hudFontAux, $"AMEF: {general.SCORE_AMMOWASTE}", new Vector2(20, 836), Color.IndianRed);
-            general.SPRITE_BATCH.DrawString(_hudFontAux, $"PICK: {general.SCORE_PICKUPS}", new Vector2(20, 854), Color.IndianRed);
-        }
-
     }
 }

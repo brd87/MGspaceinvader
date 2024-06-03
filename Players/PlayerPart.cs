@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace SpaceInvaderPlusPlus.Players
@@ -6,11 +7,11 @@ namespace SpaceInvaderPlusPlus.Players
     internal class PlayerPart : Entity
     {
         private int id { get; set; }
-        public PlayerPart(ref General general, Vector2 position, string spriteName, float angle = 0.0f, int entityLayer = 1) : base(ref general, position, angle, spriteName, entityLayer)
+        public PlayerPart(ref General general, Vector2 position, Texture2D spriteName, float angle = 0.0f, float? scale = null, float spriteLayer = 0.92f) : base(ref general, position, angle, spriteName, scale, spriteLayer)
         {
-            if (spriteName == "player/player_lwing") id = 0;
-            if (spriteName == "player/player_front") id = 1;
-            if (spriteName == "player/player_rwing") id = 2;
+            if (spriteName == general.ASSETLIBRARY.tPlayer_Left) id = 0;
+            if (spriteName == general.ASSETLIBRARY.tPlayer_Front) id = 1;
+            if (spriteName == general.ASSETLIBRARY.tPlayer_Right) id = 2;
         }
 
         public void Update(ref General general, ref Vector2 shipPosition)

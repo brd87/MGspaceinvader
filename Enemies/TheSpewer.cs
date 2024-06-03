@@ -9,9 +9,12 @@ namespace SpaceInvaderPlusPlus.Enemies
         private float Cooldawn;
         private TimeSpan LastTime;
 
-        public TheSpewer(ref General general, Vector2 position, float angle = 0.0f, string spriteName = "ene/ene_thespewer") : base(ref general)
+        public TheSpewer(ref General general, Vector2 position, float angle = 0.0f) : base(ref general)
         {
-            this.EnMain = new Entity(ref general, position, angle, spriteName, this.Layer);
+            this.EnMain = new Entity(ref general, position, angle, general.ASSETLIBRARY.tEne_Spewer, null, this.Layer);
+            this.AnimatedPart = new Entity(ref general, this.EnMain.Position, 0.0f, general.ASSETLIBRARY.tEne_Spewer_Ani, null, this.Layer - 0.001f);
+            this.DamgeStageSpriteName = general.ASSETLIBRARY.tEne_Spewer_Dmg;
+            this.DamgeStageAnimatedPartSpriteName = general.ASSETLIBRARY.tEne_Spewer_Ani_Dmg;
             this.MaxHealth = 13;
             this.Health = this.MaxHealth;
             this.Armor = 0;
@@ -21,9 +24,6 @@ namespace SpaceInvaderPlusPlus.Enemies
             this.FrontAcceleration = 0.1f;
             this.BackAcceleration = 0.1f;
             this.SideAcceleration = 0.2f;
-            this.DamgeStageSpriteName = "ene/ene_thespewer_dmg";
-            this.DamgeStageAnimatedPartSpriteName = "ene/ene_thespewer_pipes_dmg";
-            this.AnimatedPart = new Entity(ref general, this.EnMain.Position, 0.0f, "ene/ene_thespewer_pipes", null, this.Layer);
             this.SelfDeathScoreCost = 500;
             this.SelfDamageScoreCost = 10;
             this.PlayerCollisionScoreCost = 500;

@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace SpaceInvaderPlusPlus.Utilities
 {
-    public class TextInputHandler
+    internal class TextInputHandler
     {
         private string RegexPattern;
         private GameWindow Window;

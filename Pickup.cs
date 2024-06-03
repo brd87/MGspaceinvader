@@ -3,7 +3,7 @@ using SpaceInvaderPlusPlus.Players;
 
 namespace SpaceInvaderPlusPlus
 {
-    public abstract class Pickup
+    internal abstract class Pickup
     {
         public Entity PicMain {  get; set; }
         private Vector2 Velocity;
@@ -12,9 +12,9 @@ namespace SpaceInvaderPlusPlus
         protected float Layer;
         protected Pickup(ref General general)
         {
-            Velocity = new Vector2(general.randomFloat(-0.2f, 0.2f), general.randomFloat());
+            Velocity = new Vector2(general.randomFloat(-0.2f, 0.2f), general.randomFloat(0.5f));
             Torque = general.randomFloat(-0.02f, 0.02f);
-            Layer = 0.9f;
+            Layer = 0.6f;
         }
 
         public void Update(ref General general, ref Player player, ref Weapon weapon)

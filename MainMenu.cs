@@ -10,7 +10,7 @@ using System.Text.Json;
 
 namespace SpaceInvaderPlusPlus
 {
-    public class MainMenu
+    internal class MainMenu
     {
         private TitleMenu _titleMenu;
         private ScoreboardMenu _scoreboardMenu;
@@ -18,7 +18,6 @@ namespace SpaceInvaderPlusPlus
         private SpriteFont _gameVersionFont;
         private Vector2 _gameVersionOffset;
         private string _gameVersion;
-        private SoundEffect _menuSoundEffectIns;
         public MainMenu(GameWindow gameWindow, ref General general)
         {
             general.TOP_PLAYERS = new TopPlayers();
@@ -45,11 +44,9 @@ namespace SpaceInvaderPlusPlus
             _scoreboardMenu = new ScoreboardMenu(ref general);
             _settingsMenu = new SettingsMenu(ref general, gameWindow);
 
-            _gameVersion = "S.I.P.P (v0.9.36)";
+            _gameVersion = "S.I.P.P (v0.9.53)";
             _gameVersionFont = general.CONTENT.Load<SpriteFont>("font/font_hudaux");
             _gameVersionOffset = _gameVersionFont.MeasureString(_gameVersion) / 2;
-
-            _menuSoundEffectIns = general.CONTENT.Load<SoundEffect>("eff/eff_select");
         }
 
         public void Update(ref GameTime gameTime, ref General general)
@@ -57,7 +54,7 @@ namespace SpaceInvaderPlusPlus
             if (general.KSTATE.IsKeyDown(Keys.Enter))
                 if (general.KSTATE != general.KSTATE_PREV)
                 {
-                    SoundEffectInstance select = _menuSoundEffectIns.CreateInstance();
+                    SoundEffectInstance select = general.ASSETLIBRARY.eff_Select.CreateInstance();
                     select.Volume = general.SETTINGS.LastEffectsVolume;
                     select.Play();
                 }
@@ -80,7 +77,8 @@ namespace SpaceInvaderPlusPlus
             else if (general.MENUMODE == 2)
                 _settingsMenu.Draw(ref general);
 
-            general.SPRITE_BATCH.DrawString(_gameVersionFont, _gameVersion, new Vector2(general.WIDTH / 2, 850) - _gameVersionOffset, Color.Gray);
+            general.SPRITE_BATCH.DrawString(_gameVersionFont, _gameVersion, new Vector2(general.WIDTH / 2, 850) - _gameVersionOffset, Color.Gray,
+                0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
         }
     }
 }

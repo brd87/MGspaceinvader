@@ -1,11 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
 namespace SpaceInvaderPlusPlus
 {
-    public abstract class Weapon
+    internal abstract class Weapon
     {
         protected Entity WepMain;
         protected float Cooldawn;
@@ -16,7 +17,7 @@ namespace SpaceInvaderPlusPlus
         protected bool FireGranted;
         public List<Entity> Projetiles { get; set; }
         protected Entity FireEffect;
-        protected string ProjectileSpriteName;
+        protected Texture2D ProjectileSprite;
         protected SoundEffect WepSoundEffect;
         public int Penetration { get; set; }
         public float AmmoScoreCost { get; set; }
@@ -41,7 +42,7 @@ namespace SpaceInvaderPlusPlus
                 WepSoundEffectIns.Volume = general.SETTINGS.LastEffectsVolume;
                 WepSoundEffectIns.Play();
 
-                Projetiles.Add(new Entity(ref general, WepMain.Position + new Vector2(0, -10), 0.0f, ProjectileSpriteName, 1));
+                Projetiles.Add(new Entity(ref general, WepMain.Position + new Vector2(0, -10), 0.0f, ProjectileSprite, null, 0.91f));
                 LastTime = gameTime.TotalGameTime;
                 Loaded = false;
                 Ammunition -= 1;

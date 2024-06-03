@@ -5,16 +5,16 @@ namespace SpaceInvaderPlusPlus.Weapons
 {
     internal class TheRail : Weapon
     {
-        public TheRail(ref General general, ref Vector2 position, float angle = 0.0f, string spriteName = "wep/wep_therail")
+        public TheRail(ref General general, ref Vector2 position, float angle = 0.0f)
         {
-            this.WepMain = new Entity(ref general, position, angle, spriteName);
+            this.WepMain = new Entity(ref general, position, angle, general.ASSETLIBRARY.tWep_Rail, null, 0.9101f);
             this.Cooldawn = 1.5f;
             this.Ammunition = 15;
             this.MaxAmmunition = 30;
             this.Damage = 20;
-            this.ProjectileSpriteName = "wep/wep_therail_bullet";
-            this.FireEffect = new Entity(ref general, this.WepMain.Position, 0.0f, "wep/wep_therail_fire", 1);
-            this.WepSoundEffect = general.CONTENT.Load<SoundEffect>("eff/eff_rail");
+            this.ProjectileSprite = general.ASSETLIBRARY.tWep_Rail_Bul;
+            this.FireEffect = new Entity(ref general, this.WepMain.Position, 0.0f, general.ASSETLIBRARY.tWep_Rail_Fire, 1);
+            this.WepSoundEffect = general.ASSETLIBRARY.eff_Rail;
             this.Penetration = 2;
             this.AmmoScoreCost = 300;
         }

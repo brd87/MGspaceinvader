@@ -3,7 +3,7 @@ using SpaceInvaderPlusPlus.Players;
 
 namespace SpaceInvaderPlusPlus
 {
-    public abstract class Environmental
+    internal abstract class Environmental
     {
         public Entity EnvMain { get; set; }
         private float Torque;
@@ -16,7 +16,7 @@ namespace SpaceInvaderPlusPlus
         protected Environmental(ref General general)
         {
             Torque = general.randomFloat(-0.01f, 0.01f);
-            Layer = 0.8f;
+            Layer = 0.7f;
         }
 
         public void Update(ref General general, ref Player player, ref Weapon weapon)

@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace SpaceInvaderPlusPlus
 {
-    public class Entity
+    internal class Entity
     {
         public Vector2 Position;
         public Vector2 Velocity;
@@ -13,24 +13,20 @@ namespace SpaceInvaderPlusPlus
         public bool CollisionMark { get; set; }
         public float Scale { get; set; }
 
-        public Entity(ref General general, Vector2 position, float angle, string spriteName = null, float? scale = null, float entityLayer = 1)
+        public Entity(ref General general, Vector2 position, float angle, Texture2D spriteName, float? scale = null, float entityLayer = 0.99f)
         {
             Position = position;
             Velocity = Vector2.Zero;
-
             Angle = angle;
-            if (spriteName != null)
-                EntityTexture = general.CONTENT.Load<Texture2D>(spriteName);
-            else
-                EntityTexture = general.CONTENT.Load<Texture2D>("other/error");
+            EntityTexture = spriteName;
             EntityLayer = entityLayer;
             CollisionMark = false;
             Scale = scale ?? general.SCALE;
         }
 
-        public void UpdateSprite(ref General general, string spriteName)
+        public void UpdateSprite(Texture2D spriteName)
         {
-            EntityTexture = general.CONTENT.Load<Texture2D>(spriteName);
+            EntityTexture = spriteName;
         }
 
         public void UpdateByVelocity()

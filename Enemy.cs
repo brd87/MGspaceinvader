@@ -1,12 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Graphics;
 using SpaceInvaderPlusPlus.Players;
 using System;
 using System.Collections.Generic;
 
 namespace SpaceInvaderPlusPlus
 {
-    public abstract class Enemy
+    internal abstract class Enemy
     {
         public Entity EnMain {  get; set; }
         public int Health { get; set; }
@@ -19,8 +20,8 @@ namespace SpaceInvaderPlusPlus
         protected float FrontAcceleration;
         protected float SideAcceleration;
         protected float BackAcceleration;
-        protected String DamgeStageSpriteName;
-        protected String DamgeStageAnimatedPartSpriteName;
+        protected Texture2D DamgeStageSpriteName;
+        protected Texture2D DamgeStageAnimatedPartSpriteName;
         private bool DamgeStageCheck;
         protected Entity AnimatedPart;
         private SoundEffectInstance DeathSoundEffectIns;
@@ -40,7 +41,7 @@ namespace SpaceInvaderPlusPlus
             DeathSoundEffectIns = general.CONTENT.Load<SoundEffect>("eff/eff_death").CreateInstance();
             DeathSoundEffectIns.Volume = general.SETTINGS.LastEffectsVolume;
             AskTofire = false;
-            Layer = 0.9f;
+            Layer = 0.5f;
         }
 
         public void Update(ref General general, ref Player player, ref Weapon weapon, GameTime gameTime = null)
@@ -84,8 +85,8 @@ namespace SpaceInvaderPlusPlus
             {
                 if (!DamgeStageCheck)
                 {
-                    this.EnMain.UpdateSprite(ref general, DamgeStageSpriteName);
-                    this.AnimatedPart.UpdateSprite(ref general,  DamgeStageAnimatedPartSpriteName);
+                    this.EnMain.UpdateSprite(DamgeStageSpriteName);
+                    this.AnimatedPart.UpdateSprite(DamgeStageAnimatedPartSpriteName);
                     DamgeStageCheck = true;
                 }
 

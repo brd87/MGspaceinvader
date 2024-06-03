@@ -156,32 +156,43 @@ namespace SpaceInvaderPlusPlus.Menus
             {
                 if (i < 2)
                 {
-                    general.SPRITE_BATCH.DrawString(OptionFont, Options[i], new Vector2(general.WIDTH / 2, Begin + i * TopOffset) - OptionOffsets[i], OptionColors[i]);
+                    general.SPRITE_BATCH.DrawString(OptionFont, Options[i], new Vector2(general.WIDTH / 2, Begin + i * TopOffset) - OptionOffsets[i], OptionColors[i],
+                        0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
                 }
                 else if (i == 2)
                 {
-                    general.SPRITE_BATCH.DrawString(OptionFont, Options[i], new Vector2(general.WIDTH / 2 - LeftOffset, Begin + i * TopOffset), OptionColors[i]);
-                    general.SPRITE_BATCH.DrawString(OptionFont, general.PLAYERNAME, new Vector2(general.WIDTH / 2 + RightOffset, Begin + i * TopOffset), OptionColors[i]);
+                    general.SPRITE_BATCH.DrawString(OptionFont, Options[i], new Vector2(general.WIDTH / 2 - LeftOffset, Begin + i * TopOffset), OptionColors[i],
+                        0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
+                    general.SPRITE_BATCH.DrawString(OptionFont, general.PLAYERNAME, new Vector2(general.WIDTH / 2 + RightOffset, Begin + i * TopOffset), OptionColors[i],
+                        0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
                 }
                 else if (i == 3)
                 {
-                    general.SPRITE_BATCH.DrawString(OptionFont, Options[i], new Vector2(general.WIDTH / 2 - LeftOffset, Begin + i * TopOffset), OptionColors[i]);
-                    general.SPRITE_BATCH.DrawString(OptionFont, WeaponNames[WeaponType], new Vector2(general.WIDTH / 2 + RightOffset, Begin + i * TopOffset), OptionColors[i]);
+                    general.SPRITE_BATCH.DrawString(OptionFont, Options[i], new Vector2(general.WIDTH / 2 - LeftOffset, Begin + i * TopOffset), OptionColors[i],
+                        0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
+                    general.SPRITE_BATCH.DrawString(OptionFont, WeaponNames[WeaponType], new Vector2(general.WIDTH / 2 + RightOffset, Begin + i * TopOffset), OptionColors[i],
+                        0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
                 }
                 else if (i == 4)
                 {
-                    general.SPRITE_BATCH.DrawString(OptionFont, Options[i], new Vector2(general.WIDTH / 2 - LeftOffset, Begin + i * TopOffset), OptionColors[i]);
-                    general.SPRITE_BATCH.DrawString(OptionFont, DifficulityNames[Difficulity], new Vector2(general.WIDTH / 2 + RightOffset, Begin + i * TopOffset), OptionColors[i]);
+                    general.SPRITE_BATCH.DrawString(OptionFont, Options[i], new Vector2(general.WIDTH / 2 - LeftOffset, Begin + i * TopOffset), OptionColors[i],
+                        0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
+                    general.SPRITE_BATCH.DrawString(OptionFont, DifficulityNames[Difficulity], new Vector2(general.WIDTH / 2 + RightOffset, Begin + i * TopOffset), OptionColors[i],
+                        0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
                 }
                 else if (i == 5)
                 {
-                    general.SPRITE_BATCH.DrawString(OptionFont, Options[i], new Vector2(general.WIDTH / 2 - LeftOffset, Begin + i * TopOffset), OptionColors[i]);
-                    general.SPRITE_BATCH.DrawString(OptionFont, ((int)(MusicVol * 10)).ToString(), new Vector2(general.WIDTH / 2 + RightOffset, Begin + i * TopOffset), OptionColors[i]);
+                    general.SPRITE_BATCH.DrawString(OptionFont, Options[i], new Vector2(general.WIDTH / 2 - LeftOffset, Begin + i * TopOffset), OptionColors[i],
+                        0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
+                    general.SPRITE_BATCH.DrawString(OptionFont, ((int)(MusicVol * 10)).ToString(), new Vector2(general.WIDTH / 2 + RightOffset, Begin + i * TopOffset), OptionColors[i],
+                        0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
                 }
                 else if (i == 6)
                 {
-                    general.SPRITE_BATCH.DrawString(OptionFont, Options[i], new Vector2(general.WIDTH / 2 - LeftOffset, Begin + i * TopOffset), OptionColors[i]);
-                    general.SPRITE_BATCH.DrawString(OptionFont, ((int)(general.SETTINGS.LastEffectsVolume * 10)).ToString(), new Vector2(general.WIDTH / 2 + RightOffset, Begin + i * TopOffset), OptionColors[i]);
+                    general.SPRITE_BATCH.DrawString(OptionFont, Options[i], new Vector2(general.WIDTH / 2 - LeftOffset, Begin + i * TopOffset), OptionColors[i],
+                        0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
+                    general.SPRITE_BATCH.DrawString(OptionFont, ((int)(general.SETTINGS.LastEffectsVolume * 10)).ToString(), new Vector2(general.WIDTH / 2 + RightOffset, Begin + i * TopOffset), OptionColors[i],
+                        0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
                 }
             }
         }

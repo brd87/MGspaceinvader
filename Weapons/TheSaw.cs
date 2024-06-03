@@ -5,16 +5,16 @@ namespace SpaceInvaderPlusPlus.Weapons
 {
     internal class TheSaw : Weapon
     {
-        public TheSaw(ref General general, ref Vector2 position, float angle = 0.0f, string spriteName = "wep/wep_thesaw")
+        public TheSaw(ref General general, ref Vector2 position, float angle = 0.0f)
         {
-            this.WepMain = new Entity(ref general, position, angle, spriteName);
+            this.WepMain = new Entity(ref general, position, angle, general.ASSETLIBRARY.tWep_Saw, null, 0.9101f);
             this.Cooldawn = 0.5f;
             this.Ammunition = 30;
             this.MaxAmmunition = 60;
             this.Damage = 4;
-            this.ProjectileSpriteName = "wep/wep_thesaw_bullet";
-            this.FireEffect = new Entity(ref general, this.WepMain.Position, 0.0f, "wep/wep_thesaw_fire", 1);
-            this.WepSoundEffect = general.CONTENT.Load<SoundEffect>("eff/eff_saw");
+            this.ProjectileSprite = general.ASSETLIBRARY.tWep_Saw_Bul;
+            this.FireEffect = new Entity(ref general, this.WepMain.Position, 0.0f, general.ASSETLIBRARY.tWep_Saw_Fire, 1);
+            this.WepSoundEffect = general.ASSETLIBRARY.eff_Saw;
             this.Penetration = 1;
             this.AmmoScoreCost = 50;
         }

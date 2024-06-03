@@ -6,7 +6,7 @@ using System;
 
 namespace SpaceInvaderPlusPlus
 {
-    public class General
+    internal class General
     {
         public string PLAYERNAME { get; set; }
         public SpriteBatch SPRITE_BATCH { get; set; }
@@ -28,11 +28,12 @@ namespace SpaceInvaderPlusPlus
         public float SCORE_MULTIPLAYER { get; set; }
 
         public SpriteFont FONT { get; set; }
-        public bool STARTNEW { get; set; }
+        public int GAMESTATE { get; set; }
         public int MENUMODE { get; set; }
-        public bool RUNWORLD { get; set; }
         public Settings SETTINGS { get; set; }
         public TopPlayers TOP_PLAYERS { get; set; }
+
+        public AssetLibrary ASSETLIBRARY { get; set; }
 
         public float randomFloat(float min = 0, float max = 1)
         {
