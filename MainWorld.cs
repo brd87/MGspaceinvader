@@ -46,8 +46,6 @@ namespace SpaceInvaderPlusPlus
         private int _otherSawnHeightMax;
         private int _otherSpawnHeightMin;
         private int _despawnHeight;
-        //private List<Entity> _progressEnt;
-        //private float _progEntSpeed;
 
 
         public MainWorld(ref General general)
@@ -61,8 +59,6 @@ namespace SpaceInvaderPlusPlus
             _enviroments = new List<Environmental>();
             _ultAbility = new List<UltAbility>();
             _hud = new Hud(ref general);
-//            _progressEnt = new List<Entity>();
-//            _progEntSpeed = 0.25f;
         }
 
         public void CleanUp()
@@ -281,20 +277,6 @@ namespace SpaceInvaderPlusPlus
 
         private void HandleSpawnDespawn(ref GameTime gameTime, ref General general)
         {
-            //_progressEnt
-//            for (int i = 0; i < _progressEnt.Count; i++)
-//            {
-//                _progressEnt[i].Position.Y += _progEntSpeed;
-//                if (_progressEnt[i].Position.Y > general.HEIGHT + 100)
-//                {
-//                    _progressEnt.RemoveAt(i);
-//                    i--;
-//                }
-//            }
-//            while (_progressEnt.Count < (int)general.SCORE_TRAVEL / 500)
-//                _progressEnt.Add(new Entity(ref general, new Vector2(general.RANDOM.Next(0, general.WIDTH), general.RANDOM.Next(-10, general.HEIGHT)),
-//                    general.randomFloat(-0.2f, 0.2f), "other/gaze", general.randomFloat(general.SCALE * 0.5f, general.SCALE * 1.5f), 0.01f));
-
             //_player
             if (_player.Health <= 0)
                 HandleDeath(ref general);
