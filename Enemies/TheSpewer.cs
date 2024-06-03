@@ -19,7 +19,7 @@ namespace SpaceInvaderPlusPlus.Enemies
             this.Health = this.MaxHealth;
             this.Armor = 0;
             this.ParticleSetId = 2;
-            this.SelfCollisionDamage = 1;
+            this.SelfCollisionDamage = this.MaxHealth;
             this.PlayerCollisionDamage = 80;
             this.FrontAcceleration = 0.1f;
             this.BackAcceleration = 0.1f;
