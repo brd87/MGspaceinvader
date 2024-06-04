@@ -37,7 +37,7 @@ namespace SpaceInvaderPlusPlus.Utilities
             Stars = new Entity[AmStars.Length][];
             Others = new Entity[AmOthers.Length][];
             TorqueOthers = new float[AmOthers.Length][];
-            for (int i = 0; i < AmStars.Length; i++) 
+            for (int i = 0; i < AmStars.Length; i++)
                 Stars[i] = new Entity[AmStars[i]];
             for (int i = 0; i < AmOthers.Length; i++)
             {

@@ -1,10 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using SpaceInvaderPlusPlus.Players;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceInvaderPlusPlus.Utilities
 {
@@ -15,7 +10,7 @@ namespace SpaceInvaderPlusPlus.Utilities
         private int Damage;
         private float Layer;
 
-        public EnemyProjectile(ref General general, ref Vector2 SpawnPos) 
+        public EnemyProjectile(ref General general, ref Vector2 SpawnPos)
         {
             PlayerDamageScoreCost = 500;
             Damage = 20;

@@ -1,13 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
 namespace SpaceInvaderPlusPlus
 {
     internal class UltAbility
     {
-        public Entity UltMain {  get; set; }
+        public Entity UltMain { get; set; }
         public int Damage { get; set; }
         private float Acceleration { get; set; }
         public bool Done { get; set; }

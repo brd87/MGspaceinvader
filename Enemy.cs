@@ -2,14 +2,12 @@
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using SpaceInvaderPlusPlus.Players;
-using System;
-using System.Collections.Generic;
 
 namespace SpaceInvaderPlusPlus
 {
     internal abstract class Enemy
     {
-        public Entity EnMain {  get; set; }
+        public Entity EnMain { get; set; }
         public int Health { get; set; }
         public int MaxHealth { get; set; }
         public int Armor { get; set; }

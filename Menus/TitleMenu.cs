@@ -59,7 +59,7 @@ namespace SpaceInvaderPlusPlus.Menus
             BerginSubTitleOffset = Begin + 70;
             BeginMainOffset = BerginSubTitleOffset + 50;
             BeginOptionsOffset = 38;
-            
+
 
             CurrentSelected = 0;
         }
@@ -96,7 +96,7 @@ namespace SpaceInvaderPlusPlus.Menus
                     {
                         general.MENUMODE = i;
                         if (CurrentSelected == 0) general.GAMESTATE = 1;
-                        else if(CurrentSelected == 3) general.GAMESTATE = 4;
+                        else if (CurrentSelected == 3) general.GAMESTATE = 4;
                     }
         }
 

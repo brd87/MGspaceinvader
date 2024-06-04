@@ -5,7 +5,7 @@ namespace SpaceInvaderPlusPlus
 {
     internal abstract class Pickup
     {
-        public Entity PicMain {  get; set; }
+        public Entity PicMain { get; set; }
         private Vector2 Velocity;
         private float Torque;
         protected float GrabScoreCost;

@@ -23,7 +23,7 @@ namespace SpaceInvaderPlusPlus
             _general = new General();
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            IsMouseVisible = true;
+            IsMouseVisible = false;
             Window.IsBorderless = true;
         }
 
@@ -34,7 +34,7 @@ namespace SpaceInvaderPlusPlus
 
         protected override void LoadContent()
         {
-            
+
             _general.RANDOM = new Random();
             _general.WIDTH = GraphicsDevice.DisplayMode.Width;
             _general.HEIGHT = GraphicsDevice.DisplayMode.Height;
@@ -68,20 +68,20 @@ namespace SpaceInvaderPlusPlus
             Thread BgThread = new Thread(x => spaceBackground.Update(ref _general));
             BgThread.Start();
 
-            if(_general.GAMESTATE == 0)
+            if (_general.GAMESTATE == 0)
             {
                 if ("music/" + MediaPlayer.Queue.ActiveSong.Name != music_menu)
                     MediaPlayer.Play(_general.ASSETLIBRARY.bg_music_menu);
                 menu.Update(ref gameTime, ref _general);
             }
-            else if(_general.GAMESTATE == 1)
+            else if (_general.GAMESTATE == 1)
             {
                 if ("music/" + MediaPlayer.Queue.ActiveSong.Name != music_combat)
                     MediaPlayer.Play(_general.ASSETLIBRARY.bg_music_combat);
                 world.RanNew(ref _general);
                 _general.GAMESTATE = 2;
             }
-            else if(_general.GAMESTATE == 2)
+            else if (_general.GAMESTATE == 2)
             {
                 world.Update(ref gameTime, ref _general);
             }

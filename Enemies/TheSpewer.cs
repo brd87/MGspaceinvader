@@ -93,7 +93,7 @@ namespace SpaceInvaderPlusPlus.Enemies
 
         protected override void Attack(ref General general, ref Player player, GameTime gameTime = null)
         {
-            if(AskTofire)
+            if (AskTofire)
                 AskTofire = false;
 
             if (gameTime.TotalGameTime - LastTime >= TimeSpan.FromSeconds(Cooldawn) && this.EnMain.Position.Y > 0)

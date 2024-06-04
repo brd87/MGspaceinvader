@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
-using System;
 using System.Collections.Generic;
 
 namespace SpaceInvaderPlusPlus.Utilities
@@ -99,12 +98,12 @@ namespace SpaceInvaderPlusPlus.Utilities
         public Texture2D tOther_wreck { get; set; }
         public Texture2D tOther_gaze { get; set; }
 
-        public Song bg_music_menu {  get; set; }
-        public Song bg_music_combat {  get; set; }
+        public Song bg_music_menu { get; set; }
+        public Song bg_music_combat { get; set; }
 
         public SoundEffect eff_Gun { get; set; }
         public SoundEffect eff_Rail { get; set; }
-        public SoundEffect eff_Saw {  get; set; }
+        public SoundEffect eff_Saw { get; set; }
         public SoundEffect eff_Select { get; set; }
         public SoundEffect eff_Death { get; set; }
         public SoundEffect eff_Ult { get; set; }

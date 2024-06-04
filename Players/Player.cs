@@ -5,7 +5,7 @@ namespace SpaceInvaderPlusPlus.Players
 {
     internal class Player
     {
-        public Entity PlMain {  get; set; }
+        public Entity PlMain { get; set; }
         private PlayerPart PlFront;
         private PlayerPart PlLeft;
         private PlayerPart PlRight;
@@ -25,7 +25,7 @@ namespace SpaceInvaderPlusPlus.Players
         public Player(ref General general, ref Vector2 position)
         {
             PlMain = new Entity(ref general, position, 0.0f, general.ASSETLIBRARY.tPlayer, null, 0.93f);
-            PlFront = new PlayerPart(ref general, new Vector2(general.WIDTH / 2, general.HEIGHT / 4 * 3), general.ASSETLIBRARY.tPlayer_Front);
+            PlFront = new PlayerPart(ref general, new Vector2(general.WIDTH / 2, general.HEIGHT / 4 * 3), general.ASSETLIBRARY.tPlayer_Front, 0.0f, null, 0.919f);
             PlLeft = new PlayerPart(ref general, new Vector2(general.WIDTH / 2, general.HEIGHT / 4 * 3), general.ASSETLIBRARY.tPlayer_Left);
             PlRight = new PlayerPart(ref general, new Vector2(general.WIDTH / 2, general.HEIGHT / 4 * 3), general.ASSETLIBRARY.tPlayer_Right);
 
@@ -165,6 +165,7 @@ namespace SpaceInvaderPlusPlus.Players
                 return;
             }
             Health -= damage;
+            PlMain.CollisionMark = true;
             if (Health < 0) Health = 0;
         }
 

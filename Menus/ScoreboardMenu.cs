@@ -86,16 +86,16 @@ namespace SpaceInvaderPlusPlus.Menus
 
         public void Draw(ref General general)
         {
-            general.SPRITE_BATCH.DrawString(ReturnFont, ReturnContent, new Vector2(general.WIDTH / 2, Begin) - ReturnOffset, ReturnColor, 
+            general.SPRITE_BATCH.DrawString(ReturnFont, ReturnContent, new Vector2(general.WIDTH / 2, Begin) - ReturnOffset, ReturnColor,
                 0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
             if (general.TOP_PLAYERS.Players.Count == PlayerRecordColors.Count)
                 for (int i = 0; i < general.TOP_PLAYERS.Players.Count; i++)
                 {
-                    general.SPRITE_BATCH.DrawString(PlayerRecordFont, $"{i + 1}.", new Vector2(general.WIDTH / 2 - LeftOffset, BeginMainOffset + i * TopOffset), PlayerRecordColors[i], 
+                    general.SPRITE_BATCH.DrawString(PlayerRecordFont, $"{i + 1}.", new Vector2(general.WIDTH / 2 - LeftOffset, BeginMainOffset + i * TopOffset), PlayerRecordColors[i],
                         0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
-                    general.SPRITE_BATCH.DrawString(PlayerRecordFont, general.TOP_PLAYERS.Players[i].PlayerName, new Vector2(general.WIDTH / 2 - LeftOffset + 50, BeginMainOffset + i * TopOffset), PlayerRecordColors[i], 
+                    general.SPRITE_BATCH.DrawString(PlayerRecordFont, general.TOP_PLAYERS.Players[i].PlayerName, new Vector2(general.WIDTH / 2 - LeftOffset + 50, BeginMainOffset + i * TopOffset), PlayerRecordColors[i],
                         0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
-                    general.SPRITE_BATCH.DrawString(PlayerRecordFont, general.TOP_PLAYERS.Players[i].Score.ToString(), new Vector2(general.WIDTH / 2 + RightOffset, BeginMainOffset + i * TopOffset), PlayerRecordColors[i], 
+                    general.SPRITE_BATCH.DrawString(PlayerRecordFont, general.TOP_PLAYERS.Players[i].Score.ToString(), new Vector2(general.WIDTH / 2 + RightOffset, BeginMainOffset + i * TopOffset), PlayerRecordColors[i],
                         0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
                 }
         }

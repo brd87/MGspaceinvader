@@ -12,15 +12,15 @@ namespace SpaceInvaderPlusPlus.Utilities
         private TimeSpan Spawned;
         private float Cooldawn;
         private float Layer;
-        public bool EndAll {  get; set; }
+        public bool EndAll { get; set; }
 
-        public Particles(ref General general, GameTime gameTime, int amount, Vector2 center, int range, Vector2 generalVelocity, int set = 0) 
-        { 
+        public Particles(ref General general, GameTime gameTime, int amount, Vector2 center, int range, Vector2 generalVelocity, int set = 0)
+        {
             Spawned = gameTime.TotalGameTime;
             Cooldawn = 5;
             Layer = 0.4f;
             EndAll = false;
-            if(amount > 20) amount = 20;
+            if (amount > 20) amount = 20;
             List<Texture2D> spriteNames;
             if (set == 1)
                 spriteNames = new List<Texture2D>() { general.ASSETLIBRARY.tRem_p1, general.ASSETLIBRARY.tRem_p2, general.ASSETLIBRARY.tRem_p3, general.ASSETLIBRARY.tRem_p5 };
@@ -50,7 +50,7 @@ namespace SpaceInvaderPlusPlus.Utilities
 
         public void Update(GameTime gameTime)
         {
-            if(gameTime.TotalGameTime - Spawned >= TimeSpan.FromSeconds(Cooldawn))
+            if (gameTime.TotalGameTime - Spawned >= TimeSpan.FromSeconds(Cooldawn))
             {
                 EndAll = true;
                 return;
@@ -65,7 +65,7 @@ namespace SpaceInvaderPlusPlus.Utilities
 
         public void DrawAll(ref General general)
         {
-            foreach(Entity part in Parts)
+            foreach (Entity part in Parts)
                 part.DrawEntity(ref general);
         }
     }
