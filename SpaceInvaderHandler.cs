@@ -107,12 +107,15 @@ namespace SpaceInvaderPlusPlus
 
             _general.SPRITE_BATCH.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
 
-            spaceBackground.DrawAll(ref _general);
+            Thread BgThread = new Thread(x => spaceBackground.DrawAll(ref _general));
+            BgThread.Start();
 
             if (_general.GAMESTATE == 0)
                 menu.Draw(ref _general);
             else if (_general.GAMESTATE == 2)
                 world.Draw(ref _general);
+
+            BgThread.Join();
 
             _general.SPRITE_BATCH.End();
 
