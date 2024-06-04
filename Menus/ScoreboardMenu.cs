@@ -18,6 +18,7 @@ namespace SpaceInvaderPlusPlus.Menus
         private int RightOffset;
         private int TopOffset;
         private int Begin;
+        private int BeginMainOffset;
         private Color ReturnColor;
         private List<Color> PlayerRecordColors;
         private int CurrentSelected;
@@ -40,7 +41,8 @@ namespace SpaceInvaderPlusPlus.Menus
             LeftOffset = 250;
             RightOffset = 200;
             TopOffset = 18;
-            Begin = 250;
+            Begin = general.HEIGHT / 4;
+            BeginMainOffset = Begin + 25;
 
             CurrentSelected = -1;
         }
@@ -84,16 +86,16 @@ namespace SpaceInvaderPlusPlus.Menus
 
         public void Draw(ref General general)
         {
-            general.SPRITE_BATCH.DrawString(ReturnFont, ReturnContent, new Vector2(general.WIDTH / 2, 200) - ReturnOffset, ReturnColor, 
+            general.SPRITE_BATCH.DrawString(ReturnFont, ReturnContent, new Vector2(general.WIDTH / 2, Begin) - ReturnOffset, ReturnColor, 
                 0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
             if (general.TOP_PLAYERS.Players.Count == PlayerRecordColors.Count)
                 for (int i = 0; i < general.TOP_PLAYERS.Players.Count; i++)
                 {
-                    general.SPRITE_BATCH.DrawString(PlayerRecordFont, $"{i + 1}.", new Vector2(general.WIDTH / 2 - LeftOffset, Begin + i * TopOffset), PlayerRecordColors[i], 
+                    general.SPRITE_BATCH.DrawString(PlayerRecordFont, $"{i + 1}.", new Vector2(general.WIDTH / 2 - LeftOffset, BeginMainOffset + i * TopOffset), PlayerRecordColors[i], 
                         0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
-                    general.SPRITE_BATCH.DrawString(PlayerRecordFont, general.TOP_PLAYERS.Players[i].PlayerName, new Vector2(general.WIDTH / 2 - LeftOffset + 50, Begin + i * TopOffset), PlayerRecordColors[i], 
+                    general.SPRITE_BATCH.DrawString(PlayerRecordFont, general.TOP_PLAYERS.Players[i].PlayerName, new Vector2(general.WIDTH / 2 - LeftOffset + 50, BeginMainOffset + i * TopOffset), PlayerRecordColors[i], 
                         0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
-                    general.SPRITE_BATCH.DrawString(PlayerRecordFont, general.TOP_PLAYERS.Players[i].Score.ToString(), new Vector2(general.WIDTH / 2 + RightOffset, Begin + i * TopOffset), PlayerRecordColors[i], 
+                    general.SPRITE_BATCH.DrawString(PlayerRecordFont, general.TOP_PLAYERS.Players[i].Score.ToString(), new Vector2(general.WIDTH / 2 + RightOffset, BeginMainOffset + i * TopOffset), PlayerRecordColors[i], 
                         0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
                 }
         }

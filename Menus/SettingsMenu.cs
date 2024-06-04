@@ -20,6 +20,7 @@ namespace SpaceInvaderPlusPlus.Menus
         private int RightOffset;
         private int TopOffset;
         private int Begin;
+
         private List<Vector2> OptionOffsets;
         private List<Color> OptionColors;
         private int CurrentSelected;
@@ -67,8 +68,8 @@ namespace SpaceInvaderPlusPlus.Menus
             LeftOffset = 300;
             RightOffset = 25;
             TopOffset = 38;
-            Begin = 300;
-
+            Begin = general.HEIGHT / 4;
+            //BeginMainOffest = Begin + 
             TextInput = new TextInputHandler("^[a-zA-Z0-9_<>-]$", ref gameWindow);
             TextInput.SetGeneralInstance(ref general);
         }

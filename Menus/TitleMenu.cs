@@ -19,8 +19,10 @@ namespace SpaceInvaderPlusPlus.Menus
         private List<string> Options;
         private Vector2 TitleOffset;
         private Vector2 SubTitleOffset;
-        private int TopOffset;
         private int Begin;
+        private int BerginSubTitleOffset;
+        private int BeginMainOffset;
+        private int BeginOptionsOffset;
         private List<Vector2> OptionOffsets;
         private List<Color> OptionColors;
         private int CurrentSelected;
@@ -53,8 +55,11 @@ namespace SpaceInvaderPlusPlus.Menus
                 OptionColors.Add(Color.Gray);
             }
 
-            TopOffset = 38;
-            Begin = 400;
+            Begin = general.HEIGHT / 4;
+            BerginSubTitleOffset = Begin + 70;
+            BeginMainOffset = BerginSubTitleOffset + 50;
+            BeginOptionsOffset = 38;
+            
 
             CurrentSelected = 0;
         }
@@ -97,12 +102,12 @@ namespace SpaceInvaderPlusPlus.Menus
 
         public void Draw(ref General general)
         {
-            general.SPRITE_BATCH.DrawString(TitleFont, TitleContent, new Vector2(general.WIDTH / 2, 270) - TitleOffset, Color.Wheat,
+            general.SPRITE_BATCH.DrawString(TitleFont, TitleContent, new Vector2(general.WIDTH / 2, Begin) - TitleOffset, Color.Wheat,
                 0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
-            general.SPRITE_BATCH.DrawString(SubTitleFont, SubTitleContent, new Vector2(general.WIDTH / 2, 340) - SubTitleOffset, Color.Wheat,
+            general.SPRITE_BATCH.DrawString(SubTitleFont, SubTitleContent, new Vector2(general.WIDTH / 2, BerginSubTitleOffset) - SubTitleOffset, Color.Wheat,
                 0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
             for (int i = 0; i < Options.Count; i++)
-                general.SPRITE_BATCH.DrawString(OptionFont, Options[i], new Vector2(general.WIDTH / 2, Begin + i * TopOffset) - OptionOffsets[i], OptionColors[i],
+                general.SPRITE_BATCH.DrawString(OptionFont, Options[i], new Vector2(general.WIDTH / 2, BeginMainOffset + i * BeginOptionsOffset) - OptionOffsets[i], OptionColors[i],
                     0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
         }
     }

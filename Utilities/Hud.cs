@@ -47,29 +47,29 @@ namespace SpaceInvaderPlusPlus.Utilities
 
         public void DrawHUD(ref General general, ref Player player, ref Weapon weapon)
         {
-            general.SPRITE_BATCH.DrawString(HudFont, Shield + player.Shields + "%", new Vector2((general.WIDTH / 4), 30) - ShieldOffset, Color.White, 
+            general.SPRITE_BATCH.DrawString(HudFont, Shield + player.Shields + "%", new Vector2((general.WIDTH / 6 ), 30) - ShieldOffset, Color.White, 
                 0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
             general.SPRITE_BATCH.DrawString(HudFont, Heath + player.Health + "%", new Vector2(general.WIDTH / 2, 30) - HealthOffset, Color.White, 
                 0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
-            general.SPRITE_BATCH.DrawString(HudFont, Ammo + weapon.Ammunition + "|" +weapon.MaxAmmunition, new Vector2((general.WIDTH / 4 ) * 3, 30) - AmmoOffset, Color.White, 
+            general.SPRITE_BATCH.DrawString(HudFont, Ammo + weapon.Ammunition + "|" +weapon.MaxAmmunition, new Vector2((general.WIDTH / 6 ) * 5, 30) - AmmoOffset, Color.White, 
                 0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
             if (player.UltAbility)
-                general.SPRITE_BATCH.DrawString(HudFontAux, Ult, new Vector2((general.WIDTH / 4), 70) - UltOffset, Color.LightSkyBlue, 
+                general.SPRITE_BATCH.DrawString(HudFontAux, Ult, new Vector2((general.WIDTH / 6), 70) - UltOffset, Color.LightSkyBlue, 
                     0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
             if (!weapon.Loaded && weapon.Ammunition > 0)
-                general.SPRITE_BATCH.DrawString(HudFontAux, Loading, new Vector2((general.WIDTH / 4) * 3, 70) - LoadingOffset, Color.IndianRed, 
+                general.SPRITE_BATCH.DrawString(HudFontAux, Loading, new Vector2((general.WIDTH / 6) * 5, 70) - LoadingOffset, Color.IndianRed, 
                     0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
-            general.SPRITE_BATCH.DrawString(HudFont, Travel + general.SCORE_TRAVEL, new Vector2(general.WIDTH / 10, general.HEIGHT - 50) - TravelOffset, Color.White, 
+            general.SPRITE_BATCH.DrawString(HudFont, Travel + general.SCORE_TRAVEL, new Vector2(general.WIDTH / 30, general.HEIGHT - 50), Color.White, 
                 0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
-            general.SPRITE_BATCH.DrawString(HudFontAux, $"+DMG: {general.SCORE_DMG}", new Vector2(general.WIDTH / 10, general.HEIGHT - 80) - TravelOffset, Color.IndianRed, 
+            general.SPRITE_BATCH.DrawString(HudFontAux, $"+DMG: {general.SCORE_DMG}", new Vector2(general.WIDTH / 30, general.HEIGHT - 80), Color.IndianRed, 
                 0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
-            general.SPRITE_BATCH.DrawString(HudFontAux, $"-DMG: {general.SCORE_DMGPLAYER}", new Vector2(general.WIDTH / 10, general.HEIGHT - 100) - TravelOffset, Color.IndianRed, 
+            general.SPRITE_BATCH.DrawString(HudFontAux, $"-DMG: {general.SCORE_DMGPLAYER}", new Vector2(general.WIDTH / 30, general.HEIGHT - 100), Color.IndianRed, 
                 0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
-            general.SPRITE_BATCH.DrawString(HudFontAux, $"AMEF: {general.SCORE_AMMOWASTE}", new Vector2(general.WIDTH / 10, general.HEIGHT - 120) - TravelOffset, Color.IndianRed, 
+            general.SPRITE_BATCH.DrawString(HudFontAux, $"AMEF: {general.SCORE_AMMOWASTE}", new Vector2(general.WIDTH / 30, general.HEIGHT - 120), Color.IndianRed, 
                 0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
-            general.SPRITE_BATCH.DrawString(HudFontAux, $"PICK: {general.SCORE_PICKUPS}", new Vector2(general.WIDTH / 10, general.HEIGHT - 140) - TravelOffset, Color.IndianRed, 
+            general.SPRITE_BATCH.DrawString(HudFontAux, $"PICK: {general.SCORE_PICKUPS}", new Vector2(general.WIDTH / 30, general.HEIGHT - 140), Color.IndianRed, 
                 0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
-            general.SPRITE_BATCH.DrawString(HudFontAux, $"Bonuses:", new Vector2(general.WIDTH / 10, general.HEIGHT - 160) - TravelOffset, Color.IndianRed, 
+            general.SPRITE_BATCH.DrawString(HudFontAux, $"Bonuses:", new Vector2(general.WIDTH / 30, general.HEIGHT - 160), Color.IndianRed, 
                 0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
             
         }

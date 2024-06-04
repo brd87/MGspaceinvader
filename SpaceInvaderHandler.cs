@@ -36,7 +36,7 @@ namespace SpaceInvaderPlusPlus
         {
             
             _general.RANDOM = new Random();
-            _general.WIDTH = GraphicsDevice.DisplayMode.Width; ;
+            _general.WIDTH = GraphicsDevice.DisplayMode.Width;
             _general.HEIGHT = GraphicsDevice.DisplayMode.Height;
             _general.SCALE = 1.0f;
             _general.GAMESTATE = 0;
