@@ -77,7 +77,7 @@ namespace SpaceInvaderPlusPlus
             else if (general.MENUMODE == 2)
                 _settingsMenu.Draw(ref general);
 
-            general.SPRITE_BATCH.DrawString(_gameVersionFont, _gameVersion, new Vector2(general.WIDTH / 2, 850) - _gameVersionOffset, Color.Gray,
+            general.SPRITE_BATCH.DrawString(_gameVersionFont, _gameVersion, new Vector2(general.WIDTH / 2, general.HEIGHT - 50) - _gameVersionOffset, Color.Gray,
                 0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
         }
     }

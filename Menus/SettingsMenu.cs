@@ -67,7 +67,7 @@ namespace SpaceInvaderPlusPlus.Menus
             LeftOffset = 300;
             RightOffset = 25;
             TopOffset = 38;
-            Begin = 400;
+            Begin = 300;
 
             TextInput = new TextInputHandler("^[a-zA-Z0-9_<>-]$", ref gameWindow);
             TextInput.SetGeneralInstance(ref general);

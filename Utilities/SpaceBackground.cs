@@ -32,8 +32,8 @@ namespace SpaceInvaderPlusPlus.Utilities
 
             NameStars = new Texture2D[] { general.ASSETLIBRARY.tStar_w, general.ASSETLIBRARY.tStar_r, general.ASSETLIBRARY.tStar_y, general.ASSETLIBRARY.tStar_b };
             NameOthers = new Texture2D[] { general.ASSETLIBRARY.tOther_wreck, general.ASSETLIBRARY.tOther_bg_rock };
-            AmStars = new int[] { 800, 10, 50, 200 };
-            AmOthers = new int[] { 3, 5 };
+            AmStars = new int[] { 900, 20, 70, 250 };
+            AmOthers = new int[] { 4, 7 };
             Stars = new Entity[AmStars.Length][];
             Others = new Entity[AmOthers.Length][];
             TorqueOthers = new float[AmOthers.Length][];

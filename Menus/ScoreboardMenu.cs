@@ -40,7 +40,7 @@ namespace SpaceInvaderPlusPlus.Menus
             LeftOffset = 250;
             RightOffset = 200;
             TopOffset = 18;
-            Begin = 350;
+            Begin = 250;
 
             CurrentSelected = -1;
         }
@@ -84,7 +84,7 @@ namespace SpaceInvaderPlusPlus.Menus
 
         public void Draw(ref General general)
         {
-            general.SPRITE_BATCH.DrawString(ReturnFont, ReturnContent, new Vector2(general.WIDTH / 2, 300) - ReturnOffset, ReturnColor, 
+            general.SPRITE_BATCH.DrawString(ReturnFont, ReturnContent, new Vector2(general.WIDTH / 2, 200) - ReturnOffset, ReturnColor, 
                 0f, Vector2.Zero, 1f, SpriteEffects.None, 1);
             if (general.TOP_PLAYERS.Players.Count == PlayerRecordColors.Count)
                 for (int i = 0; i < general.TOP_PLAYERS.Players.Count; i++)
