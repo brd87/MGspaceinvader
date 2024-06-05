@@ -424,9 +424,12 @@ namespace SpaceInvaderPlusPlus
         private void DiffScaling(ref General general)
         {
             _previusScale = (int)(general.SCORE_TRAVEL / 500);
-            _cooldawnWall *= _scaling;
-            _cooldawnRusher *= _scaling;
-            _cooldawnSpewer *= _scaling;
+            if(_cooldawnWall * _scaling >= 0.1f)
+                _cooldawnWall *= _scaling;
+            if (_cooldawnRusher * _scaling >= 0.1f)
+                _cooldawnRusher *= _scaling;
+            if (_cooldawnSpewer * _scaling >= 0.1f)
+                _cooldawnSpewer *= _scaling;
         }
     }
 }
