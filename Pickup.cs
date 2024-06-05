@@ -6,24 +6,22 @@ namespace SpaceInvaderPlusPlus
     internal abstract class Pickup
     {
         public Entity PicMain { get; set; }
-        private Vector2 Velocity;
         private float Torque;
         protected float GrabScoreCost;
         protected float Layer;
         protected Pickup(ref General general)
         {
-            Velocity = new Vector2(general.randomFloat(-0.2f, 0.2f), general.randomFloat(0.5f));
             Torque = general.randomFloat(-0.02f, 0.02f);
             Layer = 0.6f;
         }
 
         public void Update(ref General general, ref Player player, ref Weapon weapon)
         {
-            this.PicMain.Position += Velocity;
+            this.PicMain.UpdateByVelocity();
             this.PicMain.Angle += Torque;
             if (this.PicMain.Position.X > general.WIDTH || this.PicMain.Position.X < 0)
             {
-                Velocity.X *= -1;
+                this.PicMain.Velocity.X *= -1;
                 Torque *= -1;
             }
 

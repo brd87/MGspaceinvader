@@ -8,7 +8,8 @@ namespace SpaceInvaderPlusPlus.Pickups
         private int Reacharge;
         public UltPack(ref General general, Vector2 position, float angle = 0.0f) : base(ref general)
         {
-            PicMain = new Entity(ref general, position, angle, general.ASSETLIBRARY.tPack_UltAbility, null, this.Layer);
+            this.PicMain = new Entity(ref general, position, angle, general.ASSETLIBRARY.tPack_UltAbility, null, this.Layer);
+            this.PicMain.Velocity = new Vector2(general.randomFloat(-0.2f, 0.2f), general.randomFloat(0.5f));
             this.GrabScoreCost = 0;
             Reacharge = 50;
         }

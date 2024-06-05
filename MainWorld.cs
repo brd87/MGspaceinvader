@@ -68,6 +68,7 @@ namespace SpaceInvaderPlusPlus
             _enviroments.Clear();
             _pickups.Clear();
             _ultAbility.Clear();
+            _enemyProjectiles.Clear();
         }
 
         public void RanNew(ref General general)
@@ -83,8 +84,6 @@ namespace SpaceInvaderPlusPlus
             _otherSawnHeightMax = -200;
             _otherSpawnHeightMin = -100;
             _despawnHeight = general.HEIGHT + 100;
-
-            _enemyProjectiles.Clear();
 
             Vector2 spawnVector = new Vector2(general.WIDTH / 2, general.HEIGHT / 4 * 3);
             _player = new Player(ref general, ref spawnVector);
