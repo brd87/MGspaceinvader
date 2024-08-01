@@ -10,7 +10,11 @@ namespace SpaceInvaderPlusPlus
     {
         protected Entity WepMain;
         protected float Cooldawn;
+        protected float BurstCooldawn;
         protected TimeSpan LastTime;
+        protected TimeSpan BurstLastTime;
+        protected int BurstAmount;
+        protected int BurstCounter;
         public int Ammunition { get; set; }
         public int MaxAmmunition { get; set; }
         public int Damage { get; set; }
@@ -27,6 +31,9 @@ namespace SpaceInvaderPlusPlus
         protected Weapon()
         {
             LastTime = TimeSpan.FromSeconds(0.0f);
+            BurstLastTime = TimeSpan.FromSeconds(0.0f);
+            BurstAmount = 0;
+            BurstCounter = BurstAmount;
             FireGranted = false;
             Projetiles = new List<Entity>();
         }
@@ -35,22 +42,55 @@ namespace SpaceInvaderPlusPlus
         {
             if (gameTime.TotalGameTime - LastTime >= TimeSpan.FromSeconds(Cooldawn))
                 Loaded = true;
+            
+            WepMain.Position = shipPosition;
+            
+            if (!Loaded || Ammunition <= 0)
+                return;
 
-            if (AskToFire && Loaded && Ammunition > 0)
+            if (BurstAmount > 0)
             {
-                SoundEffectInstance WepSoundEffectIns = WepSoundEffect.CreateInstance();
-                WepSoundEffectIns.Volume = general.SETTINGS.LastEffectsVolume;
-                WepSoundEffectIns.Play();
+                if (AskToFire && BurstCounter == 0)
+                {
+                    BurstCounter = BurstAmount;
+                    BurstLastTime = gameTime.TotalGameTime;
+                }
 
-                Projetiles.Add(new Entity(ref general, WepMain.Position + new Vector2(0, -10), 0.0f, ProjectileSprite, null, 0.91f));
-                LastTime = gameTime.TotalGameTime;
-                Loaded = false;
-                Ammunition -= 1;
-                FireGranted = true;
-                FireEffect.Position = shipPosition - new Vector2(0, 37);
+                if (BurstCounter > 0 && gameTime.TotalGameTime - BurstLastTime >= TimeSpan.FromSeconds(BurstCooldawn))
+                {
+                    FireProjectile(ref general, shipPosition);
+
+                    BurstCounter--;
+                    BurstLastTime = gameTime.TotalGameTime;
+                    if (BurstCounter == 0)
+                    {
+                        LastTime = gameTime.TotalGameTime;
+                        Loaded = false;
+                    }
+                }
             }
 
-            WepMain.Position = shipPosition;
+            else
+            {
+                if (AskToFire)
+                {
+                    FireProjectile(ref general, shipPosition);
+                    LastTime = gameTime.TotalGameTime;
+                    Loaded = false;
+                }
+            }
+        }
+
+        private void FireProjectile(ref General general, Vector2 shipPosition)
+        {
+            SoundEffectInstance WepSoundEffectIns = WepSoundEffect.CreateInstance();
+            WepSoundEffectIns.Volume = general.SETTINGS.LastEffectsVolume;
+            WepSoundEffectIns.Play();
+
+            Projetiles.Add(new Entity(ref general, WepMain.Position + new Vector2(0, -10), 0.0f, ProjectileSprite, null, 0.91f));
+            Ammunition -= 1;
+            FireGranted = true;
+            FireEffect.Position = shipPosition - new Vector2(0, 37);
         }
 
         public void DrawAll(ref General general)

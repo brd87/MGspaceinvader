@@ -19,8 +19,8 @@ namespace SpaceInvaderPlusPlus.Utilities
         private float StarLayer;
         private float OtherLayer;
 
-        private List<Entity> _progressEnt;
-        private float _progEntSpeed;
+        private List<Entity> ProgressEnt;
+        private float ProgEntSpeed;
 
         public SpaceBackground(ref General general)
         {
@@ -45,8 +45,8 @@ namespace SpaceInvaderPlusPlus.Utilities
                 TorqueOthers[i] = new float[AmOthers[i]];
             }
 
-            _progressEnt = new List<Entity>();
-            _progEntSpeed = 0.25f;
+            ProgressEnt = new List<Entity>();
+            ProgEntSpeed = 0.25f;
 
 
             for (int j = 0; j < AmStars.Length; j++)
@@ -103,21 +103,21 @@ namespace SpaceInvaderPlusPlus.Utilities
             }
 
             int amount = (int)(general.SCORE_TRAVEL / 500);
-            if (amount == 0 && _progressEnt.Count > amount)
+            if (amount == 0 && ProgressEnt.Count > amount)
             {
-                _progressEnt.Clear();
+                ProgressEnt.Clear();
             }
-            for (int i = 0; i < _progressEnt.Count; i++)
+            for (int i = 0; i < ProgressEnt.Count; i++)
             {
-                _progressEnt[i].Position.Y += _progEntSpeed;
-                if (_progressEnt[i].Position.Y > general.HEIGHT + 100)
+                ProgressEnt[i].Position.Y += ProgEntSpeed;
+                if (ProgressEnt[i].Position.Y > general.HEIGHT + 100)
                 {
-                    _progressEnt.RemoveAt(i);
+                    ProgressEnt.RemoveAt(i);
                     i--;
                 }
             }
-            while (_progressEnt.Count < amount)
-                _progressEnt.Add(new Entity(ref general, new Vector2(general.RANDOM.Next(0, general.WIDTH), general.RANDOM.Next(-10, general.HEIGHT)),
+            while (ProgressEnt.Count < amount)
+                ProgressEnt.Add(new Entity(ref general, new Vector2(general.RANDOM.Next(0, general.WIDTH), general.RANDOM.Next(-10, general.HEIGHT)),
                     general.randomFloat(-0.2f, 0.2f), general.ASSETLIBRARY.tOther_gaze, general.randomFloat(general.SCALE * 0.5f, general.SCALE * 1.5f), 0.01f));
         }
 
@@ -131,7 +131,7 @@ namespace SpaceInvaderPlusPlus.Utilities
                 for (int i = 0; i < AmOthers[j]; i++)
                     Others[j][i].DrawEntity(ref general);
 
-            foreach (var entity in _progressEnt)
+            foreach (var entity in ProgressEnt)
                 entity.DrawEntity(ref general);
         }
     }
