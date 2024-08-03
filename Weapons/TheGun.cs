@@ -8,7 +8,6 @@ namespace SpaceInvaderPlusPlus.Weapons
         {
             this.WepMain = new Entity(ref general, position, angle, general.ASSETLIBRARY.tWep_Gun, null, 0.9101f);
             this.Cooldawn = 0.1f;
-            this.BurstAmount = 0;
             this.Ammunition = 150;
             this.MaxAmmunition = 300;
             this.Damage = 2;

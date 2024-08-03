@@ -58,6 +58,9 @@
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/star/star_red.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/star/star_white.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/star/star_yellow.png</File>
+    <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/wep/wep_theduo_bullet.png</File>
+    <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/wep/wep_theduo_fire.png</File>
+    <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/wep/wep_theduo.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/wep/wep_thegun_bullet.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/wep/wep_thegun_fire.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/wep/wep_thegun.png</File>
@@ -69,6 +72,9 @@
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/wep/wep_thesaw.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
