@@ -64,6 +64,9 @@
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/wep/wep_thegun_bullet.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/wep/wep_thegun_fire.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/wep/wep_thegun.png</File>
+    <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/wep/wep_thenail_bullet.png</File>
+    <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/wep/wep_thenail_fire.png</File>
+    <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/wep/wep_thenail.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/wep/wep_therail_bullet.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/wep/wep_therail_fire.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/wep/wep_therail.png</File>
@@ -72,6 +75,9 @@
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/wep/wep_thesaw.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

@@ -17,7 +17,7 @@ namespace SpaceInvaderPlusPlus.Weapons
             this.FireEffect = new Entity(ref general, this.WepMain.Position, 0.0f, general.ASSETLIBRARY.tWep_Duo_Fire, 1);
             this.WepSoundEffect = general.ASSETLIBRARY.eff_Gun;
             this.Penetration = 0;
-            this.AmmoScoreCost = 5;
+            this.AmmoScoreCost = 200;
         }
 
         public override void ProjectileUpdate(Vector2 shipPosition)

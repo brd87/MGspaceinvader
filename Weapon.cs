@@ -14,7 +14,7 @@ namespace SpaceInvaderPlusPlus
         protected TimeSpan LastTime;
         protected TimeSpan BurstLastTime;
         protected int BurstAmount;
-        protected int BurstCounter;
+        private int BurstCounter;
         public int Ammunition { get; set; }
         public int MaxAmmunition { get; set; }
         public int Damage { get; set; }

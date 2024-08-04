@@ -58,6 +58,9 @@ namespace SpaceInvaderPlusPlus.Utilities
         public Texture2D tWep_Duo { get; set; }
         public Texture2D tWep_Duo_Bul { get; set; }
         public Texture2D tWep_Duo_Fire { get; set; }
+        public Texture2D tWep_Nail { get; set; }
+        public Texture2D tWep_Nail_Bul { get; set; }
+        public Texture2D tWep_Nail_Fire { get; set; }
 
         public Texture2D tPack_UltAbility { get; set; }
         public Texture2D tPack_Medpack { get; set; }
@@ -107,7 +110,6 @@ namespace SpaceInvaderPlusPlus.Utilities
         public SoundEffect eff_Gun { get; set; }
         public SoundEffect eff_Rail { get; set; }
         public SoundEffect eff_Saw { get; set; }
-        public SoundEffect eff_Duo { get; set; }
         public SoundEffect eff_Select { get; set; }
         public SoundEffect eff_Death { get; set; }
         public SoundEffect eff_Ult { get; set; }
@@ -131,6 +133,10 @@ namespace SpaceInvaderPlusPlus.Utilities
             tWep_Duo = LoadTexture("wep/wep_theduo", ref general);
             tWep_Duo_Bul = LoadTexture("wep/wep_theduo_bullet", ref general);
             tWep_Duo_Fire = LoadTexture("wep/wep_theduo_fire", ref general);
+            tWep_Nail = LoadTexture("wep/wep_thenail", ref general);
+            tWep_Nail_Bul = LoadTexture("wep/wep_thenail_bullet", ref general);
+            tWep_Nail_Fire = LoadTexture("wep/wep_thenail_fire", ref general);
+
 
             tPack_UltAbility = LoadTexture("pack/pack_ult", ref general);
             tPack_Medpack = LoadTexture("pack/pack_med", ref general);

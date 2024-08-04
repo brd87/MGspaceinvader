@@ -60,7 +60,7 @@ namespace SpaceInvaderPlusPlus.Menus
             MusicVol = general.SETTINGS.LastMusicVolume;
             SaveEffectsVol = general.SETTINGS.LastEffectsVolume;
 
-            WeaponNames = new List<string> { "A-100 \"Warpig\"", "DS-X \"Smart Diax\"", "Rg50 \"Shashlik\"", "EKA-179 \"Klaszkov\"" };
+            WeaponNames = new List<string> { "A-100 \"Warpig\"", "DS-X \"Smart Diax\"", "Rg50 \"Shashlik\"", "EKA-179 \"Klaszkov\"", "NS-V \"Coffin\"" };
             DifficulityNames = new List<string> { "Stable (EASY)", "Containgus (MEDIUM)", "Colapse (HARD)", "Quasimorphosis (HARDER)" };
 
 
