@@ -61,6 +61,9 @@ namespace SpaceInvaderPlusPlus.Utilities
         public Texture2D tWep_Nail { get; set; }
         public Texture2D tWep_Nail_Bul { get; set; }
         public Texture2D tWep_Nail_Fire { get; set; }
+        public Texture2D tWep_Orb { get; set; }
+        public Texture2D tWep_Orb_Bul { get; set; }
+        public Texture2D tWep_Orb_Fire { get; set; }
 
         public Texture2D tPack_UltAbility { get; set; }
         public Texture2D tPack_Medpack { get; set; }
@@ -136,6 +139,9 @@ namespace SpaceInvaderPlusPlus.Utilities
             tWep_Nail = LoadTexture("wep/wep_thenail", ref general);
             tWep_Nail_Bul = LoadTexture("wep/wep_thenail_bullet", ref general);
             tWep_Nail_Fire = LoadTexture("wep/wep_thenail_fire", ref general);
+            tWep_Orb = LoadTexture("wep/wep_theorb", ref general);
+            tWep_Orb_Bul = LoadTexture("wep/wep_theorb_bullet", ref general);
+            tWep_Orb_Fire = LoadTexture("wep/wep_theorb_fire", ref general);
 
 
             tPack_UltAbility = LoadTexture("pack/pack_ult", ref general);

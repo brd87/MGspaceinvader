@@ -97,6 +97,8 @@ namespace SpaceInvaderPlusPlus
                 _weapon = new TheDuo(ref general, ref spawnVector);
             else if (general.SETTINGS.LastWeaponType == 4)
                 _weapon = new TheNail(ref general, ref spawnVector);
+            else if (general.SETTINGS.LastWeaponType == 5)
+                _weapon = new TheOrb(ref general, ref spawnVector);
             else
                 _weapon = new TheGun(ref general, ref spawnVector);
 
