@@ -38,7 +38,11 @@
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/other/dmgeye.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/other/error.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/other/gaze.png</File>
+    <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/other/plasma_trail.png</File>
+    <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/other/theduo_shell.png</File>
+    <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/other/thegun_shell.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/other/ult_shock.png</File>
+    <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/other/volt_spark.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/other/wreck.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/pack/pack_energy.png</File>
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/pack/pack_med.png</File>
@@ -78,6 +82,10 @@
     <File>C:/Users/huber/source/repos/SpaceInvaderPlusPlus/Content/wep/wep_thesaw.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

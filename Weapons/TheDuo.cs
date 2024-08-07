@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using SpaceInvaderPlusPlus.Utilities;
+using System.Collections.Generic;
 
 namespace SpaceInvaderPlusPlus.Weapons
 {
@@ -29,6 +31,15 @@ namespace SpaceInvaderPlusPlus.Weapons
             {
                 entity.Position.Y -= 40.0f;
             }
+        }
+
+        public override void ParticleSpawnHandling(ref General general, ref List<Particles> particles, GameTime gameTime)
+        {
+            if (this.FireGranted)
+                particles.Add(new Particles(ref general, gameTime, 0, this.WepMain.Position, 0, new Vector2(0, 5), 6, 0.3f));
+            foreach (Entity entity in this.Projetiles)
+                if (entity.CollisionMark)
+                    particles.Add(new Particles(ref general, gameTime, 5, entity.Position, 4, new Vector2(0, 4), 7, 3.0f, 0.2f));
         }
     }
 }

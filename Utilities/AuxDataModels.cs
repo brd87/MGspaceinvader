@@ -106,6 +106,11 @@ namespace SpaceInvaderPlusPlus.Utilities
         public Texture2D tOther_ultShock { get; set; }
         public Texture2D tOther_wreck { get; set; }
         public Texture2D tOther_gaze { get; set; }
+        public Texture2D tOther_plasma { get; set; }
+        public Texture2D tOther_spark { get; set; }
+        public Texture2D tOther_shellGun { get; set; }
+        public Texture2D tOther_shellDuo { get; set; }
+        
 
         public Song bg_music_menu { get; set; }
         public Song bg_music_combat { get; set; }
@@ -185,6 +190,10 @@ namespace SpaceInvaderPlusPlus.Utilities
             tOther_ultShock = LoadTexture("other/ult_shock", ref general);
             tOther_wreck = LoadTexture("other/wreck", ref general);
             tOther_gaze = LoadTexture("other/gaze", ref general);
+            tOther_plasma = LoadTexture("other/plasma_trail", ref general);
+            tOther_spark = LoadTexture("other/volt_spark", ref general);
+            tOther_shellGun = LoadTexture("other/thegun_shell", ref general);
+            tOther_shellDuo = LoadTexture("other/theduo_shell", ref general);
 
             bg_music_menu = general.CONTENT.Load<Song>("music/menu");
             bg_music_combat = general.CONTENT.Load<Song>("music/combat");

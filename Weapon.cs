@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using SpaceInvaderPlusPlus.Utilities;
 using System;
 using System.Collections.Generic;
 
@@ -38,19 +39,23 @@ namespace SpaceInvaderPlusPlus
             Projetiles = new List<Entity>();
         }
 
-        public void Update(ref General general, bool AskToFire, Vector2 shipPosition, GameTime gameTime)
+        public void Update(ref General general, ref List<Particles> particles, bool askToFire, Vector2 shipPosition, GameTime gameTime)
         {
             if (gameTime.TotalGameTime - LastTime >= TimeSpan.FromSeconds(Cooldawn))
                 Loaded = true;
             
             WepMain.Position = shipPosition;
-            
+
+            ParticleSpawnHandling(ref general, ref particles, gameTime);
+            if (FireGranted)
+                FireGranted = false;
+
             if (!Loaded || Ammunition <= 0)
                 return;
 
             if (BurstAmount > 0)
             {
-                if (AskToFire && BurstCounter == 0)
+                if (askToFire && BurstCounter == 0)
                 {
                     BurstCounter = BurstAmount;
                     BurstLastTime = gameTime.TotalGameTime;
@@ -72,13 +77,16 @@ namespace SpaceInvaderPlusPlus
 
             else
             {
-                if (AskToFire)
+                if (askToFire)
                 {
                     FireProjectile(ref general, shipPosition);
+                    
                     LastTime = gameTime.TotalGameTime;
                     Loaded = false;
                 }
             }
+
+            
         }
 
         private void FireProjectile(ref General general, Vector2 shipPosition)
@@ -106,12 +114,14 @@ namespace SpaceInvaderPlusPlus
             if (FireGranted)
             {
                 FireEffect.DrawEntity(ref general);
-                FireGranted = false;
+                //FireGranted = false;
             }
 
             WepMain.DrawEntity(ref general);
         }
 
         public abstract void ProjectileUpdate(Vector2 shipPosition);
+
+        public abstract void ParticleSpawnHandling(ref General general, ref List<Particles> particles, GameTime gameTime);
     }
 }

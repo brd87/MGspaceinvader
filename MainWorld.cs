@@ -18,6 +18,7 @@ namespace SpaceInvaderPlusPlus
         private Player _player;
         private Weapon _weapon;
         private List<Particles> _particles;
+        private List<Particles> _weaponParticles;
         private List<EnemyProjectile> _enemyProjectiles;
         private List<Enemy> _enemyWall;
         private List<Enemy> _enemyRusher;
@@ -49,6 +50,7 @@ namespace SpaceInvaderPlusPlus
         public MainWorld(ref General general)
         {
             _particles = new List<Particles>();
+            _weaponParticles = new List<Particles>();
             _enemyProjectiles = new List<EnemyProjectile>();
             _enemyWall = new List<Enemy>();
             _enemyRusher = new List<Enemy>();
@@ -62,6 +64,7 @@ namespace SpaceInvaderPlusPlus
         public void CleanUp()
         {
             _particles.Clear();
+            _weaponParticles.Clear();
             _enemyWall.Clear();
             _enemyRusher.Clear();
             _enemySpewer.Clear();
@@ -220,6 +223,8 @@ namespace SpaceInvaderPlusPlus
 
             foreach (Particles part in _particles)
                 part.DrawAll(ref general);
+            foreach (Particles part in _weaponParticles)
+                part.DrawAll(ref general);
 
             foreach (EnemyProjectile enemyPro in _enemyProjectiles)
                 enemyPro.ProMain.DrawEntity(ref general);
@@ -246,9 +251,9 @@ namespace SpaceInvaderPlusPlus
 
         private void HandleUpdates(ref General general, ref GameTime gameTime)
         {
-            _player.Update(ref general);
-            _weapon.Update(ref general, _player.AskToFire, _player.PlMain.Position, gameTime);
-            _weapon.ProjectileUpdate(_player.PlMain.Position);
+            //_player.Update(ref general);
+            //_weapon.Update(ref general, ref _weaponParticles, _player.AskToFire, _player.PlMain.Position, gameTime);
+            //_weapon.ProjectileUpdate(_player.PlMain.Position);
 
             foreach (Enemy enemy in _enemyWall)
                 enemy.Update(ref general, ref _player, ref _weapon);
@@ -265,12 +270,18 @@ namespace SpaceInvaderPlusPlus
 
             foreach (Particles part in _particles)
                 part.Update(gameTime);
+            foreach (Particles part in _weaponParticles)
+                part.Update(gameTime);
 
             foreach (EnemyProjectile enemyPro in _enemyProjectiles)
                 enemyPro.Update(ref general, ref _player);
 
             foreach (UltAbility ult in _ultAbility)
                 ult.Update(new List<List<Enemy>> { _enemyWall, _enemyRusher, _enemySpewer });
+
+            _player.Update(ref general);
+            _weapon.Update(ref general, ref _weaponParticles, _player.AskToFire, _player.PlMain.Position, gameTime);
+            _weapon.ProjectileUpdate(_player.PlMain.Position);
         }
 
         private void HandleSpawnDespawn(ref GameTime gameTime, ref General general)
@@ -396,6 +407,16 @@ namespace SpaceInvaderPlusPlus
                 if (_particles[i].EndAll)
                 {
                     _particles.RemoveAt(i);
+                    i--;
+                }
+            }
+
+            //_weaponParticles
+            for (int i = 0; i < _weaponParticles.Count; i++)
+            {
+                if (_weaponParticles[i].EndAll)
+                {
+                    _weaponParticles.RemoveAt(i);
                     i--;
                 }
             }
